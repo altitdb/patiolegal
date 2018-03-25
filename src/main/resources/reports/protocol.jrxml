@@ -69,6 +69,7 @@
 	<field name="authentication" class="java.lang.String">
 		<fieldDescription><![CDATA[authentication]]></fieldDescription>
 	</field>
+	<field name="amountSeals" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -96,7 +97,7 @@
 				<textFieldExpression><![CDATA[$P{TITLE.LINE3}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="0" y="0" width="90" height="91" uuid="3863b262-a2ff-4128-b4ae-d5ec2adfffda"/>
+				<reportElement x="3" y="4" width="85" height="85" uuid="3863b262-a2ff-4128-b4ae-d5ec2adfffda"/>
 				<imageExpression><![CDATA[$P{TITLE.IMAGE}]]></imageExpression>
 			</image>
 			<line>
@@ -114,7 +115,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="325" splitType="Stretch">
+		<band height="345" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="554" height="30" uuid="247eceb8-a2a1-4481-a9a8-7de41ceb2409"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -126,10 +127,10 @@
 				<reportElement x="0" y="30" width="555" height="1" uuid="29db39c4-1eee-4bda-8b4d-89a86c757c10"/>
 			</line>
 			<line>
-				<reportElement x="0" y="0" width="1" height="325" uuid="5321c073-6d33-4cbb-873f-f8704515ac73"/>
+				<reportElement x="0" y="0" width="1" height="345" uuid="5321c073-6d33-4cbb-873f-f8704515ac73"/>
 			</line>
 			<line>
-				<reportElement x="554" y="-1" width="1" height="326" uuid="b42f9a46-9df5-4ee1-b423-b15f10933669"/>
+				<reportElement x="554" y="-1" width="1" height="346" uuid="b42f9a46-9df5-4ee1-b423-b15f10933669"/>
 			</line>
 			<textField>
 				<reportElement x="3" y="113" width="110" height="25" uuid="65ef6116-3327-49cc-b7e5-128dfe0f28a6"/>
@@ -381,6 +382,16 @@
 			<line>
 				<reportElement x="0" y="297" width="555" height="1" uuid="5bf78895-a7e0-479d-bb3c-036936d5c5a7"/>
 			</line>
+			<textField>
+				<reportElement x="3" y="320" width="137" height="25" uuid="dffc4ba4-6660-4de2-8fa3-c25ce82dab3b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["QUANTIDADE DE LACRES:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="320" width="416" height="25" uuid="bebd3f33-16dc-417b-bc56-6a0c75c65be1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amountSeals}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>
@@ -391,7 +402,7 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="-2" width="555" height="1" uuid="f9bc212b-f90d-44d3-90f9-3c20eb383c94"/>
+				<reportElement x="0" y="-1" width="555" height="1" uuid="f9bc212b-f90d-44d3-90f9-3c20eb383c94"/>
 			</line>
 			<line>
 				<reportElement x="0" y="29" width="555" height="1" uuid="5cf7b545-92bc-4620-b019-27a3bb720c2f"/>

@@ -25,8 +25,17 @@ public class ProtocolDTO {
 	private LocalDateTime dateTimeOut;
 	private String accountableOut;
 	private String originCapture;
+	private Integer amountSeals;
 
 	private String authentication;
+
+	public Integer getAmountSeals() {
+		return amountSeals;
+	}
+
+	public void setAmountSeals(Integer amountSeals) {
+		this.amountSeals = amountSeals;
+	}
 
 	public String getAuthentication() {
 		return authentication;
