@@ -65,10 +65,10 @@
 									<arg value="ng" />
 									<arg value="build" />
 								</exec>
-								<exec executable="ng" osfamily="unix"
+								<!--<exec executable="ng" osfamily="unix"
 									dir="${project.basedir}/src/main/angular">
 									<arg value="build" />
-								</exec>
+								</exec>-->
 							</target>
 						</configuration>
 						<goals>
