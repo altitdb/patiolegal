@@ -1,0 +1,17 @@
+addons:
+  sonarqube: true
+language: java
+jdk:
+- oraclejdk8
+script:
+- mvn clean install
+deploy:
+  provider: heroku
+  api_key:
+    secure: A9fDq8GFwJqaRur700EOLTiJ+mnPWnkMATLOg+hejLTiiJlIoeGbrBkg4Fuldm3n9qKmFI6REQ4rVLQ8wy/VDpfZd3Da4lynkp8UpJLtHUpR3b+qc/ZcXDNmjNUt7uBffYCWmCQlPnE9INECkvQToJfdqzd6BWPHyZ9SZrkttrOIibZmqHSJIHB2CTG1ompOQ6iL0f3xikIv/VN3ILTHs22clqsxE5L+wA3gJcOsfESg455OxESML2BtKh7V+RhRCF1KZfLTFL47CJNqDsrjQC5nErxwjB714RqmkYyAUhAQ6xyxQeoIOXcwcOAT9v03Pk46AIowc8SP2DCEkVpUVnm9SJ7CVvVqIYnQ5e2wn9KrZu2egFuNV1qPLtCTYWzw7glMO61pmr5e4CC491C/yPefI2HGT3bE4/vFnMeTLFBAswTlwuKatMiy0XVAt2m7v1gH7z+VVEqNSM+S13aRRMEXYCmK22dt1w4qiNlmLwqN8p8NhjW0Vn/TDwy43xQB+NsvnmYQ1zj1yv7QRtCpqB88cz6zY6qlu8/yJ8nDPRIyppZhRRPiHvPZy4YuxiqFp/CGkucN8lTlc6dKsUHJCWwhKlIQYHNEXvUeCwV24P/J69dcJW6CUxrhkI2+c0Hn8et93iczF3+Bv2uaysnLAw7Y8irRxjqGJB5JQ/oX+DQ=
+  app: patiolegal
+  on:
+    repo: altitdb/patiolegal
+cache:
+  directories:
+  - "$HOME/.m2/repository"
