@@ -16,7 +16,7 @@
 	</parent>
 
 	<build>
-		<finalName>patiolegal.jar</finalName>
+		<finalName>patiolegal</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -63,6 +63,10 @@
 									dir="${project.basedir}/src/main/angular">
 									<arg value="/c" />
 									<arg value="ng" />
+									<arg value="build" />
+								</exec>
+								<exec executable="ng" osfamily="unix"
+									dir="${project.basedir}/src/main/angular">
 									<arg value="build" />
 								</exec>
 							</target>
