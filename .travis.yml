@@ -6,13 +6,13 @@ jdk:
 node_js: 
 - "9"
 env:
-- NODE_VERSION="5.5.1"
-- ANGULAR_CLI_VERSION="1.6.3"
+  - NODE_VERSION="5.5.1"
+  - ANGULAR_CLI_VERSION="1.6.3"
 before_install:
-- nvm install $NODE_VERSION
-- npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+  - nvm install $NODE_VERSION
+  - npm install -g @angular/cli@$ANGULAR_CLI_VERSION
 script:
-- mvn clean install
+  - mvn clean install
 deploy:
   provider: heroku
   api_key:
@@ -22,5 +22,5 @@ deploy:
     repo: altitdb/patiolegal
 cache:
   directories:
-  - "$HOME/.m2/repository"
-  - "node_modules"
+    - "$HOME/.m2/repository"
+    - "node_modules"
