@@ -114,6 +114,16 @@
 								<exec executable="cmd" osfamily="windows"
 									dir="${project.basedir}/src/main/angular">
 									<arg value="/c" />
+									<arg value="npm" />
+									<arg value="install" />
+								</exec>
+								<exec executable="npm" osfamily="unix"
+									dir="${project.basedir}/src/main/angular">
+									<arg value="install" />
+								</exec>
+								<exec executable="cmd" osfamily="windows"
+									dir="${project.basedir}/src/main/angular">
+									<arg value="/c" />
 									<arg value="ng" />
 									<arg value="build" />
 									<arg value="--aot" />
@@ -237,6 +247,13 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<!-- Spring Boot DevTools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>
