@@ -22,4 +22,4 @@ deploy:
 cache:
   directories:
     - "$HOME/.m2/repository"
-    - "node_modules"
+    - "$HOME/.nvm/versions/node/v9.3.0"
