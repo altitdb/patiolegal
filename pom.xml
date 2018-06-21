@@ -109,6 +109,9 @@
 					<execution>
 						<id>build-frontend</id>
 						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
 						<configuration>
 							<target>
 								<exec executable="cmd" osfamily="windows"
@@ -137,9 +140,6 @@
 								</exec>
 							</target>
 						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -266,6 +266,7 @@
 				</property>
 			</activation>
 			<build>
+				<defaultGoal>install</defaultGoal>
 				<plugins>
 					<plugin>
 						<groupId>com.heroku.sdk</groupId>
@@ -274,9 +275,9 @@
 						<executions>
 							<execution>
 								<id>deploy</id>
-								<phase>validate</phase>
+								<phase>install</phase>
 								<goals>
-									<goal>deploy-only</goal>
+									<goal>deploy</goal>
 								</goals>
 								<configuration>
 									<appName>patiolegal</appName>
