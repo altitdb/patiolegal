@@ -194,7 +194,7 @@
 							<overwrite>true</overwrite>
 							<resources>
 								<resource>
-									<directory>src/main/angular/dist</directory>
+									<directory>src/main/angular/dist/patiolegal</directory>
 								</resource>
 							</resources>
 							<outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
