@@ -152,6 +152,18 @@
 								<exec executable="cmd" osfamily="windows"
 									dir="${project.basedir}/src/main/angular">
 									<arg value="/c" />
+									<arg value="npm" />
+									<arg value="install" />
+									<arg value="--only=dev" />
+								</exec>
+								<exec executable="npm" osfamily="unix"
+									dir="${project.basedir}/src/main/angular">
+									<arg value="install" />
+									<arg value="--only=dev" />
+								</exec>
+								<exec executable="cmd" osfamily="windows"
+									dir="${project.basedir}/src/main/angular">
+									<arg value="/c" />
 									<arg value="ng" />
 									<arg value="build" />
 									<arg value="--aot" />

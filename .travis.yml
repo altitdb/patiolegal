@@ -5,7 +5,7 @@ jdk:
   - oraclejdk8
 env:
   NODE_VERSION="9.3.0"
-  ANGULAR_CLI_VERSION="1.6.3"
+  ANGULAR_CLI_VERSION="6.0.8"
 before_install:
   - nvm install $NODE_VERSION
   - npm install -g @angular/cli@$ANGULAR_CLI_VERSION
