@@ -194,6 +194,22 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<appName>patiolegal</appName>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>${project.basedir}/target/patiolegal.jar</include>
+					</includes>
+					<jdkVersion>1.8</jdkVersion>
+					<processTypes>
+						<web>java $JAVA_OPTS -jar target/patiolegal.jar</web>
+					</processTypes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -282,44 +298,4 @@
 		</dependency>
 	</dependencies>
 
-	<profiles>
-		<profile>
-			<id>heroku</id>
-			<activation>
-				<property>
-					<name>heroku</name>
-				</property>
-			</activation>
-			<build>
-				<defaultGoal>install</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>com.heroku.sdk</groupId>
-						<artifactId>heroku-maven-plugin</artifactId>
-						<version>1.1.1</version>
-						<executions>
-							<execution>
-								<id>deploy</id>
-								<phase>install</phase>
-								<goals>
-									<goal>deploy</goal>
-								</goals>
-								<configuration>
-									<appName>patiolegal</appName>
-									<includeTarget>false</includeTarget>
-									<includes>
-										<include>${project.basedir}/target/patiolegal.jar</include>
-									</includes>
-									<jdkVersion>1.8</jdkVersion>
-									<processTypes>
-										<web>java $JAVA_OPTS -jar target/patiolegal.jar</web>
-									</processTypes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

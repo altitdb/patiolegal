@@ -10,8 +10,7 @@ before_install:
   - nvm install $NODE_VERSION
   - npm install -g @angular/cli@$ANGULAR_CLI_VERSION
 script:
-  - mvn clean install
-  - mvn -Pheroku
+  - mvn clean heroku:deploy-slug
 cache:
   directories:
     - "$HOME/.m2/repository"
