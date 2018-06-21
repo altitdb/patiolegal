@@ -1,9 +1,9 @@
-package br.com.patiolegal;
+package br.com.patiolegal.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "br.com.patiolegal")
 public class Application {
 
     public static void main(String[] args) {
