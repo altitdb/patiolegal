@@ -312,7 +312,7 @@
 									</includes>
 									<jdkVersion>1.8</jdkVersion>
 									<processTypes>
-										<web>java $JAVA_OPTS -jar patiolegal.jar</web>
+										<web>java $JAVA_OPTS -jar target/patiolegal.jar</web>
 									</processTypes>
 								</configuration>
 							</execution>
