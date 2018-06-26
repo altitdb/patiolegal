@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
@@ -30,6 +30,11 @@ export class LoginComponent implements OnInit {
   
   doLogin(){
     this.login = true;
+    //TODO
+    sessionStorage.setItem("access", JSON.stringify({"accessToken": "asdsadsa123"}));
+    this._router.navigate(["/main"]);
+    this.login = false;
+    /*
     this._loginService.login(this.form.value).subscribe(
       suc=>{
         sessionStorage.setItem("access", JSON.stringify(suc));
@@ -40,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.login = false;
         this.error = err;
       }
-    );
+    );*/
   }
 
 }

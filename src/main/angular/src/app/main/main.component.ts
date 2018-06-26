@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  styleUrls: ['./main.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit, OnDestroy {
