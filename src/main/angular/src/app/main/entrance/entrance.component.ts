@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-entrance',
@@ -13,12 +14,19 @@ export class EntranceComponent implements OnInit {
   policeFormGroup: FormGroup;
   yardFormGroup: FormGroup;
 
+  public maxDate = new Date();
+  public trueValue = true;
+  public falseValue = false;
   public taxIdentifierMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public yearMask = [/\d/, /\d/, /\d/, /\d/];
   public plateMask = [/[azA-Z]/, /[azA-Z]/, /[azA-Z]/, '-', /\d/, /\d/, /\d/, /\d/];
   public parts = [
     { initials: 'PC', description: 'POLÍCIA CIVIL' },
     { initials: 'PM', description: 'POLÍCIA MILITAR' }
+  ];
+  public sheds = [
+    { initials: 'BC', description: 'Barracão Carros' },
+    { initials: 'BM', description: 'Barracão de Motos' }
   ];
   public categories = [
     { id: '1', description: 'OFICIAL' },
@@ -45,7 +53,7 @@ export class EntranceComponent implements OnInit {
 
   ngOnInit() {
     var date = new Date();
-    var option = "false";
+    var option = false;
     this.seizureFormGroup = this._formBuilder.group({
       part: ['', Validators.required],
       date: [date, Validators.required],
@@ -86,6 +94,7 @@ export class EntranceComponent implements OnInit {
     });
     this.yardFormGroup = this._formBuilder.group({
       seals: ['', Validators.required],
+      shed: ['', Validators.required],
       row: ['', Validators.required],
       column: ['', Validators.required],
       floor: ['', Validators.required]
@@ -93,10 +102,32 @@ export class EntranceComponent implements OnInit {
   }
 
   save() {
-    console.log(this.seizureFormGroup.value);
-    console.log(this.vehicleFormGroup.value);
-    console.log(this.policeFormGroup.value);
-    console.log(this.yardFormGroup.value);
+    var seizureForm = this.seizureFormGroup.value;
+    seizureForm.date = moment(seizureForm.date).format('YYYY-MM-DD');
+    seizureForm.taxIdentifier = seizureForm.taxIdentifier.replace(/\D+/g, '');
+    
+    var vehicleForm = this.vehicleFormGroup.value;
+    vehicleForm.ownerTaxIdentifier = vehicleForm.ownerTaxIdentifier.replace(/\D+/g, '');
+    vehicleForm.sportingPlate = vehicleForm.sportingPlate.toUpperCase();
+    vehicleForm.originalPlate = vehicleForm.originalPlate.toUpperCase();
+
+    var json = JSON.stringify({
+      "seizure": this.seizureFormGroup.value,
+      "vehicle": this.vehicleFormGroup.value,
+      "police": this.policeFormGroup.value,
+      "yard": this.yardFormGroup.value
+    });
+
+    console.log(json);
+    /*
+    this._entranceService.save(json).subscribe(
+      suc=>{
+        this._router.navigate(["/main/search"]);
+      },
+      err=>{        
+        this.error = err;
+      }
+    );*/
   }
 
 }

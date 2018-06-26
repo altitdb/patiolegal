@@ -1,45 +1,22 @@
-<div fxLayout="row" fxFlex="100" fxLayoutAlign="center">
+<mat-toolbar class="top" fxLayout="row">
+    <span>PÁTIO LEGAL</span>
+    <span class="spacer"></span>
     <button mat-button class="home" routerLink="/main/entrance" fxFlex="10">
-        <mat-card>
-            <mat-card-header>
-                <mat-icon>assignment</mat-icon>
-            </mat-card-header>
-            <mat-card-content>
-                <span>Entrada</span>
-            </mat-card-content>
-        </mat-card>
+        Entrada <mat-icon>assignment</mat-icon>
     </button>
-    <button mat-button class="home" routerLink="/main/search" fxFlex="10" fxFlexOffset="2">
-        <mat-card>
-            <mat-card-header>
-                <mat-icon>search</mat-icon>
-            </mat-card-header>
-            <mat-card-content>
-                <span>Consulta</span>
-            </mat-card-content>
-        </mat-card>
+    <button mat-button class="home" routerLink="/main/search" fxFlex="10">
+        Consulta <mat-icon>search</mat-icon>
     </button>
-    <button mat-button class="home" routerLink="/main/exit" fxFlex="10" fxFlexOffset="2">
-        <mat-card>
-            <mat-card-header>
-                <mat-icon>exit_to_app</mat-icon>
-            </mat-card-header>
-            <mat-card-content>
-                <span>Saída</span>
-            </mat-card-content>
-        </mat-card>
+    <button mat-button class="home" routerLink="/main/exit" fxFlex="10">
+        Saída <mat-icon>exit_to_app</mat-icon>
     </button>
-    <button mat-button class="home" routerLink="/main/inspection" fxFlex="10" fxFlexOffset="2">
-        <mat-card>
-            <mat-card-header>
-                <mat-icon>description</mat-icon>
-            </mat-card-header>
-            <mat-card-content>
-                <span>Vistoria</span>
-            </mat-card-content>
-        </mat-card>
-    </button>    
-</div>
-<mat-card id="content">
+    <button mat-button class="home" routerLink="/main/inspection" fxFlex="10">
+        Vistoria <mat-icon>description</mat-icon>
+    </button>
+</mat-toolbar>
+<div fxLayout="column" id="content" class="mat-elevation-z8">
     <router-outlet></router-outlet>
-</mat-card>
+</div>
+<mat-toolbar class="bottom" fxLayoutAlign="center">
+    <span>www.patiolegal.com.br © 2018</span>
+</mat-toolbar>

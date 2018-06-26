@@ -3,7 +3,7 @@
     <form [formGroup]="seizureFormGroup" fxLayout="column">
       <ng-template matStepLabel>Dados da Apreensão</ng-template>
       <mat-form-field class="date">
-        <input matInput [matDatepicker]="picker" placeholder="Data da Apreensão" formControlName="date" required>
+        <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Data da Apreensão" formControlName="date" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -15,16 +15,16 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="policeInvestigation">
-        <input matInput placeholder="Número do Inquérito Policial" formControlName="policeInvestigation" />
+        <input matInput placeholder="Número do Inquérito Policial" formControlName="policeInvestigation" uppercase/>
       </mat-form-field>
       <mat-form-field class="eventBulletin">
-        <input matInput placeholder="Número do Boletim de Ocorrência" formControlName="eventBulletin" />
+        <input matInput placeholder="Número do Boletim de Ocorrência" formControlName="eventBulletin" uppercase/>
       </mat-form-field>
       <mat-form-field class="taxIdentifier">
         <input matInput placeholder="CPF do Apreendedor" [textMask]="{mask: taxIdentifierMask}" formControlName="taxIdentifier" required/>
       </mat-form-field>
       <mat-form-field class="name">
-        <input matInput placeholder="Nome do Apreendedor" formControlName="name" required/>
+        <input matInput placeholder="Nome do Apreendedor" formControlName="name" required uppercase/>
       </mat-form-field>
       <div>
         <button mat-raised-button matStepperNext>Próximo</button>
@@ -134,80 +134,80 @@
       <div fxLayout="row">
         <label>Segurado: </label>
         <mat-radio-group formControlName="insured" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Financiado: </label>
         <mat-radio-group formControlName="financed" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Roubado/Furtado: </label>
         <mat-radio-group formControlName="stolen" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Envolvido com Tráfico de Drogas: </label>
         <mat-radio-group formControlName="drugTrafficking" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Envolvido com Lavagem de Dinheiro: </label>
         <mat-radio-group formControlName="moneyLaundry" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Periciado: </label>
         <mat-radio-group formControlName="perquisite" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Pericia Papiloscópica: </label>
         <mat-radio-group formControlName="papillaryExpertise" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Proprietário Intimado: </label>
         <mat-radio-group formControlName="ownerIntimate" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Alienação Autorizada: </label>
         <mat-radio-group formControlName="authorizedAlienation" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div fxLayout="row">
         <label>Débitos: </label>
         <mat-radio-group formControlName="debits" required>
-          <mat-radio-button value="true">Sim</mat-radio-button>
-          <mat-radio-button value="false">Não</mat-radio-button>
+          <mat-radio-button [value]="trueValue">Sim</mat-radio-button>
+          <mat-radio-button [value]="falseValue">Não</mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
@@ -223,6 +223,13 @@
       <ng-template matStepLabel>Dados do Pátio</ng-template>
       <mat-form-field class="amount">
         <input matInput placeholder="Quantidade de Lacres" type="number" formControlName="seals" required/>
+      </mat-form-field>
+      <mat-form-field class="shed">
+        <mat-select placeholder="Barração" formControlName="shed" required>
+          <mat-option *ngFor="let shed of sheds" [value]="shed.initials">
+            {{ shed.description }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="amount">
         <input matInput placeholder="Fileira" type="number" formControlName="row" required/>
@@ -242,6 +249,80 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Detalhes</ng-template>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados da Apreensão
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column">
+        <label>Data da Apreensão: {{ seizureFormGroup.value.date }}</label>
+        <label>Origem da Apreensão: {{ seizureFormGroup.value.part }}</label>
+        <label>Número do Inquérito Policial: {{ seizureFormGroup.value.policeInvestigation }}</label>
+        <label>Número do Boletim de Ocorrência: {{ seizureFormGroup.value.eventBulletin }}</label>
+        <label>CPF do Apreendedor: {{ seizureFormGroup.value.taxIdentifier }}</label>
+        <label>Nome do Apreendedor: {{ seizureFormGroup.value.name }}</label>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados do Veículo
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column">
+        <label>Renavam: {{ vehicleFormGroup.value.theyRenamed }}</label>
+        <label>CPF/CNPJ Proprietário: {{ vehicleFormGroup.value.ownerTaxIdentifier }}</label>
+        <label>Nome do Proprietário: {{ vehicleFormGroup.value.ownerName }}</label>
+        <label>Marca: {{ vehicleFormGroup.value.brand }}</label>
+        <label>Modelo: {{ vehicleFormGroup.value.model }}</label>
+        <label>Categoria: {{ vehicleFormGroup.value.category }}</label>
+        <label>Cor: {{ vehicleFormGroup.value.color }}</label>
+        <label>Combustível: {{ vehicleFormGroup.value.fuel }}</label>
+        <label>Ano de Fabricação: {{ vehicleFormGroup.value.factoryYear }}</label>
+        <label>Ano do Modelo: {{ vehicleFormGroup.value.modelYear }}</label>
+        <label>Placa Ostentada: {{ vehicleFormGroup.value.sportingPlate }}</label>
+        <label>Placa Original: {{ vehicleFormGroup.value.originalPlate }}</label>
+        <label>Estado do Chassis: {{ vehicleFormGroup.value.chassisState }}</label>
+        <label>Número do Chassis: {{ vehicleFormGroup.value.chassis }}</label>
+        <label>Estado do Motor: {{ vehicleFormGroup.value.motorState }}</label>
+        <label>Número do Motor: {{ vehicleFormGroup.value.motor }}</label>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados da Polícia
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column">
+        <label>Segurado: {{ policeFormGroup.value.insured ? 'Sim' : 'Não' }}</label>
+        <label>Financiado: {{ policeFormGroup.value.financed ? 'Sim' : 'Não' }}</label>
+        <label>Roubado/Furtado: {{ policeFormGroup.value.stolen ? 'Sim' : 'Não' }}</label>
+        <label>Envolvido com Tráfico de Drogas: {{ policeFormGroup.value.drugTrafficking ? 'Sim' : 'Não' }}</label>
+        <label>Envolvido com Lavagem de Dinheiro: {{ policeFormGroup.value.moneyLaundry ? 'Sim' : 'Não' }}</label>
+        <label>Periciado: {{ policeFormGroup.value.perquisite ? 'Sim' : 'Não' }}</label>
+        <label>Pericia Papiloscópica: {{ policeFormGroup.value.papillaryExpertise ? 'Sim' : 'Não' }}</label>
+        <label>Proprietário Intimado: {{ policeFormGroup.value.ownerIntimate ? 'Sim' : 'Não' }}</label>
+        <label>Alinação Autorizada: {{ policeFormGroup.value.authorizedAlienation ? 'Sim' : 'Não' }}</label>
+        <label>Débitos: {{ policeFormGroup.value.debits ? 'Sim' : 'Não' }}</label>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados do Pátio
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column">
+        <label>Quantidade de Lacres: {{ yardFormGroup.value.seals }}</label>
+        <label>Barração: {{ yardFormGroup.value.shed }}</label>
+        <label>Prateleira: {{ yardFormGroup.value.row }}</label>
+        <label>Coluna: {{ yardFormGroup.value.column }}</label>
+        <label>Andar: {{ yardFormGroup.value.floor }}</label>
+      </div>
+    </mat-expansion-panel>
+    <br />
     <div>
       <button mat-raised-button matStepperPrevious>Voltar</button>
       <span fxFlex="2"></span>

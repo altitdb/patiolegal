@@ -1,17 +1,7 @@
-mat-sidenav-container{
-    position: fixed;
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-}
 #content{
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    top: 65px;
     z-index: -1;
     overflow-x: auto;
+    margin: 5px;
 }
 
 .home {
@@ -19,6 +9,11 @@ mat-sidenav-container{
     padding: 0px;
 }
 
-.mat-card-header {
-    display: block;
+.bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }

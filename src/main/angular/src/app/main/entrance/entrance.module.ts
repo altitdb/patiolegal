@@ -17,6 +17,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TextMaskModule } from 'angular2-text-mask';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { UppercaseDirective } from '../../directives/uppercase.directive';
 
 @NgModule({
   imports: [
@@ -27,18 +29,21 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
+    TextMaskModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule,
-    TextMaskModule
+    MatRadioModule,    
+    MatExpansionModule
   ],
   providers: [
     FormBuilder,
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
-  declarations: [EntranceComponent]
+  declarations: [
+    UppercaseDirective,
+    EntranceComponent]
 })
 export class EntranceModule { }
