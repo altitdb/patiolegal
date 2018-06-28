@@ -19,7 +19,7 @@ export class EntranceComponent implements OnInit {
   public falseValue = false;
   public taxIdentifierMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public yearMask = [/\d/, /\d/, /\d/, /\d/];
-  public plateMask = [/[azA-Z]/, /[azA-Z]/, /[azA-Z]/, '-', /\d/, /\d/, /\d/, /\d/];
+  public plateMask = [/[A-Z]/, /[A-Z]/, /[A-Z]/, '-', /\d/, /\d/, /\d/, /\d/];
   public parts = [
     { initials: 'PC', description: 'POLÍCIA CIVIL' },
     { initials: 'PM', description: 'POLÍCIA MILITAR' }

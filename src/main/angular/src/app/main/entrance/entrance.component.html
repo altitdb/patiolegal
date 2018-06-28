@@ -24,14 +24,14 @@
         <input matInput placeholder="CPF do Apreendedor" [textMask]="{mask: taxIdentifierMask}" formControlName="taxIdentifier" required/>
       </mat-form-field>
       <mat-form-field class="name">
-        <input matInput placeholder="Nome do Apreendedor" formControlName="name" required uppercase/>
+        <input matInput placeholder="Nome do Apreendedor" formControlName="name" required uppercase/>      
       </mat-form-field>
       <div>
         <button mat-raised-button matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="vehicleFormGroup">
+  <mat-step [stepControl]="vehicleFormGroup">    
     <form [formGroup]="vehicleFormGroup">
       <ng-template matStepLabel>Dados do Veículo</ng-template>
       <mat-form-field>
@@ -44,16 +44,16 @@
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field class="name">
-          <input matInput placeholder="Nome do Proprietário" formControlName="ownerName" required>
+          <input matInput placeholder="Nome do Proprietário" formControlName="ownerName" required uppercase>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput placeholder="Marca" formControlName="brand" required>
+          <input matInput placeholder="Marca" formControlName="brand" required uppercase>
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field>
-          <input matInput placeholder="Modelo" formControlName="model" required>
+          <input matInput placeholder="Modelo" formControlName="model" required uppercase>
         </mat-form-field>
       </div>
       <div>
@@ -66,7 +66,7 @@
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field>
-          <input matInput placeholder="Cor" formControlName="color" required>
+          <input matInput placeholder="Cor" formControlName="color" required uppercase>
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field>
@@ -105,7 +105,7 @@
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field class="number">
-          <input matInput placeholder="Número do Chassis" formControlName="chassis">
+          <input matInput placeholder="Número do Chassis" formControlName="chassis" uppercase>
         </mat-form-field>
       </div>
       <div>
@@ -118,7 +118,7 @@
         </mat-form-field>
         <span fxFlex="2"></span>
         <mat-form-field class="number">
-          <input matInput placeholder="Número do Motor" formControlName="motor">
+          <input matInput placeholder="Número do Motor" formControlName="motor" uppercase>
         </mat-form-field>
       </div>
       <div>
@@ -232,13 +232,13 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="amount">
-        <input matInput placeholder="Fileira" type="number" formControlName="row" required/>
+        <input matInput placeholder="Fileira" type="number" formControlName="row" required uppercase/>
       </mat-form-field>
       <mat-form-field class="amount">
-        <input matInput placeholder="Coluna" type="number" formControlName="column" required/>
+        <input matInput placeholder="Coluna" type="number" formControlName="column" required uppercase/>
       </mat-form-field>
       <mat-form-field class="amount">
-        <input matInput placeholder="Andar" type="number" formControlName="floor" required/>
+        <input matInput placeholder="Andar" type="number" formControlName="floor" required uppercase/>
       </mat-form-field>
       <div>
         <button mat-raised-button matStepperPrevious>Voltar</button>

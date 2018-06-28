@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 @Directive({
   selector: '[uppercase]',
   host: {
@@ -14,6 +14,7 @@ export class UppercaseDirective {
   toUpperCase(value: any) {
     if (typeof value === 'string') {
       this.ref.nativeElement.value = value.toUpperCase();
+      this.ref.nativeElement.dispatchEvent(new Event('input'));
     }
   }
 }
