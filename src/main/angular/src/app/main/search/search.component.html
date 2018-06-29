@@ -63,7 +63,7 @@
     <ng-container matColumnDef="exit">
       <th mat-header-cell *matHeaderCellDef> Saída </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button class="home" routerLink="/main/exit" [disabled]="element.exitDate != null">
+        <button mat-button class="home" (click)="exit(element.protocol)" [disabled]="element.exitDate != null">
           <mat-icon>exit_to_app</mat-icon>
         </button>
       </td>

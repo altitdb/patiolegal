@@ -6,7 +6,7 @@ import { ExitComponent } from './exit.component';
   imports: [
     RouterModule.forChild([
         { 
-            path: '', 
+            path: ':protocol', 
             component: ExitComponent  
         }
     ])

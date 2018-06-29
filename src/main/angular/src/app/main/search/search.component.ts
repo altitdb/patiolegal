@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export interface Protocol {
   entranceDate: Date;
@@ -27,7 +28,7 @@ export class SearchComponent implements OnInit {
   displayedColumns: string[] = ['entranceDate', 'exitDate', 'protocol', 'sportingPlate', 'originalPlate', 'exit'];
   dataSource = ELEMENT_DATA;
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private _router: Router) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -41,4 +42,7 @@ export class SearchComponent implements OnInit {
     this.filtred = true;
   }
 
+  exit(protocol) {
+    this._router.navigate(["/main/exit", protocol]);
+  }
 }

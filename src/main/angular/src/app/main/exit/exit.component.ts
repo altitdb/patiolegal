@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-exit',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExitComponent implements OnInit {
 
-  constructor() { }
+  protocol: string;
+  
+  constructor(private _activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this._activateRoute.params.subscribe(params=>{
+      this.protocol = params['protocol'];
+    });
   }
 
 }
