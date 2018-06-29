@@ -17,7 +17,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.StringUtils;
 
 import br.com.patiolegal.dto.CompanyDTO;
-import br.com.patiolegal.dto.ProtocolDTO;
+import br.com.patiolegal.dto.ProtocolRequestDTO;
 import br.com.patiolegal.dto.SealDTO;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -36,8 +36,8 @@ public class ReportUtils {
 
 	private static void generateProtocolReport() {
 		String sourceFileName = "D:/work/patiolegal/src/main/resources/reports/protocol.jasper";
-		List<ProtocolDTO> list = new ArrayList<>();
-		ProtocolDTO protocol = new ProtocolDTO();
+		List<ProtocolRequestDTO> list = new ArrayList<>();
+		ProtocolRequestDTO protocol = new ProtocolRequestDTO();
 		protocol.setProtocol("125.558.584.2018.03.25");
 		protocol.setBoard("XXX-9999");
 		protocol.setBrand("Ford");
