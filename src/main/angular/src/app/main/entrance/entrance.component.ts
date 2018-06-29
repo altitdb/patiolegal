@@ -93,7 +93,6 @@ export class EntranceComponent implements OnInit {
       debits: [option, Validators.required]
     });
     this.yardFormGroup = this._formBuilder.group({
-      seals: ['', Validators.required],
       shed: ['', Validators.required],
       row: ['', Validators.required],
       column: ['', Validators.required],

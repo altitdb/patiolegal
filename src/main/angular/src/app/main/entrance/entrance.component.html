@@ -221,9 +221,6 @@
   <mat-step [stepControl]="yardFormGroup">
     <form [formGroup]="yardFormGroup" fxLayout="column">
       <ng-template matStepLabel>Dados do Pátio</ng-template>
-      <mat-form-field class="amount">
-        <input matInput placeholder="Quantidade de Lacres" type="number" formControlName="seals" required/>
-      </mat-form-field>
       <mat-form-field class="shed">
         <mat-select placeholder="Barração" formControlName="shed" required>
           <mat-option *ngFor="let shed of sheds" [value]="shed.initials">
@@ -315,7 +312,6 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div fxLayout="column">
-        <label>Quantidade de Lacres: {{ yardFormGroup.value.seals }}</label>
         <label>Barração: {{ yardFormGroup.value.shed }}</label>
         <label>Prateleira: {{ yardFormGroup.value.row }}</label>
         <label>Coluna: {{ yardFormGroup.value.column }}</label>
