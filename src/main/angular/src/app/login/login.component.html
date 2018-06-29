@@ -3,7 +3,7 @@
       <div fxFlex="500px" fxFlex.xs="90">
         <mat-card class="mat-elevation-z7">
             <mat-card-header fxLayoutAlign="center">
-                <mat-card-title fxLayoutAlign="center"></mat-card-title>
+                <mat-card-title fxLayoutAlign="center"><b> {{ error }} </b></mat-card-title>
                 <mat-card-subtitle fxLayoutAlign="center">Autenticação Necessária</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content fxLayout="row">
@@ -12,8 +12,8 @@
                 </div>
                 <form fxLayout="column" fxFlex="68" [formGroup]="form">
                     <mat-form-field>
-                        <input matInput formControlName="user" placeholder="Usuário" value="">
-                        <mat-error *ngIf="form.controls['user'].hasError('required')">
+                        <input matInput formControlName="username" placeholder="Usuário" value="">
+                        <mat-error *ngIf="form.controls['username'].hasError('required')">
                             Campo obrigatório
                         </mat-error>
                     </mat-form-field>

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private _formBuilder:FormBuilder, private _loginService: LoginService, private _router: Router) {
     this.form  = _formBuilder.group({
-      "user": [null, Validators.required],
+      "username": [null, Validators.required],
       "password" : [null, Validators.required]
     });
    }
@@ -30,11 +30,6 @@ export class LoginComponent implements OnInit {
   
   doLogin(){
     this.login = true;
-    //TODO
-    sessionStorage.setItem("access", JSON.stringify({"accessToken": "asdsadsa123"}));
-    this._router.navigate(["/main"]);
-    this.login = false;
-    /*
     this._loginService.login(this.form.value).subscribe(
       suc=>{
         sessionStorage.setItem("access", JSON.stringify(suc));
@@ -43,9 +38,9 @@ export class LoginComponent implements OnInit {
       },
       err=>{        
         this.login = false;
-        this.error = err;
+        this.error = "Usuário e/ou Senha estão errados.";
       }
-    );*/
+    );
   }
 
 }
