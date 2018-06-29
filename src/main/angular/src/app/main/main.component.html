@@ -1,19 +1,21 @@
 <mat-toolbar class="top" fxLayout="row">
-    <span>PÁTIO LEGAL</span>
+    <div fxLayout="column" fxFlex="5">
+        <img src="./assets/img/logo-transparent.gif" width="70%" />
+    </div>
+    <span><b>PÁTIO LEGAL</b></span>
     <span class="spacer"></span>
     <button mat-button class="home" routerLink="/main/entrance" fxFlex="10">
-        Entrada <mat-icon>assignment</mat-icon>
+        Entrada
+        <mat-icon>assignment</mat-icon>
     </button>
     <button mat-button class="home" routerLink="/main/search" fxFlex="10">
-        Consulta <mat-icon>search</mat-icon>
-    </button>
-    <button mat-button class="home" routerLink="/main/inspection" fxFlex="10">
-        Vistoria <mat-icon>description</mat-icon>
+        Consulta
+        <mat-icon>search</mat-icon>
     </button>
 </mat-toolbar>
 <div fxLayout="column" id="content" class="mat-elevation-z8">
     <router-outlet></router-outlet>
 </div>
 <mat-toolbar class="bottom" fxLayoutAlign="center">
-    <span>www.patiolegal.com.br © 2018</span>
+    <span><b>www.patiolegal.com.br © 2018</b></span>
 </mat-toolbar>

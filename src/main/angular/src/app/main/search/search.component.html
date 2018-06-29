@@ -60,6 +60,22 @@
       <th mat-header-cell *matHeaderCellDef> Placa Original </th>
       <td mat-cell *matCellDef="let element"> {{element.originalPlate}} </td>
     </ng-container>
+    <ng-container matColumnDef="printProtocol">
+      <th mat-header-cell *matHeaderCellDef> Protocolo </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button class="home" (click)="printProtocol(element.protocol)">
+          <mat-icon>description</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="printSeals">
+      <th mat-header-cell *matHeaderCellDef> Lacre </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button class="home" (click)="printSeals(element.protocol)">
+          <mat-icon>dns</mat-icon>
+        </button>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="exit">
       <th mat-header-cell *matHeaderCellDef> Saída </th>
       <td mat-cell *matCellDef="let element">

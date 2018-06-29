@@ -1,3 +1,5 @@
-.mat-column-entranceDate, .mat-column-exitDate, .mat-column-sportingPlate, .mat-column-originalPlate, .mat-column-exit {
+.mat-column-entranceDate, .mat-column-exitDate, .mat-column-sportingPlate, 
+.mat-column-originalPlate, .mat-column-printProtocol, .mat-column-printSeals,
+.mat-column-exit {
     text-align: center;
 }

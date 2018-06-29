@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
 
   filtred: boolean = false;
   form: FormGroup;
-  displayedColumns: string[] = ['entranceDate', 'exitDate', 'protocol', 'sportingPlate', 'originalPlate', 'exit'];
+  displayedColumns: string[] = ['entranceDate', 'exitDate', 'protocol', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
   dataSource = ELEMENT_DATA;
 
   constructor(private _formBuilder: FormBuilder, private _router: Router) { }
@@ -40,6 +40,14 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.filtred = true;
+  }
+
+  printProtocol(protocol) {
+
+  }
+
+  printSeals(protocol) {
+    
   }
 
   exit(protocol) {
