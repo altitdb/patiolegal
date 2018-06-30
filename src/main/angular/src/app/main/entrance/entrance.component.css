@@ -1,9 +1,5 @@
-.date, .state, .shed {
+.date, .state, .shed, .taxIdentifier, .policeInvestigation, .eventBulletin {
     width: 20%;
-}
-
-.taxIdentifier, .policeInvestigation, .eventBulletin {
-    width: 30%;
 }
 
 .name, .part, .number {

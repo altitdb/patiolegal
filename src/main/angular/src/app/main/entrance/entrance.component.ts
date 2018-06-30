@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment';
+import { EntranceService } from './entrance.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entrance',
@@ -9,10 +11,7 @@ import * as moment from 'moment';
 })
 export class EntranceComponent implements OnInit {
 
-  seizureFormGroup: FormGroup;
-  vehicleFormGroup: FormGroup;
-  policeFormGroup: FormGroup;
-  yardFormGroup: FormGroup;
+  form: FormGroup;
 
   public maxDate = new Date();
   public trueValue = true;
@@ -49,20 +48,18 @@ export class EntranceComponent implements OnInit {
     { description: 'OUTRO' }
   ];
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private _router: Router, private _entranceService: EntranceService) { }
 
   ngOnInit() {
     var date = new Date();
     var option = false;
-    this.seizureFormGroup = this._formBuilder.group({
+    this.form = this._formBuilder.group({
       part: ['', Validators.required],
       date: [date, Validators.required],
       policeInvestigation: '',
       eventBulletin: '',
       taxIdentifier: ['', Validators.required],
-      name: ['', Validators.required]
-    });
-    this.vehicleFormGroup = this._formBuilder.group({
+      name: ['', Validators.required],
       theyRenamed: ['', Validators.required],
       ownerName: ['', Validators.required],
       ownerTaxIdentifier: ['', Validators.required],
@@ -78,9 +75,7 @@ export class EntranceComponent implements OnInit {
       chassisState: ['', Validators.required],
       chassis: '',
       motorState: ['', Validators.required],
-      motor: ''
-    });
-    this.policeFormGroup = this._formBuilder.group({
+      motor: '',
       insured: [option, Validators.required],
       financed: [option, Validators.required],
       stolen: [option, Validators.required],
@@ -90,9 +85,7 @@ export class EntranceComponent implements OnInit {
       papillaryExpertise: [option, Validators.required],
       ownerIntimate: [option, Validators.required],
       authorizedAlienation: [option, Validators.required],
-      debits: [option, Validators.required]
-    });
-    this.yardFormGroup = this._formBuilder.group({
+      debits: [option, Validators.required],
       shed: ['', Validators.required],
       row: ['', Validators.required],
       column: ['', Validators.required],
@@ -101,32 +94,22 @@ export class EntranceComponent implements OnInit {
   }
 
   save() {
-    var seizureForm = this.seizureFormGroup.value;
-    seizureForm.date = moment(seizureForm.date).format('YYYY-MM-DD');
-    seizureForm.taxIdentifier = seizureForm.taxIdentifier.replace(/\D+/g, '');
+    this.form.value.date = moment(this.form.value.date).format('YYYY-MM-DD');
+    this.form.value.taxIdentifier = this.form.value.taxIdentifier.replace(/\D+/g, '');
     
-    var vehicleForm = this.vehicleFormGroup.value;
-    vehicleForm.ownerTaxIdentifier = vehicleForm.ownerTaxIdentifier.replace(/\D+/g, '');
-    vehicleForm.sportingPlate = vehicleForm.sportingPlate.toUpperCase();
-    vehicleForm.originalPlate = vehicleForm.originalPlate.toUpperCase();
+    this.form.value.ownerTaxIdentifier = this.form.value.ownerTaxIdentifier.replace(/\D+/g, '');
+    this.form.value.sportingPlate = this.form.value.sportingPlate.toUpperCase();
+    this.form.value.originalPlate = this.form.value.originalPlate.toUpperCase();
 
-    var json = JSON.stringify({
-      "seizure": this.seizureFormGroup.value,
-      "vehicle": this.vehicleFormGroup.value,
-      "police": this.policeFormGroup.value,
-      "yard": this.yardFormGroup.value
-    });
-
-    console.log(json);
-    /*
-    this._entranceService.save(json).subscribe(
+    this._entranceService.save(this.form.value).subscribe(
       suc=>{
         this._router.navigate(["/main/search"]);
       },
-      err=>{        
-        this.error = err;
+      err=>{
+        console.log(err);
+        //this.error = err;
       }
-    );*/
+    );
   }
 
 }

@@ -26,7 +26,6 @@ import { UppercaseDirective } from '../../directives/uppercase.directive';
     RouterModule,
     EntranceRouting,
     FlexLayoutModule,
-    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     TextMaskModule,

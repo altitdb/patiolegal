@@ -1,7 +1,7 @@
 #content{
     z-index: -1;
-    overflow-x: auto;
     margin: 5px;
+    min-height: 100hv;
 }
 
 .home {
@@ -10,7 +10,7 @@
 }
 
 .bottom {
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
