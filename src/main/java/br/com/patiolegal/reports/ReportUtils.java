@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,27 +37,6 @@ public class ReportUtils {
 		String sourceFileName = "D:/work/patiolegal/src/main/resources/reports/protocol.jasper";
 		List<ProtocolRequestDTO> list = new ArrayList<>();
 		ProtocolRequestDTO protocol = new ProtocolRequestDTO();
-		protocol.setProtocol("125.558.584.2018.03.25");
-		protocol.setBoard("XXX-9999");
-		protocol.setBrand("Ford");
-		protocol.setCategory("Passeio");
-		protocol.setChassis("9GBRJ69F0BFG1229555");
-		protocol.setColor("Preto");
-		protocol.setFuel("FLEX");
-		protocol.setModel("Fiesta");
-		protocol.setName("João Alves Ficticius Name");
-		protocol.setTaxId("012.345.678-90");
-		protocol.setTheyRenamed("00226485987");
-		protocol.setYearFactory(2010);
-		protocol.setYearModel(2011);
-		
-		protocol.setDateTimeIn(LocalDateTime.now().minusDays(10l));
-		protocol.setAccountableIn("Marcio Ficticius");
-		protocol.setDateTimeOut(LocalDateTime.now());
-		protocol.setAccountableOut("Marcos Ficticius");
-		protocol.setOriginCapture("PM - Polícia Militar");
-		protocol.setAmountSeals(5);
-		protocol.setAuthentication("843fa876-dbe9-4dc8-8532-8ad9d1bd8f41");
 		list.add(protocol);
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(list);
 
