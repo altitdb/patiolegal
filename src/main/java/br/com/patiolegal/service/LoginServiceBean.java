@@ -14,22 +14,22 @@ import br.com.patiolegal.repository.UserRepository;
 @Service
 public class LoginServiceBean implements LoginService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Override
-    public LoginResponseDTO login(LoginRequestDTO request) {
-        String login = StringUtils.upperCase(request.getUsername());
-        
-        User user = userRepository.findByUsername(request.getUsername());
-        
-        if (user == null || !StringUtils.equals(user.getPassword(), request.getPassword())) {
-            throw new AccessDeniedException();
-        }
-        
-        LoginResponseDTO response = new LoginResponseBuilder().withAccessToken("DSADSA").withProfile("ADMIN")
-                .withUsername(login).build();
-        return response;
-    }
+	@Override
+	public LoginResponseDTO login(LoginRequestDTO request) {
+		String login = StringUtils.upperCase(request.getUsername());
+
+		User user = userRepository.findByUsername(request.getUsername());
+
+		if (user == null || !StringUtils.equals(user.getPassword(), request.getPassword())) {
+			throw new AccessDeniedException();
+		}
+
+		LoginResponseDTO response = new LoginResponseBuilder().withAccessToken("DSADSA").withProfile("ADMIN")
+				.withUsername(login).build();
+		return response;
+	}
 
 }
