@@ -6,6 +6,6 @@ import br.com.patiolegal.dto.ShedDTO;
 
 public interface ShedService {
 
-	List<ShedDTO> listAllSheds();
+	List<ShedDTO> findAll();
 	
 }

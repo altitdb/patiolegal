@@ -16,11 +16,11 @@ import br.com.patiolegal.service.ShedService;
 public class ShedController {
 
 	@Autowired
-	ShedService service;
+	private ShedService service;
 	
-	@RequestMapping(name = "/api/v1/shed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ShedDTO> listAllSheds() {
-		return service.listAllSheds();
+	@RequestMapping(value = "/api/v1/shed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody List<ShedDTO> getSheds() {
+		return service.findAll();
 	}
 
 }

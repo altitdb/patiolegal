@@ -15,17 +15,17 @@ import br.com.patiolegal.repository.ShedRepository;
 public class ShedServiceBean implements ShedService {
 
 	@Autowired
-	ShedRepository repository;
+	private ShedRepository repository;
 
 	@Override
-	public List<ShedDTO> listAllSheds() {
+	public List<ShedDTO> findAll() {
 
 		List<Shed> sheds = repository.findAll();
 		
 		return sheds.stream()
-				.map(s -> new ShedBuilder()
-						.withInitials(s.getInitials())
-						.withDescription(s.getDescription())
+				.map(shed -> new ShedBuilder()
+						.withInitials(shed.getInitials())
+						.withDescription(shed.getDescription())
 						.build())
 				.collect(Collectors.toList());
 	}
