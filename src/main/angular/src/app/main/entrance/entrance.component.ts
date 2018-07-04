@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { EntranceService } from './entrance.service';
 import { Router } from '@angular/router';
 import { ShedService } from '../services/shed.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-entrance',
@@ -48,6 +50,7 @@ export class EntranceComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, 
               private _router: Router, 
+              private _successDialog: MatDialog,
               private _entranceService: EntranceService,
               private _shedService: ShedService) { }
 
@@ -105,7 +108,8 @@ export class EntranceComponent implements OnInit {
 
     this._entranceService.save(this.form.value).subscribe(
       suc=>{
-        this._router.navigate(["/main/search"]);
+        //this._router.navigate(["/main/search"]);
+        this.openSuccessDialog(suc);
       },
       err=>{
         console.log(err);
@@ -120,6 +124,12 @@ export class EntranceComponent implements OnInit {
         this.sheds = suc;
       }
     );
+  }
+
+  openSuccessDialog(protocol) {
+    this._successDialog.open(SuccessComponent, {
+      data: protocol
+    });
   }
 
 }
