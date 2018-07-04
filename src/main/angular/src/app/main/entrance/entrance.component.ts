@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import * as moment from 'moment';
 import { EntranceService } from './entrance.service';
 import { Router } from '@angular/router';
+import { ShedService } from '../services/shed.service';
 
 @Component({
   selector: 'app-entrance',
@@ -23,10 +24,7 @@ export class EntranceComponent implements OnInit {
     { initials: 'PC', description: 'POLÍCIA CIVIL' },
     { initials: 'PM', description: 'POLÍCIA MILITAR' }
   ];
-  public sheds = [
-    { initials: 'BC', description: 'Barracão Carros' },
-    { initials: 'BM', description: 'Barracão de Motos' }
-  ];
+  public sheds: Array<Shed>;
   public categories = [
     { id: '1', description: 'OFICIAL' },
     { id: '2', description: 'DIPLOMÁTICO' },
@@ -48,7 +46,10 @@ export class EntranceComponent implements OnInit {
     { description: 'OUTRO' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router, private _entranceService: EntranceService) { }
+  constructor(private _formBuilder: FormBuilder, 
+              private _router: Router, 
+              private _entranceService: EntranceService,
+              private _shedService: ShedService) { }
 
   ngOnInit() {
     var date = new Date();
@@ -91,6 +92,7 @@ export class EntranceComponent implements OnInit {
       column: ['', Validators.required],
       floor: ['', Validators.required]
     });
+    this.findSheds();
   }
 
   save() {
@@ -108,6 +110,14 @@ export class EntranceComponent implements OnInit {
       err=>{
         console.log(err);
         //this.error = err;
+      }
+    );
+  }
+
+  findSheds() {
+    this._shedService.findAll().subscribe(
+      suc => {
+        this.sheds = suc;
       }
     );
   }
