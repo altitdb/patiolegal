@@ -108,7 +108,6 @@ export class EntranceComponent implements OnInit {
 
     this._entranceService.save(this.form.value).subscribe(
       suc=>{
-        //this._router.navigate(["/main/search"]);
         this.openSuccessDialog(suc);
       },
       err=>{
