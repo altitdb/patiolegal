@@ -2,16 +2,16 @@ package br.com.patiolegal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.patiolegal.dto.CompanyDTO;
 import br.com.patiolegal.service.CompanyService;
 
-@Controller
+@RestController
 public class CompanyController {
 
 	@Autowired

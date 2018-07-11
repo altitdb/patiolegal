@@ -9,13 +9,13 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.patiolegal.exception.PrintException;
 
-@Controller
+@RestController
 public class PrintController {
 
     @RequestMapping(value = "/api/v1/print/protocol/{protocol}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
