@@ -13,7 +13,7 @@ export class EntranceService {
 
   public save(data) {
     const HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._httpCliente.post(this.url,
+    return this._httpCliente.post<string>(this.url,
       data,
       {
         headers: HEADERS
