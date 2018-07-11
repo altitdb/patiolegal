@@ -1,11 +1,12 @@
 package br.com.patiolegal.service;
 
-import br.com.patiolegal.dto.ArrestOrganRequestDTO;
-import br.com.patiolegal.dto.ArrestOrganResponseDTO;
+import java.util.List;
+
+import br.com.patiolegal.dto.ArrestOrganDTO;
 
 
 public interface ArrestOrganService {
 	
-	ArrestOrganResponseDTO arrestOrgan(ArrestOrganRequestDTO request); 
+	List<ArrestOrganDTO> findAll();
 
 }

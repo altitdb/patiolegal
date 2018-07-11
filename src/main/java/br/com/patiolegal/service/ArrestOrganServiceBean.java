@@ -1,30 +1,34 @@
 package br.com.patiolegal.service;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.patiolegal.domain.ArrestOrgan;
-import br.com.patiolegal.dto.ArrestOrganRequestDTO;
-import br.com.patiolegal.dto.ArrestOrganResponseDTO;
-import br.com.patiolegal.dto.ArrestOrganResponseDTO.ArrestOrganResponseBuilder;
+import br.com.patiolegal.dto.ArrestOrganDTO;
+import br.com.patiolegal.dto.ArrestOrganDTO.ArrestOrganBuilder;
 import br.com.patiolegal.repository.ArrestOrganRepository;
 
 @Service
 public class ArrestOrganServiceBean implements ArrestOrganService {
 	
 	@Autowired
-	private ArrestOrganRepository arrestOrganRepository;
+	private ArrestOrganRepository repository;
 	
 	@Override
-	public ArrestOrganResponseDTO arrestOrgan(ArrestOrganRequestDTO request) {
-		String arrestOrgan = StringUtils.upperCase(request.getInitials());
+	public List<ArrestOrganDTO> findAll() { 
 		
-		ArrestOrgan initials = arrestOrganRepository.findByInitials(request.getInitials());
+			List<ArrestOrgan> arrestOrgans = repository.findAll();
+			
+			return arrestOrgans.stream()
+									.map(arrestOrgan -> new ArrestOrganBuilder()
+															.withInitials(arrestOrgan.getInitials())
+															.withDescription(arrestOrgan.getDescription())
+															.build())
+									.collect(Collectors.toList());
 		
-		ArrestOrganResponseDTO response = new ArrestOrganResponseBuilder().withAccessToken("DSADSA").withProfile("ADMIN")
-				.withInitials(arrestOrgan).build();
-		return response;
-	}
-
+		
+	}	
 }
