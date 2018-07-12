@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="protocol")
+@Document(collection = "protocol")
 public class Protocol {
 
     @Id
-    private String id;    
+    private String id;
+    private String protocol;
     private String part;
     private LocalDate date;
     private String policeInvestigation;
@@ -46,6 +47,10 @@ public class Protocol {
     private String row;
     private String column;
     private String floor;
+
+    public String getProtocol() {
+        return protocol;
+    }
 
     public String getPart() {
         return part;
