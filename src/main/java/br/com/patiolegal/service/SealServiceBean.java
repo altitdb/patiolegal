@@ -12,10 +12,10 @@ import br.com.patiolegal.reports.ReportUtils;
 public class SealServiceBean implements SealService {
 
 	@Autowired
-	ReportUtils reportUtils;
+	private ReportUtils reportUtils;
 
 	@Override
-	public InputStream generateSeal(SealRequestDTO request) {
+	public InputStream generate(SealRequestDTO request) {
 		return reportUtils.generateSealReport(request);
 	}
 

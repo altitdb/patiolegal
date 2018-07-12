@@ -6,6 +6,6 @@ import br.com.patiolegal.dto.SealRequestDTO;
 
 public interface SealService {
 	
-	InputStream generateSeal(SealRequestDTO request);
+	InputStream generate(SealRequestDTO request);
 
 }
