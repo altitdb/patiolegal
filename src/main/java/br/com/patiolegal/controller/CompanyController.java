@@ -19,8 +19,7 @@ public class CompanyController {
 
 	@RequestMapping(value = "/api/v1/company/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody CompanyDTO getCompanyDetails(@PathVariable String id) {
-		CompanyDTO companyDTO = service.findById(id);
-		return companyDTO;
+		return service.findById(id);
 	}
 
 }
