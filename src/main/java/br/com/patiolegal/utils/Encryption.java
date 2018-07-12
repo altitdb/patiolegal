@@ -2,35 +2,35 @@ package br.com.patiolegal.utils;
 
 import java.security.MessageDigest;
 
-import br.com.patiolegal.exception.PasswordToEncryptException;
+import org.jboss.logging.Logger;
+
+import br.com.patiolegal.exception.PasswordEncryptException;
 
 public class Encryption {
 
-	private static final String ALGORITHM = "SHA-256";
-	private static final String CHARSET = "UTF-8";
+    private static final Logger LOG = Logger.getLogger(Encryption.class);
+    private static final String ALGORITHM = "SHA-256";
+    private static final String CHARSET = "UTF-8";
 
-	public String toEncrypt(String pass) {
+    public String toEncrypt(String pass) {
 
-		MessageDigest algorithm;
-		StringBuilder hexPass = new StringBuilder();
-		String hashPass;
+        StringBuilder hexPass = new StringBuilder();
 
-		try {
+        try {
 
-			algorithm = MessageDigest.getInstance(ALGORITHM);
-			byte passDigest[] = algorithm.digest(pass.getBytes(CHARSET));
+            MessageDigest algorithm = MessageDigest.getInstance(ALGORITHM);
+            byte passDigest[] = algorithm.digest(pass.getBytes(CHARSET));
 
-			for (byte b : passDigest) {
-				hexPass.append(String.format("%02X", 0xFF & b));
-			}
+            for (byte b : passDigest) {
+                hexPass.append(String.format("%02X", 0xFF & b));
+            }
 
-			hashPass = hexPass.toString();
+            return String.valueOf(hexPass);
+        } catch (Exception e) {
+            LOG.error("Erro ao encriptar a senha",  e);
+            throw new PasswordEncryptException();
+        }
 
-			return hashPass;
-		} catch (Exception e) {
-			throw new PasswordToEncryptException(e);
-		}
-
-	}
+    }
 
 }
