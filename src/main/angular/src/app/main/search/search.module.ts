@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
+import { SearchService } from './search.service';
 
 @NgModule({
   imports: [
@@ -32,6 +33,9 @@ import { MatTableModule } from '@angular/material';
     MatIconModule,
     MatTableModule
   ],
-  declarations: [SearchComponent]
+  declarations: [SearchComponent],
+  providers: [
+    SearchService
+  ]
 })
 export class SearchModule { }

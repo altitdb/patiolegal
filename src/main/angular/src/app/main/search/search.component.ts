@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-
-export interface Protocol {
-  entranceDate: Date;
-  exitDate: Date;
-  protocol: string;  
-  sportingPlate: string;
-  originalPlate: string;
-}
-
-const ELEMENT_DATA: Protocol[] = [
-  {entranceDate: new Date(), exitDate: new Date(), protocol: 'PC120318200012018', sportingPlate: 'ASV-7099', originalPlate: ''},
-  {entranceDate: new Date(), exitDate: null, protocol: 'PM120318200012018', sportingPlate: 'ATX-8080', originalPlate: 'ATX-8080'},
-  {entranceDate: new Date(), exitDate: null, protocol: 'PM120318200012018', sportingPlate: 'AAA-9587', originalPlate: 'AAA-9587'}
-];
+import { SearchService } from './search.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-search',
@@ -26,9 +14,10 @@ export class SearchComponent implements OnInit {
   filtred: boolean = false;
   form: FormGroup;
   displayedColumns: string[] = ['entranceDate', 'exitDate', 'protocol', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MatTableDataSource<Protocol>;
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private _router: Router,
+              private _searchService: SearchService) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -40,6 +29,11 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.filtred = true;
+    this._searchService.search().subscribe(
+      suc => {
+        this.dataSource = new MatTableDataSource(suc);
+      }
+    );
   }
 
   printProtocol(protocol) {
@@ -53,4 +47,5 @@ export class SearchComponent implements OnInit {
   exit(protocol) {
     this._router.navigate(["/main/exit", protocol]);
   }
+
 }
