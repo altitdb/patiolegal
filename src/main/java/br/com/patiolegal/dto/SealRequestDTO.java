@@ -18,4 +18,9 @@ public class SealRequestDTO {
 		return reason;
 	}
 
+	@Override
+	public String toString() {
+		return "SealRequestDTO [protocol=" + protocol + ", amount=" + amount + ", reason=" + reason + "]";
+	}
+
 }
