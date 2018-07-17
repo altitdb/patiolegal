@@ -14,6 +14,11 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
 import org.jboss.logging.Logger;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +28,7 @@ import br.com.patiolegal.dto.ProtocolRequestDTO;
 import br.com.patiolegal.dto.SealDTO;
 import br.com.patiolegal.dto.SealRequestDTO;
 import br.com.patiolegal.exception.GenerateSealReportException;
+import br.com.patiolegal.exception.PrintException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -70,6 +76,8 @@ public class ReportUtils {
 
     public InputStream generateSealReport(SealRequestDTO request) {
 
+    	LOG.info("Dados recebidos na requisicao para geracao de lacres: " + request.toString());
+    	
         String sourceFileName = PATH + "seal.jasper";
         List<SealDTO> list = new ArrayList<>();
         String imageWithBasePrefix = StringUtils.replace(qrcode, "data:image/png;base64,", "");
@@ -82,7 +90,7 @@ public class ReportUtils {
         try {
             protocol.setImage(ImageIO.read(imageIs));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Erro ao recuperar imagem:" + e);
         }
 
         while (list.size() < request.getAmount()) {
@@ -93,15 +101,36 @@ public class ReportUtils {
 
         Map<String, Object> parameters = new HashMap<>();
         try {
-
+        	LOG.debug("Preparando para gerar lacres...");
             JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
             InputStream inputStream = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
-
+            LOG.debug("Lacres gerados.");
             return inputStream;
 
         } catch (Exception e) {
-            LOG.error("Erro ao gerar lacre", e);
+            LOG.error("Erro ao gerar lacres: ", e);
             throw new GenerateSealReportException();
         }
+    }
+    
+    public ResponseEntity<InputStreamResource> printToPdf(String fileName, InputStream inputStream){
+    	ClassPathResource pdfFile = new ClassPathResource(fileName);
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		headers.add("Pragma", "no-cache");
+		headers.add("Expires", "0");
+		
+		try{
+			return ResponseEntity
+					.ok()
+					.headers(headers)
+					.contentLength(pdfFile.contentLength())
+					.contentType(MediaType.APPLICATION_OCTET_STREAM)
+					.body(new InputStreamResource(inputStream));
+		}catch (Exception e) {
+			LOG.error("Erro ao gerar PDF com lacres: " + e);
+			throw new PrintException();
+		}
     }
 }
