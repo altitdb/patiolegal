@@ -23,6 +23,6 @@ public class SealController {
 
 	@PostMapping(path = "/api/v1/print/seal", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> generate(@RequestBody SealRequestDTO request) {
-		return report.printToPdf("seal.pdf", service.generate(request));
+		return report.printToPdf("seal_" + request.getProtocol() + ".pdf", service.generate(request));
 	}
 }
