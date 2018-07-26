@@ -13,4 +13,4 @@ before_install:
   - nvm install $NODE_VERSION
   - npm install -g @angular/cli@$ANGULAR_CLI_VERSION
 script:
-  - mvn clean heroku:deploy-slug sonar:sonar
+  - mvn clean heroku:deploy sonar:sonar
