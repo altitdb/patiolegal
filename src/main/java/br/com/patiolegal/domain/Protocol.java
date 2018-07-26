@@ -1,6 +1,7 @@
 package br.com.patiolegal.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,192 +9,236 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "protocol")
 public class Protocol {
 
-    @Id
-    private String id;
-    private String protocol;
-    private String part;
-    private LocalDate date;
-    private String policeInvestigation;
-    private String eventBulletin;
-    private String taxIdentifier;
-    private String name;
-    private String theyRenamed;
-    private String ownerName;
-    private String ownerTaxIdentifier;
-    private String brand;
-    private String model;
-    private String category;
-    private String color;
-    private String fuel;
-    private String factoryYear;
-    private String modelYear;
-    private String sportingPlate;
-    private String originalPlate;
-    private String chassisState;
-    private String chassis;
-    private String motorState;
-    private String motor;
-    private Boolean insured;
-    private Boolean financed;
-    private Boolean stolen;
-    private Boolean drugTrafficking;
-    private Boolean moneyLaundry;
-    private Boolean perquisite;
-    private Boolean papillaryExpertise;
-    private Boolean ownerIntimate;
-    private Boolean authorizedAlienation;
-    private Boolean debits;
-    private String shed;
-    private String row;
-    private String column;
-    private String floor;
+	@Id
+	private String id;
+	private String protocol;
+	private String part;
+	private LocalDate date;
+	private LocalDateTime dateTimeIn;
+	private LocalDateTime dateTimeOut;
+	private String policeInvestigation;
+	private String eventBulletin;
+	private String taxId;
+	private String name;
+	private String theyRenamed;
+	private String ownerName;
+	private String ownerTaxIdentifier;
+	private String brand;
+	private String model;
+	private String category;
+	private String color;
+	private String fuel;
+	private Integer yearFactory;
+	private Integer yearModel;
+	private String sportingPlate;
+	private String originalPlate;
+	private String originCapture;
+	private String chassisState;
+	private String chassis;
+	private String motorState;
+	private String motor;
+	private Boolean insured;
+	private Boolean financed;
+	private Boolean stolen;
+	private Boolean drugTrafficking;
+	private Boolean moneyLaundry;
+	private Boolean perquisite;
+	private Boolean papillaryExpertise;
+	private Boolean ownerIntimate;
+	private Boolean authorizedAlienation;
+	private Boolean debits;
+	private String shed;
+	private String row;
+	private String column;
+	private String floor;
+	private String accountableOut;
+	private String accountableIn;
+	private String board;
+	private String authentication;
+	private Integer amountSeals;
 
-    public String getProtocol() {
-        return protocol;
-    }
+	public String getProtocol() {
+		return protocol;
+	}
 
-    public String getPart() {
-        return part;
-    }
+	public String getPart() {
+		return part;
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    public String getPoliceInvestigation() {
-        return policeInvestigation;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getEventBulletin() {
-        return eventBulletin;
-    }
+	public LocalDateTime getDateTimeIn() {
+		return dateTimeIn;
+	}
 
-    public String getTaxIdentifier() {
-        return taxIdentifier;
-    }
+	public LocalDateTime getDateTimeOut() {
+		return dateTimeOut;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getPoliceInvestigation() {
+		return policeInvestigation;
+	}
 
-    public String getTheyRenamed() {
-        return theyRenamed;
-    }
+	public String getEventBulletin() {
+		return eventBulletin;
+	}
 
-    public String getOwnerName() {
-        return ownerName;
-    }
+	public String getTaxId() {
+		return taxId;
+	}
 
-    public String getOwnerTaxIdentifier() {
-        return ownerTaxIdentifier;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public String getTheyRenamed() {
+		return theyRenamed;
+	}
 
-    public String getModel() {
-        return model;
-    }
+	public String getOwnerName() {
+		return ownerName;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public String getOwnerTaxIdentifier() {
+		return ownerTaxIdentifier;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public String getBrand() {
+		return brand;
+	}
 
-    public String getFuel() {
-        return fuel;
-    }
+	public String getModel() {
+		return model;
+	}
 
-    public String getFactoryYear() {
-        return factoryYear;
-    }
+	public String getCategory() {
+		return category;
+	}
 
-    public String getModelYear() {
-        return modelYear;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public String getSportingPlate() {
-        return sportingPlate;
-    }
+	public String getFuel() {
+		return fuel;
+	}
 
-    public String getOriginalPlate() {
-        return originalPlate;
-    }
+	public Integer getYearFactory() {
+		return yearFactory;
+	}
 
-    public String getChassisState() {
-        return chassisState;
-    }
+	public Integer getYearModel() {
+		return yearModel;
+	}
 
-    public String getChassis() {
-        return chassis;
-    }
+	public String getSportingPlate() {
+		return sportingPlate;
+	}
 
-    public String getMotorState() {
-        return motorState;
-    }
+	public String getOriginalPlate() {
+		return originalPlate;
+	}
 
-    public String getMotor() {
-        return motor;
-    }
+	public String getOriginCapture() {
+		return originCapture;
+	}
 
-    public Boolean getInsured() {
-        return insured;
-    }
+	public String getChassisState() {
+		return chassisState;
+	}
 
-    public Boolean getFinanced() {
-        return financed;
-    }
+	public String getChassis() {
+		return chassis;
+	}
 
-    public Boolean getStolen() {
-        return stolen;
-    }
+	public String getMotorState() {
+		return motorState;
+	}
 
-    public Boolean getDrugTrafficking() {
-        return drugTrafficking;
-    }
+	public String getMotor() {
+		return motor;
+	}
 
-    public Boolean getMoneyLaundry() {
-        return moneyLaundry;
-    }
+	public Boolean getInsured() {
+		return insured;
+	}
 
-    public Boolean getPerquisite() {
-        return perquisite;
-    }
+	public Boolean getFinanced() {
+		return financed;
+	}
 
-    public Boolean getPapillaryExpertise() {
-        return papillaryExpertise;
-    }
+	public Boolean getStolen() {
+		return stolen;
+	}
 
-    public Boolean getOwnerIntimate() {
-        return ownerIntimate;
-    }
+	public Boolean getDrugTrafficking() {
+		return drugTrafficking;
+	}
 
-    public Boolean getAuthorizedAlienation() {
-        return authorizedAlienation;
-    }
+	public Boolean getMoneyLaundry() {
+		return moneyLaundry;
+	}
 
-    public Boolean getDebits() {
-        return debits;
-    }
+	public Boolean getPerquisite() {
+		return perquisite;
+	}
 
-    public String getShed() {
-        return shed;
-    }
+	public Boolean getPapillaryExpertise() {
+		return papillaryExpertise;
+	}
 
-    public String getRow() {
-        return row;
-    }
+	public Boolean getOwnerIntimate() {
+		return ownerIntimate;
+	}
 
-    public String getColumn() {
-        return column;
-    }
+	public Boolean getAuthorizedAlienation() {
+		return authorizedAlienation;
+	}
 
-    public String getFloor() {
-        return floor;
-    }
+	public Boolean getDebits() {
+		return debits;
+	}
+
+	public String getShed() {
+		return shed;
+	}
+
+	public String getRow() {
+		return row;
+	}
+
+	public String getColumn() {
+		return column;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public String getAccountableOut() {
+		return accountableOut;
+	}
+
+	public String getAccountableIn() {
+		return accountableIn;
+	}
+
+	public String getBoard() {
+		return board;
+	}
+
+	public String getAuthentication() {
+		return authentication;
+	}
+
+	public Integer getAmountSeals() {
+		return amountSeals;
+	}
 
 }
