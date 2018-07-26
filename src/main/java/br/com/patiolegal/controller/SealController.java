@@ -1,5 +1,7 @@
 package br.com.patiolegal.controller;
 
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -23,6 +25,8 @@ public class SealController {
 
 	@PostMapping(path = "/api/v1/print/seal", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> generate(@RequestBody SealRequestDTO request) {
-		return report.printToPdf("seal.pdf", service.generate(request));
+		String fileName = String.format("seal_%s.pdf", request.getProtocol());
+        InputStream generate = service.generate(request);
+        return report.printToPdf(fileName, generate);
 	}
 }
