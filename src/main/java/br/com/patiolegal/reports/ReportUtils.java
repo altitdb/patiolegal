@@ -64,10 +64,7 @@ public class ReportUtils {
 		try {
 			LOG.debug("Preparando para gerar protocolo...");
 			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
-			InputStream inputStream = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
-			LOG.debug("Protocolo gerado.");
-			return inputStream;
-
+			return new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
 		} catch (Exception e) {
 			LOG.error("Erro ao gerar protocolo: ", e);
 			throw new GenerateProtocolReportException();
