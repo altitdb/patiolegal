@@ -3,6 +3,8 @@ package br.com.patiolegal.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+
 public class ProtocolRequestDTO {
 
 	private String part;
@@ -12,7 +14,9 @@ public class ProtocolRequestDTO {
 	private LocalDateTime dateTimeOut;
 	private String policeInvestigation;
 	private String eventBulletin;
+	@NotNull
 	private String taxId;
+	@NotNull
 	private String name;
 	private String theyRenamed;
 	private String ownerName;

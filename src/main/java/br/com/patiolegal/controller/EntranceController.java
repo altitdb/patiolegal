@@ -27,11 +27,11 @@ public class EntranceController {
         String protocol = entranceService.save(request);
         return new ProtocolResponseDTO(protocol);
     }
-    
+
     @GetMapping(value = "/api/v1/entrance")
     public List<ProtocolDTO> getAll() {
         return entranceService.find();
-        
+
     }
 
 }

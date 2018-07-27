@@ -2,6 +2,8 @@ package br.com.patiolegal.controller;
 
 import java.io.InputStream;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -24,7 +26,7 @@ public class ProtocolController {
 	private ReportUtils report;
 
 	@PostMapping(value = "/api/v1/print/protocol", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> generate(@RequestBody ProtocolRequestDTO request) {
+	public ResponseEntity<InputStreamResource> generate(@RequestBody @Valid ProtocolRequestDTO request) {
 		String fileName = String.format("protocol_%s.pdf", request.getProtocol());
         InputStream pdf = service.generate(request);
         return report.printToPdf(fileName, pdf);

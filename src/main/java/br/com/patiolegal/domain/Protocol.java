@@ -9,236 +9,398 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "protocol")
 public class Protocol {
 
-	@Id
-	private String id;
-	private String protocol;
-	private String part;
-	private LocalDate date;
-	private LocalDateTime dateTimeIn;
-	private LocalDateTime dateTimeOut;
-	private String policeInvestigation;
-	private String eventBulletin;
-	private String taxId;
-	private String name;
-	private String theyRenamed;
-	private String ownerName;
-	private String ownerTaxIdentifier;
-	private String brand;
-	private String model;
-	private String category;
-	private String color;
-	private String fuel;
-	private Integer yearFactory;
-	private Integer yearModel;
-	private String sportingPlate;
-	private String originalPlate;
-	private String originCapture;
-	private String chassisState;
-	private String chassis;
-	private String motorState;
-	private String motor;
-	private Boolean insured;
-	private Boolean financed;
-	private Boolean stolen;
-	private Boolean drugTrafficking;
-	private Boolean moneyLaundry;
-	private Boolean perquisite;
-	private Boolean papillaryExpertise;
-	private Boolean ownerIntimate;
-	private Boolean authorizedAlienation;
-	private Boolean debits;
-	private String shed;
-	private String row;
-	private String column;
-	private String floor;
-	private String accountableOut;
-	private String accountableIn;
-	private String board;
-	private String authentication;
-	private Integer amountSeals;
+    @Id
+    private String id;
+    private String protocol;
+    private Entrance entrance;
+    private String part;
+    private LocalDate date;
+    private LocalDateTime dateTimeIn;
+    private String policeInvestigation;
+    private String eventBulletin;
+    private String taxId;
+    private String name;
+    private String ownerName;
+    private String ownerTaxIdentifier;
+    private String brand;
+    private String model;
+    private String category;
+    private String color;
+    private String fuel;
+    private Integer yearFactory;
+    private Integer yearModel;
+    private String originCapture;
+    private String chassisState;
+    private String chassis;
+    private String motorState;
+    private String motor;
+    private Boolean insured;
+    private Boolean financed;
+    private Boolean stolen;
+    private Boolean drugTrafficking;
+    private Boolean moneyLaundry;
+    private Boolean perquisite;
+    private Boolean papillaryExpertise;
+    private Boolean ownerIntimate;
+    private Boolean authorizedAlienation;
+    private Boolean debits;
+    private String shed;
+    private String row;
+    private String column;
+    private String floor;
+    private String accountableOut;
+    private String accountableIn;
+    private String board;
+    private String authentication;
+    private Integer amountSeals;
+    private Exit exit;
 
-	public String getProtocol() {
-		return protocol;
-	}
+    public Entrance getEntrance() {
+        return entrance;
+    }
 
-	public String getPart() {
-		return part;
-	}
+    public void setEntrance(Entrance entrance) {
+        this.entrance = entrance;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public Exit getExit() {
+        return exit;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setExit(Exit exit) {
+        this.exit = exit;
+    }
 
-	public LocalDateTime getDateTimeIn() {
-		return dateTimeIn;
-	}
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
-	public LocalDateTime getDateTimeOut() {
-		return dateTimeOut;
-	}
+    public void setPart(String part) {
+        this.part = part;
+    }
 
-	public String getPoliceInvestigation() {
-		return policeInvestigation;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-	public String getEventBulletin() {
-		return eventBulletin;
-	}
+    public void setDateTimeIn(LocalDateTime dateTimeIn) {
+        this.dateTimeIn = dateTimeIn;
+    }
 
-	public String getTaxId() {
-		return taxId;
-	}
+    public void setPoliceInvestigation(String policeInvestigation) {
+        this.policeInvestigation = policeInvestigation;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setEventBulletin(String eventBulletin) {
+        this.eventBulletin = eventBulletin;
+    }
 
-	public String getTheyRenamed() {
-		return theyRenamed;
-	}
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
 
-	public String getOwnerName() {
-		return ownerName;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getOwnerTaxIdentifier() {
-		return ownerTaxIdentifier;
-	}
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public void setOwnerTaxIdentifier(String ownerTaxIdentifier) {
+        this.ownerTaxIdentifier = ownerTaxIdentifier;
+    }
 
-	public String getModel() {
-		return model;
-	}
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setModel(String model) {
+        this.model = model;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public String getFuel() {
-		return fuel;
-	}
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-	public Integer getYearFactory() {
-		return yearFactory;
-	}
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
 
-	public Integer getYearModel() {
-		return yearModel;
-	}
+    public void setYearFactory(Integer yearFactory) {
+        this.yearFactory = yearFactory;
+    }
 
-	public String getSportingPlate() {
-		return sportingPlate;
-	}
+    public void setYearModel(Integer yearModel) {
+        this.yearModel = yearModel;
+    }
 
-	public String getOriginalPlate() {
-		return originalPlate;
-	}
+    public void setOriginCapture(String originCapture) {
+        this.originCapture = originCapture;
+    }
 
-	public String getOriginCapture() {
-		return originCapture;
-	}
+    public void setChassisState(String chassisState) {
+        this.chassisState = chassisState;
+    }
 
-	public String getChassisState() {
-		return chassisState;
-	}
+    public void setChassis(String chassis) {
+        this.chassis = chassis;
+    }
 
-	public String getChassis() {
-		return chassis;
-	}
+    public void setMotorState(String motorState) {
+        this.motorState = motorState;
+    }
 
-	public String getMotorState() {
-		return motorState;
-	}
+    public void setMotor(String motor) {
+        this.motor = motor;
+    }
 
-	public String getMotor() {
-		return motor;
-	}
+    public void setInsured(Boolean insured) {
+        this.insured = insured;
+    }
 
-	public Boolean getInsured() {
-		return insured;
-	}
+    public void setFinanced(Boolean financed) {
+        this.financed = financed;
+    }
 
-	public Boolean getFinanced() {
-		return financed;
-	}
+    public void setStolen(Boolean stolen) {
+        this.stolen = stolen;
+    }
 
-	public Boolean getStolen() {
-		return stolen;
-	}
+    public void setDrugTrafficking(Boolean drugTrafficking) {
+        this.drugTrafficking = drugTrafficking;
+    }
 
-	public Boolean getDrugTrafficking() {
-		return drugTrafficking;
-	}
+    public void setMoneyLaundry(Boolean moneyLaundry) {
+        this.moneyLaundry = moneyLaundry;
+    }
 
-	public Boolean getMoneyLaundry() {
-		return moneyLaundry;
-	}
+    public void setPerquisite(Boolean perquisite) {
+        this.perquisite = perquisite;
+    }
 
-	public Boolean getPerquisite() {
-		return perquisite;
-	}
+    public void setPapillaryExpertise(Boolean papillaryExpertise) {
+        this.papillaryExpertise = papillaryExpertise;
+    }
 
-	public Boolean getPapillaryExpertise() {
-		return papillaryExpertise;
-	}
+    public void setOwnerIntimate(Boolean ownerIntimate) {
+        this.ownerIntimate = ownerIntimate;
+    }
 
-	public Boolean getOwnerIntimate() {
-		return ownerIntimate;
-	}
+    public void setAuthorizedAlienation(Boolean authorizedAlienation) {
+        this.authorizedAlienation = authorizedAlienation;
+    }
 
-	public Boolean getAuthorizedAlienation() {
-		return authorizedAlienation;
-	}
+    public void setDebits(Boolean debits) {
+        this.debits = debits;
+    }
 
-	public Boolean getDebits() {
-		return debits;
-	}
+    public void setShed(String shed) {
+        this.shed = shed;
+    }
 
-	public String getShed() {
-		return shed;
-	}
+    public void setRow(String row) {
+        this.row = row;
+    }
 
-	public String getRow() {
-		return row;
-	}
+    public void setColumn(String column) {
+        this.column = column;
+    }
 
-	public String getColumn() {
-		return column;
-	}
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
 
-	public String getFloor() {
-		return floor;
-	}
+    public void setAccountableOut(String accountableOut) {
+        this.accountableOut = accountableOut;
+    }
 
-	public String getAccountableOut() {
-		return accountableOut;
-	}
+    public void setAccountableIn(String accountableIn) {
+        this.accountableIn = accountableIn;
+    }
 
-	public String getAccountableIn() {
-		return accountableIn;
-	}
+    public void setBoard(String board) {
+        this.board = board;
+    }
 
-	public String getBoard() {
-		return board;
-	}
+    public void setAuthentication(String authentication) {
+        this.authentication = authentication;
+    }
 
-	public String getAuthentication() {
-		return authentication;
-	}
+    public void setAmountSeals(Integer amountSeals) {
+        this.amountSeals = amountSeals;
+    }
 
-	public Integer getAmountSeals() {
-		return amountSeals;
-	}
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getPart() {
+        return part;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public LocalDateTime getDateTimeIn() {
+        return dateTimeIn;
+    }
+
+    public String getPoliceInvestigation() {
+        return policeInvestigation;
+    }
+
+    public String getEventBulletin() {
+        return eventBulletin;
+    }
+
+    public String getTaxId() {
+        return taxId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getOwnerTaxIdentifier() {
+        return ownerTaxIdentifier;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public Integer getYearFactory() {
+        return yearFactory;
+    }
+
+    public Integer getYearModel() {
+        return yearModel;
+    }
+
+    public String getOriginCapture() {
+        return originCapture;
+    }
+
+    public String getChassisState() {
+        return chassisState;
+    }
+
+    public String getChassis() {
+        return chassis;
+    }
+
+    public String getMotorState() {
+        return motorState;
+    }
+
+    public String getMotor() {
+        return motor;
+    }
+
+    public Boolean getInsured() {
+        return insured;
+    }
+
+    public Boolean getFinanced() {
+        return financed;
+    }
+
+    public Boolean getStolen() {
+        return stolen;
+    }
+
+    public Boolean getDrugTrafficking() {
+        return drugTrafficking;
+    }
+
+    public Boolean getMoneyLaundry() {
+        return moneyLaundry;
+    }
+
+    public Boolean getPerquisite() {
+        return perquisite;
+    }
+
+    public Boolean getPapillaryExpertise() {
+        return papillaryExpertise;
+    }
+
+    public Boolean getOwnerIntimate() {
+        return ownerIntimate;
+    }
+
+    public Boolean getAuthorizedAlienation() {
+        return authorizedAlienation;
+    }
+
+    public Boolean getDebits() {
+        return debits;
+    }
+
+    public String getShed() {
+        return shed;
+    }
+
+    public String getRow() {
+        return row;
+    }
+
+    public String getColumn() {
+        return column;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public String getAccountableOut() {
+        return accountableOut;
+    }
+
+    public String getAccountableIn() {
+        return accountableIn;
+    }
+
+    public String getBoard() {
+        return board;
+    }
+
+    public String getAuthentication() {
+        return authentication;
+    }
+
+    public Integer getAmountSeals() {
+        return amountSeals;
+    }
 
 }
