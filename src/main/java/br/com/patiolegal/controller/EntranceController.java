@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.ProtocolRequestDTO;
 import br.com.patiolegal.dto.ProtocolResponseDTO;
+import br.com.patiolegal.dto.SearchEntranceRequestDTO;
+import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.service.EntranceService;
 
 @RestController
@@ -33,5 +36,10 @@ public class EntranceController {
         return entranceService.find();
 
     }
+    
+    @PostMapping(value = "/api/v1/entrance/search")
+	public List<SearchEntranceResponseDTO> getBy(@RequestBody SearchEntranceRequestDTO request) {
+		return entranceService.getBy(request);
+	}
 
 }
