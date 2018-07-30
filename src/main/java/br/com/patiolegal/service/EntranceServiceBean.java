@@ -1,6 +1,7 @@
 package br.com.patiolegal.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,16 +68,16 @@ public class EntranceServiceBean implements EntranceService {
 
 		List<Protocol> protocols = (List<Protocol>) entranceRepository.findAll(predicate);
 		return protocols.stream().map(protocol -> {
-			// String sportingPlate =
-			// protocol.getEntrance().getVehicle().getSportingPlate();
-			// String originalPlate =
-			// protocol.getEntrance().getVehicle().getOriginalPlate();
+			 String sportingPlate =
+			 protocol.getEntrance().getVehicle().getSportingPlate();
+			 String originalPlate =
+			 protocol.getEntrance().getVehicle().getOriginalPlate();
 			return new SearchEntranceBuilder()
-					// .withDateTimeIn(protocol.getDateTimeIn())
-					// .withDateTimeOut(protocol.getExit().getDateTimeOut())
-					.withProtocol(protocol.getProtocol())
-					// .withSportingPlate(sportingPlate)
-					// .withOriginalPlate(originalPlate)
+					 .withDateTimeIn(protocol.getDateTimeIn())
+					 .withDateTimeOut(protocol.getExit().getDateTimeOut())
+					 .withProtocol(protocol.getProtocol())
+					 .withSportingPlate(sportingPlate)
+					 .withOriginalPlate(originalPlate)
 					.build();
 		}).collect(Collectors.toList());
 	}
@@ -91,13 +92,10 @@ public class EntranceServiceBean implements EntranceService {
 		BooleanExpression expression;
 
 		if (StringUtils.isBlank(protocol) && initialDate == null && finalDate == null) {
-
-			initialDate = LocalDate.now();
-			finalDate = LocalDate.now();
-			expression = qProtocol.date.eq(initialDate).or(
-					(qProtocol.dateTimeIn.between(initialDate.atStartOfDay(), finalDate.atTime(23, 59, 59, 999999999))))
-					.or(qProtocol.exit.dateTimeOut.between(initialDate.atStartOfDay(),
-							finalDate.atTime(23, 59, 59, 999999999)));
+			
+			expression = qProtocol.date.eq(LocalDate.now())
+			.or((qProtocol.dateTimeIn.goe(LocalDate.now().atStartOfDay()).and(qProtocol.dateTimeIn.loe(LocalDateTime.now()))))
+			.or((qProtocol.exit.dateTimeOut.goe(LocalDate.now().atStartOfDay()).and(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now()))));
 			return expression;
 		}
 
@@ -114,8 +112,8 @@ public class EntranceServiceBean implements EntranceService {
 		}
 		if (finalDate != null) {
 			expression = expression.and(
-					qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(finalDate.atTime(23, 59, 59, 999999999)))
-							.or(qProtocol.exit.dateTimeOut.loe(finalDate.atTime(23, 59, 59, 999999999))));
+					qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(LocalDateTime.now()))
+							.or(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now())));
 		}
 		return expression;
 	}

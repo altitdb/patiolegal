@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Document(collection = "protocol")
 public class Protocol {
@@ -15,7 +14,6 @@ public class Protocol {
 	private String protocol;
 	private Entrance entrance;
 	private String part;
-	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate date;
 	private LocalDateTime dateTimeIn;
 	private String policeInvestigation;
