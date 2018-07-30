@@ -3,8 +3,11 @@ package br.com.patiolegal.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Exit {
 
+	@DateTimeFormat(pattern="dd/MM/yyyy")
     private LocalDate date;
     private LocalDateTime dateTimeOut = LocalDateTime.now();
     private String username;
