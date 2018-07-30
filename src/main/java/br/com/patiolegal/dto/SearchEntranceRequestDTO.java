@@ -18,4 +18,11 @@ public class SearchEntranceRequestDTO {
 	public LocalDate getFinalDate() {
 		return finalDate;
 	}
+
+	@Override
+	public String toString() {
+		return "SearchEntranceRequestDTO [protocol=" + protocol + ", initialDate=" + initialDate + ", finalDate="
+				+ finalDate + "]";
+	}
+
 }
