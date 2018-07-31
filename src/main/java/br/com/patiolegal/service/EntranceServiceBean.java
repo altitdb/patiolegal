@@ -67,17 +67,19 @@ public class EntranceServiceBean implements EntranceService {
 		LOG.info("Predicado utilizado para realizar consulta:" + predicate.toString());
 
 		List<Protocol> protocols = (List<Protocol>) entranceRepository.findAll(predicate);
-		return protocols.stream().map(protocol -> {
-			 String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
-			 String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
-			return new SearchEntranceBuilder()
-					 .withDateTimeIn(protocol.getDateTimeIn())
-					 .withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
-					 .withProtocol(protocol.getProtocol())
-					 .withSportingPlate(sportingPlate)
-					 .withOriginalPlate(originalPlate)
-					.build();
-		}).collect(Collectors.toList());
+		
+		return protocols.stream()
+				.map(protocol -> {
+					 String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
+					 String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
+					 return new SearchEntranceBuilder()
+								 .withDateTimeIn(protocol.getDateTimeIn())
+								 .withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
+								 .withProtocol(protocol.getProtocol())
+								 .withSportingPlate(sportingPlate)
+								 .withOriginalPlate(originalPlate)
+								 .build();
+				}).collect(Collectors.toList());
 	}
 
 	private Predicate createPredicate(SearchEntranceRequestDTO request) {
