@@ -68,13 +68,11 @@ public class EntranceServiceBean implements EntranceService {
 
 		List<Protocol> protocols = (List<Protocol>) entranceRepository.findAll(predicate);
 		return protocols.stream().map(protocol -> {
-			 String sportingPlate =
-			 protocol.getEntrance().getVehicle().getSportingPlate();
-			 String originalPlate =
-			 protocol.getEntrance().getVehicle().getOriginalPlate();
+			 String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
+			 String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
 			return new SearchEntranceBuilder()
 					 .withDateTimeIn(protocol.getDateTimeIn())
-					 .withDateTimeOut(protocol.getExit().getDateTimeOut())
+					 .withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
 					 .withProtocol(protocol.getProtocol())
 					 .withSportingPlate(sportingPlate)
 					 .withOriginalPlate(originalPlate)
@@ -93,10 +91,11 @@ public class EntranceServiceBean implements EntranceService {
 
 		if (StringUtils.isBlank(protocol) && initialDate == null && finalDate == null) {
 			
-			expression = qProtocol.date.eq(LocalDate.now())
-			.or((qProtocol.dateTimeIn.goe(LocalDate.now().atStartOfDay()).and(qProtocol.dateTimeIn.loe(LocalDateTime.now()))))
-			.or((qProtocol.exit.dateTimeOut.goe(LocalDate.now().atStartOfDay()).and(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now()))));
-			return expression;
+			return qProtocol.date.goe(LocalDate.now())
+						.or(qProtocol.dateTimeIn.goe(LocalDate.now().atStartOfDay()))
+						.or(qProtocol.exit.dateTimeOut.goe(LocalDate.now().atStartOfDay()))
+						.and(qProtocol.date.loe(LocalDate.now()).or(qProtocol.dateTimeIn.loe(LocalDateTime.now()))
+						.or(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now())));
 		}
 
 		expression = qProtocol.id.isNotNull();
@@ -108,13 +107,14 @@ public class EntranceServiceBean implements EntranceService {
 		if (initialDate != null) {
 			expression = expression
 					.and(qProtocol.date.goe(initialDate).or(qProtocol.dateTimeIn.goe(initialDate.atStartOfDay()))
-							.or(qProtocol.exit.dateTimeOut.goe(initialDate.atStartOfDay())));
+					.or(qProtocol.exit.dateTimeOut.goe(initialDate.atStartOfDay())));
 		}
 		if (finalDate != null) {
-			expression = expression.and(
-					qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(LocalDateTime.now()))
-							.or(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now())));
+			expression = expression
+					.and(qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(finalDate.atTime(23,59,59,999999999)))
+					.or(qProtocol.exit.dateTimeOut.loe(finalDate.atTime(23,59,59,999999999))));
 		}
+		
 		return expression;
 	}
 
