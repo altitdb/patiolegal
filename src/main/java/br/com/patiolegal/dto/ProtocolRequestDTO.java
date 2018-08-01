@@ -26,8 +26,8 @@ public class ProtocolRequestDTO {
 	private String category;
 	private String color;
 	private String fuel;
-	private String yearFactory;
-	private String yearModel;
+	private Integer yearFactory;
+	private Integer yearModel;
 	private String sportingPlate;
 	private String originalPlate;
 	private String originCapture;
@@ -123,11 +123,11 @@ public class ProtocolRequestDTO {
 		return fuel;
 	}
 
-	public final String getYearFactory() {
+	public final Integer getYearFactory() {
 		return yearFactory;
 	}
 
-	public final String getYearModel() {
+	public final Integer getYearModel() {
 		return yearModel;
 	}
 
