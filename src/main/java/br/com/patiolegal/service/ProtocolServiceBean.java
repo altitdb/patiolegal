@@ -7,7 +7,10 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.patiolegal.domain.Location;
+import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
+import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
 import br.com.patiolegal.dto.ProtocolRequestDTO;
@@ -31,6 +34,9 @@ public class ProtocolServiceBean implements ProtocolService{
 		Optional<Protocol> protocol = repository.findByProtocol(request.getProtocol());
 		if(protocol.isPresent()){
 			Protocol protocolValue = protocol.get();
+            Vehicle vehicle = protocolValue.getEntrance().getVehicle();
+            Police police = protocolValue.getEntrance().getPolice();
+            Location location = protocolValue.getEntrance().getLocation();
             ProtocolDTO dto = new ProtocolDTOBuilder()
 										.withPart(protocolValue.getPart())
 										.withProtocol(protocolValue.getProtocol())
@@ -41,37 +47,37 @@ public class ProtocolServiceBean implements ProtocolService{
 										.withEventBulletin(protocolValue.getEventBulletin())
 										.withTaxId(protocolValue.getTaxId())
 										.withName(protocolValue.getName())
-										.withTheyRenamed(protocolValue.getEntrance().getVehicle().getTheyRenamed())
-										.withOwnerName(protocolValue.getEntrance().getVehicle().getOwnerName())
-										.withOwnerTaxIdentifier(protocolValue.getEntrance().getVehicle().getOwnerTaxIdentifier())
-										.withBrand(protocolValue.getEntrance().getVehicle().getBrand())
-										.withModel(protocolValue.getEntrance().getVehicle().getModel())
-										.withCategory(protocolValue.getEntrance().getVehicle().getCategory())
-										.withColor(protocolValue.getEntrance().getVehicle().getColor())
-										.withFuel(protocolValue.getEntrance().getVehicle().getFuel())
-										.withYearFactory(protocolValue.getEntrance().getVehicle().getYearFactory())
-										.withYearModel(protocolValue.getEntrance().getVehicle().getYearModel())
-										.withSportingPlate(protocolValue.getEntrance().getVehicle().getSportingPlate())
-										.withOriginalPlate(protocolValue.getEntrance().getVehicle().getOriginalPlate())
+										.withTheyRenamed(vehicle.getTheyRenamed())
+										.withOwnerName(vehicle.getOwnerName())
+										.withOwnerTaxIdentifier(vehicle.getOwnerTaxIdentifier())
+										.withBrand(vehicle.getBrand())
+										.withModel(vehicle.getModel())
+										.withCategory(vehicle.getCategory())
+										.withColor(vehicle.getColor())
+										.withFuel(vehicle.getFuel())
+										.withYearFactory(vehicle.getYearFactory())
+										.withYearModel(vehicle.getYearModel())
+										.withSportingPlate(vehicle.getSportingPlate())
+										.withOriginalPlate(vehicle.getOriginalPlate())
 										.withOriginCapture(protocolValue.getOriginCapture())
-										.withChassisState(protocolValue.getEntrance().getVehicle().getChassisState())
-										.withChassis(protocolValue.getEntrance().getVehicle().getChassis())
-										.withMotorState(protocolValue.getEntrance().getVehicle().getEngineState())
-										.withMotor(protocolValue.getEntrance().getVehicle().getEngine())
-										.withInsured(protocolValue.getEntrance().getPolice().getInsured())
-										.withFinanced(protocolValue.getEntrance().getPolice().getFinanced())
-										.withStolen(protocolValue.getEntrance().getPolice().getStolen())
-										.withDrugTrafficking(protocolValue.getEntrance().getPolice().getDrugTrafficking())
-										.withMoneyLaundry(protocolValue.getEntrance().getPolice().getMoneyLaundry())
-										.withPerquisite(protocolValue.getEntrance().getPolice().getPerquisite())
-										.withPapillaryExpertise(protocolValue.getEntrance().getPolice().getPapillaryExpertise())
-										.withOwnerIntimate(protocolValue.getEntrance().getPolice().getOwnerIntimate())
-										.withAuthorizedAlienation(protocolValue.getEntrance().getPolice().getAuthorizedAlienation())
-										.withDebits(protocolValue.getEntrance().getPolice().getDebits())
-										.withShed(protocolValue.getEntrance().getLocation().getShed())
-										.withRow(protocolValue.getEntrance().getLocation().getRow())
-										.withColumn(protocolValue.getEntrance().getLocation().getColumn())
-										.withFloor(protocolValue.getEntrance().getLocation().getFloor())
+										.withChassisState(vehicle.getChassisState())
+										.withChassis(vehicle.getChassis())
+										.withMotorState(vehicle.getEngineState())
+										.withMotor(vehicle.getEngine())
+										.withInsured(police.getInsured())
+										.withFinanced(police.getFinanced())
+										.withStolen(police.getStolen())
+										.withDrugTrafficking(police.getDrugTrafficking())
+										.withMoneyLaundry(police.getMoneyLaundry())
+										.withPerquisite(police.getPerquisite())
+										.withPapillaryExpertise(police.getPapillaryExpertise())
+										.withOwnerIntimate(police.getOwnerIntimate())
+										.withAuthorizedAlienation(police.getAuthorizedAlienation())
+										.withDebits(police.getDebits())
+										.withShed(location.getShed().getDescription())
+										.withRow(location.getRow())
+										.withColumn(location.getColumn())
+										.withFloor(location.getFloor())
 										.withAccountableOut(protocolValue.getAccountableOut())
 										.withAccountableIn(protocolValue.getAccountableIn())
 										.withBoard(protocolValue.getBoard())
