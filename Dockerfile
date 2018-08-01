@@ -28,8 +28,9 @@ FROM openjdk:8u171-jdk-slim
 WORKDIR /app
 
 ENV SPRING_DATA_MONGODB_URI=
+ENV JAVA_OPTS=
 
 COPY --from=frontend app/dist/patiolegal /app/patiolegal/static
 COPY --from=backend app/target/patiolegal.jar /app
 
-ENTRYPOINT java -Dspring.data.mongodb.uri=$SPRING_DATA_MONGODB_URI -jar patiolegal.jar
+ENTRYPOINT java $JAVA_OPTS -Dspring.data.mongodb.uri=$SPRING_DATA_MONGODB_URI -jar patiolegal.jar
