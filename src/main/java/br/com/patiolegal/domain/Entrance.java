@@ -2,34 +2,32 @@ package br.com.patiolegal.domain;
 
 public class Entrance {
 
-	private Vehicle vehicle;
+    private Vehicle vehicle;
+    private Police police;
+    private Location location;
 
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 
-	private PoliceData policeData;
+    public Police getPolice() {
+        return police;
+    }
 
-	public PoliceData getPoliceData() {
-		return policeData;
-	}
+    public void setPolice(Police police) {
+        this.police = police;
+    }
 
-	public void setPoliceData(PoliceData policeData) {
-		this.policeData = policeData;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	private ShedData shedData;
-
-	public ShedData getShedData() {
-		return shedData;
-	}
-
-	public void setShedData(ShedData shedData) {
-		this.shedData = shedData;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
 }

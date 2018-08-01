@@ -1,6 +1,6 @@
 package br.com.patiolegal.domain;
 
-public class PoliceData {
+public class Police {
 
 	private Boolean insured;
 	private Boolean financed;
