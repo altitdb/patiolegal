@@ -42,8 +42,8 @@ public class EntranceServiceBean implements EntranceService {
         vehicle.setYearModel(request.getYearModel());
         vehicle.setChassisState(request.getChassisState());
         vehicle.setChassis(request.getChassis());
-        vehicle.setMotorState(request.getMotorState());
-        vehicle.setMotor(request.getMotor());
+        vehicle.setEngineState(request.getMotorState());
+        vehicle.setEngine(request.getMotor());
         entrance.setVehicle(vehicle);
         protocol.setEntrance(entrance);
         entranceRepository.save(protocol);
