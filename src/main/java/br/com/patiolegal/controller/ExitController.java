@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.patiolegal.dto.ExitRequestDTO;
-import br.com.patiolegal.dto.ExitResponseDTO;
 import br.com.patiolegal.service.ExitService;
 
 @RestController
@@ -16,7 +15,7 @@ public class ExitController {
 	private ExitService service;
 
 	@PostMapping(value = "/api/v1/exit")
-	public ExitResponseDTO exit(@RequestBody ExitRequestDTO request) {
-		return service.exit(request);
+	public void exit(@RequestBody ExitRequestDTO request) {
+		service.exit(request);
 	}
 }
