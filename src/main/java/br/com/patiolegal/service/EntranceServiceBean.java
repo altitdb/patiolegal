@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,22 +32,37 @@ public class EntranceServiceBean implements EntranceService {
 
 	private static final Logger LOG = Logger.getLogger(EntranceServiceBean.class);
 
+
 	@Autowired
 	private EntranceRepository entranceRepository;
-
 	@Override
 	public String save(ProtocolRequestDTO request) {
-		validateOriginalPlate(request);
-		Protocol protocol = new Protocol();
-		protocol.setName(request.getName());
-		Entrance entrance = new Entrance();
-		Vehicle vehicle = new Vehicle();
-		vehicle.setOriginalPlate(request.getOriginalPlate());
-		entrance.setVehicle(vehicle);
-		protocol.setEntrance(entrance);
-		entranceRepository.save(protocol);
-		return "PROTOCOLO";
+	    validateOriginalPlate(request);
+	    Protocol protocol = new Protocol();
+	    protocol.setName(request.getName());
+	    Entrance entrance = new Entrance();
+	    Vehicle vehicle = new Vehicle();
+	    vehicle.setOriginalPlate(request.getOriginalPlate());
+	    vehicle.setSportingPlate(request.getSportingPlate());
+	    vehicle.setOwnerName(request.getOwnerName());
+	    vehicle.setOwnerTaxIdentifier(request.getOwnerTaxIdentifier());
+	    vehicle.setBrand(request.getBrand());
+	    vehicle.setModel(request.getModel());
+	    vehicle.setCategory(request.getCategory());
+	    vehicle.setColor(request.getColor());
+	    vehicle.setFuel(request.getFuel());
+	    vehicle.setYearFactory(request.getYearFactory());
+	    vehicle.setYearModel(request.getYearModel());
+	    vehicle.setChassisState(request.getChassisState());
+	    vehicle.setChassis(request.getChassis());
+	    vehicle.setEngineState(request.getMotorState());
+	    vehicle.setEngine(request.getMotor());
+	    entrance.setVehicle(vehicle);
+	    protocol.setEntrance(entrance);
+	    entranceRepository.save(protocol);
+	    return "PROTOCOLO";
 	}
+
 
 	@Override
 	public List<ProtocolDTO> find() {
@@ -127,5 +142,6 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 	}
+
 
 }
