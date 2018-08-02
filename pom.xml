@@ -217,6 +217,20 @@
 										<exec executable="cmd" osfamily="windows"
 											dir="${project.basedir}/src/main/angular">
 											<arg value="/c" />
+											<arg value="npm" />
+											<arg value="install" />
+											<arg value="-g" />
+											<arg value="@angular/cli@6.0.8" />
+										</exec>
+										<exec executable="npm" osfamily="unix"
+											dir="${project.basedir}/src/main/angular">
+											<arg value="install" />
+											<arg value="-g" />
+											<arg value="@angular/cli@6.0.8" />
+										</exec>
+										<exec executable="cmd" osfamily="windows"
+											dir="${project.basedir}/src/main/angular">
+											<arg value="/c" />
 											<arg value="ng" />
 											<arg value="build" />
 											<arg value="--aot" />
@@ -282,6 +296,12 @@
 				<groupId>net.sf.jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
 				<version>6.5.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.bouncycastle</groupId>
+						<artifactId>bcprov-jdk15on</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<!-- Commons Codec -->
