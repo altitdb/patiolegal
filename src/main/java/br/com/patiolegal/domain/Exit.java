@@ -3,51 +3,55 @@ package br.com.patiolegal.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class Exit {
 
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-    private LocalDate date;
-    private LocalDateTime dateTimeOut = LocalDateTime.now();
-    private String username;
-    private String taxId;
-    private String name;
+	private LocalDate date;
+	private LocalDateTime dateTimeOut = LocalDateTime.now();
+	private String username;
+	private String taxId;
+	private String name;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public Exit(LocalDate date, String username, String taxId, String name) {
+		this.date = date;
+		this.username = username;
+		this.taxId = taxId;
+		this.name = name;
+	}
 
-    public void setTaxId(String taxId) {
-        this.taxId = taxId;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    public LocalDateTime getDateTimeOut() {
-        return dateTimeOut;
-    }
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public LocalDateTime getDateTimeOut() {
+		return dateTimeOut;
+	}
 
-    public String getTaxId() {
-        return taxId;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 }

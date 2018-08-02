@@ -11,9 +11,11 @@ import org.springframework.stereotype.Repository;
 import br.com.patiolegal.domain.Protocol;
 
 @Repository
-public interface EntranceRepository extends MongoRepository<Protocol, String>, QuerydslPredicateExecutor<Protocol>{
+public interface EntranceRepository extends MongoRepository<Protocol, String>, QuerydslPredicateExecutor<Protocol> {
 
-    @Query(value = "{'entrance.vehicle.originalPlate': :#{#originalPlate}, 'exit': null}")
-    List<Protocol> findOriginalPlateWithoutExit(@Param("originalPlate") String originalPlate);
+	@Query(value = "{'entrance.vehicle.originalPlate': :#{#originalPlate}, 'exit': null}")
+	List<Protocol> findOriginalPlateWithoutExit(@Param("originalPlate") String originalPlate);
+
+	List<Protocol> findByProtocol(String protocol);
 
 }
