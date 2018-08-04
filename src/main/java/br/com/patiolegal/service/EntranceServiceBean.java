@@ -41,6 +41,7 @@ public class EntranceServiceBean implements EntranceService {
 	public String save(ProtocolRequestDTO request) {
 		
 		validateOriginalPlate(request);
+		validateChassis(request);
 		
 		Protocol protocol = new Protocol();
 		Entrance entrance = new Entrance();
@@ -98,7 +99,9 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setProtocol(request.getProtocol());
 		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
+		
 		entranceRepository.save(protocol);
+		
 		return protocol.getId();
 	}
 
@@ -174,6 +177,13 @@ public class EntranceServiceBean implements EntranceService {
 			throw new BusinessException("originalPlate", "Veículo já se encontra no pátio");
 		}
 
+	}
+	
+	private void validateChassis(ProtocolRequestDTO request){
+		List<Protocol> protocols = entranceRepository.findChassisWithoutExit(request.getChassis());
+		if(!CollectionUtils.isEmpty(protocols)){
+			throw new BusinessException("chassis", "Veículo já se encontra no pátio");
+		}
 	}
 
 }
