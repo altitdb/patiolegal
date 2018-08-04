@@ -15,6 +15,8 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import br.com.patiolegal.domain.Entrance;
+import br.com.patiolegal.domain.Location;
+import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
 import br.com.patiolegal.domain.Vehicle;
@@ -32,37 +34,53 @@ public class EntranceServiceBean implements EntranceService {
 
 	private static final Logger LOG = Logger.getLogger(EntranceServiceBean.class);
 
-
 	@Autowired
 	private EntranceRepository entranceRepository;
+
 	@Override
 	public String save(ProtocolRequestDTO request) {
-	    validateOriginalPlate(request);
-	    Protocol protocol = new Protocol();
-	    protocol.setName(request.getName());
-	    Entrance entrance = new Entrance();
-	    Vehicle vehicle = new Vehicle();
-	    vehicle.setOriginalPlate(request.getOriginalPlate());
-	    vehicle.setSportingPlate(request.getSportingPlate());
-	    vehicle.setOwnerName(request.getOwnerName());
-	    vehicle.setOwnerTaxIdentifier(request.getOwnerTaxIdentifier());
-	    vehicle.setBrand(request.getBrand());
-	    vehicle.setModel(request.getModel());
-	    vehicle.setCategory(request.getCategory());
-	    vehicle.setColor(request.getColor());
-	    vehicle.setFuel(request.getFuel());
-	    vehicle.setYearFactory(request.getYearFactory());
-	    vehicle.setYearModel(request.getYearModel());
-	    vehicle.setChassisState(request.getChassisState());
-	    vehicle.setChassis(request.getChassis());
-	    vehicle.setEngineState(request.getMotorState());
-	    vehicle.setEngine(request.getMotor());
-	    entrance.setVehicle(vehicle);
-	    protocol.setEntrance(entrance);
-	    entranceRepository.save(protocol);
-	    return "PROTOCOLO";
+		validateOriginalPlate(request);
+		Protocol protocol = new Protocol();
+		protocol.setName(request.getName());
+		Entrance entrance = new Entrance();
+		Vehicle vehicle = new Vehicle();
+		Police police = new Police();
+		Location location = new Location();
+		vehicle.setOriginalPlate(request.getOriginalPlate());
+		vehicle.setSportingPlate(request.getSportingPlate());
+		vehicle.setOwnerName(request.getOwnerName());
+		vehicle.setOwnerTaxIdentifier(request.getOwnerTaxIdentifier());
+		vehicle.setBrand(request.getBrand());
+		vehicle.setModel(request.getModel());
+		vehicle.setCategory(request.getCategory());
+		vehicle.setColor(request.getColor());
+		vehicle.setFuel(request.getFuel());
+		vehicle.setYearFactory(request.getYearFactory());
+		vehicle.setYearModel(request.getYearModel());
+		vehicle.setChassisState(request.getChassisState());
+		vehicle.setChassis(request.getChassis());
+		vehicle.setEngineState(request.getMotorState());
+		vehicle.setEngine(request.getMotor());
+		police.setInsured(request.getInsured());
+		police.setFinanced(request.getFinanced());
+		police.setStolen(request.getStolen());
+		police.setDrugTrafficking(request.getDrugTrafficking());
+		police.setMoneyLaundry(request.getMoneyLaundry());
+		police.setPerquisite(request.getPerquisite());
+		police.setPapillaryExpertise(request.getPapillaryExpertise());
+		police.setOwnerIntimate(request.getOwnerIntimate());
+		police.setAuthorizedAlienation(request.getAuthorizedAlienation());
+		police.setDebits(request.getDebits());
+		location.setRow(request.getRow());
+		location.setColumn(request.getColumn());
+		location.setFloor(request.getFloor());
+		entrance.setVehicle(vehicle);
+		entrance.setPolice(police);
+		entrance.setLocation(location);
+		protocol.setEntrance(entrance);
+		entranceRepository.save(protocol);
+		return "PROTOCOLO";
 	}
-
 
 	@Override
 	public List<ProtocolDTO> find() {
@@ -82,19 +100,15 @@ public class EntranceServiceBean implements EntranceService {
 		LOG.info("Predicado utilizado para realizar consulta:" + predicate.toString());
 
 		List<Protocol> protocols = (List<Protocol>) entranceRepository.findAll(predicate);
-		
-		return protocols.stream()
-				.map(protocol -> {
-					 String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
-					 String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
-					 return new SearchEntranceBuilder()
-								 .withDateTimeIn(protocol.getDateTimeIn())
-								 .withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
-								 .withProtocol(protocol.getProtocol())
-								 .withSportingPlate(sportingPlate)
-								 .withOriginalPlate(originalPlate)
-								 .build();
-				}).collect(Collectors.toList());
+
+		return protocols.stream().map(protocol -> {
+			String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
+			String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
+			return new SearchEntranceBuilder().withDateTimeIn(protocol.getDateTimeIn())
+					.withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
+					.withProtocol(protocol.getProtocol()).withSportingPlate(sportingPlate)
+					.withOriginalPlate(originalPlate).build();
+		}).collect(Collectors.toList());
 	}
 
 	private Predicate createPredicate(SearchEntranceRequestDTO request) {
@@ -107,12 +121,11 @@ public class EntranceServiceBean implements EntranceService {
 		BooleanExpression expression;
 
 		if (StringUtils.isBlank(protocol) && initialDate == null && finalDate == null) {
-			
-			return qProtocol.date.goe(LocalDate.now())
-						.or(qProtocol.dateTimeIn.goe(LocalDate.now().atStartOfDay()))
-						.or(qProtocol.exit.dateTimeOut.goe(LocalDate.now().atStartOfDay()))
-						.and(qProtocol.date.loe(LocalDate.now()).or(qProtocol.dateTimeIn.loe(LocalDateTime.now()))
-						.or(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now())));
+
+			return qProtocol.date.goe(LocalDate.now()).or(qProtocol.dateTimeIn.goe(LocalDate.now().atStartOfDay()))
+					.or(qProtocol.exit.dateTimeOut.goe(LocalDate.now().atStartOfDay()))
+					.and(qProtocol.date.loe(LocalDate.now()).or(qProtocol.dateTimeIn.loe(LocalDateTime.now()))
+							.or(qProtocol.exit.dateTimeOut.loe(LocalDateTime.now())));
 		}
 
 		expression = qProtocol.id.isNotNull();
@@ -124,14 +137,14 @@ public class EntranceServiceBean implements EntranceService {
 		if (initialDate != null) {
 			expression = expression
 					.and(qProtocol.date.goe(initialDate).or(qProtocol.dateTimeIn.goe(initialDate.atStartOfDay()))
-					.or(qProtocol.exit.dateTimeOut.goe(initialDate.atStartOfDay())));
+							.or(qProtocol.exit.dateTimeOut.goe(initialDate.atStartOfDay())));
 		}
 		if (finalDate != null) {
-			expression = expression
-					.and(qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(finalDate.atTime(23,59,59,999999999)))
-					.or(qProtocol.exit.dateTimeOut.loe(finalDate.atTime(23,59,59,999999999))));
+			expression = expression.and(
+					qProtocol.date.loe(finalDate).or(qProtocol.dateTimeIn.loe(finalDate.atTime(23, 59, 59, 999999999)))
+							.or(qProtocol.exit.dateTimeOut.loe(finalDate.atTime(23, 59, 59, 999999999))));
 		}
-		
+
 		return expression;
 	}
 
@@ -142,6 +155,5 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 	}
-
 
 }
