@@ -53,7 +53,7 @@ public class ProtocolRequestDTO {
 	private String accountableIn;
 	private String board;
 	private String authentication;
-	private Long amountSeals;
+	private Integer amountSeals;
 
 	public final String getPart() {
 		return part;
@@ -231,7 +231,7 @@ public class ProtocolRequestDTO {
 		return authentication;
 	}
 
-	public Long getAmountSeals() {
+	public Integer getAmountSeals() {
 		return amountSeals;
 	}
 

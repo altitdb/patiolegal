@@ -39,13 +39,15 @@ public class EntranceServiceBean implements EntranceService {
 
 	@Override
 	public String save(ProtocolRequestDTO request) {
+		
 		validateOriginalPlate(request);
+		
 		Protocol protocol = new Protocol();
-		protocol.setName(request.getName());
 		Entrance entrance = new Entrance();
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
+		
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
 		vehicle.setOwnerName(request.getOwnerName());
@@ -61,6 +63,7 @@ public class EntranceServiceBean implements EntranceService {
 		vehicle.setChassis(request.getChassis());
 		vehicle.setEngineState(request.getMotorState());
 		vehicle.setEngine(request.getMotor());
+		
 		police.setInsured(request.getInsured());
 		police.setFinanced(request.getFinanced());
 		police.setStolen(request.getStolen());
@@ -71,15 +74,32 @@ public class EntranceServiceBean implements EntranceService {
 		police.setOwnerIntimate(request.getOwnerIntimate());
 		police.setAuthorizedAlienation(request.getAuthorizedAlienation());
 		police.setDebits(request.getDebits());
+		
 		location.setRow(request.getRow());
 		location.setColumn(request.getColumn());
 		location.setFloor(request.getFloor());
+		
 		entrance.setVehicle(vehicle);
 		entrance.setPolice(police);
 		entrance.setLocation(location);
+		
+		protocol.setAccountableIn(request.getAccountableIn());
+		protocol.setAccountableOut(request.getAccountableOut());
+		protocol.setAmountSeals(request.getAmountSeals());
+		protocol.setAuthentication(request.getAuthentication());
+		protocol.setBoard(request.getBoard());
+		protocol.setDate(request.getDate());
+		protocol.setDateTimeIn(request.getDateTimeIn());
+		protocol.setEventBulletin(request.getEventBulletin());
+		protocol.setName(request.getName());
+		protocol.setOriginCapture(request.getOriginCapture());
+		protocol.setPart(request.getPart());
+		protocol.setPoliceInvestigation(request.getPoliceInvestigation());
+		protocol.setProtocol(request.getProtocol());
+		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
 		entranceRepository.save(protocol);
-		return "PROTOCOLO";
+		return protocol.getId();
 	}
 
 	@Override
