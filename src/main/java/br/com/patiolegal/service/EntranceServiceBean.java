@@ -3,6 +3,7 @@ package br.com.patiolegal.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -19,6 +20,7 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
+import br.com.patiolegal.domain.Shed;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
@@ -28,6 +30,7 @@ import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 import br.com.patiolegal.exception.BusinessException;
 import br.com.patiolegal.repository.EntranceRepository;
+import br.com.patiolegal.repository.ShedRepository;
 
 @Service
 public class EntranceServiceBean implements EntranceService {
@@ -37,20 +40,30 @@ public class EntranceServiceBean implements EntranceService {
 	@Autowired
 	private EntranceRepository entranceRepository;
 
+	@Autowired
+	private ShedRepository shedRepository;
+
 	@Override
 	public String save(ProtocolRequestDTO request) {
-		
+
 		LOG.info("Dados recebidos na requisição:" + request);
-		
-		validateOriginalPlate(request);
-		validateChassis(request);
-		
+
 		Protocol protocol = new Protocol();
 		Entrance entrance = new Entrance();
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
-		
+		Shed shed;
+
+		LOG.debug("Validando e retornando shed...");
+		shed = validateAndReturnShed(request.getShed());
+		LOG.debug("Validando orinalPlate...");
+		validateOriginalPlate(request);
+		LOG.debug("Validando chassis...");
+		validateChassis(request);
+		LOG.debug("Validando location...");
+		validateLocation(request);
+
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
 		vehicle.setOwnerName(request.getOwnerName());
@@ -66,7 +79,7 @@ public class EntranceServiceBean implements EntranceService {
 		vehicle.setChassis(request.getChassis());
 		vehicle.setEngineState(request.getMotorState());
 		vehicle.setEngine(request.getMotor());
-		
+
 		police.setInsured(request.getInsured());
 		police.setFinanced(request.getFinanced());
 		police.setStolen(request.getStolen());
@@ -77,15 +90,16 @@ public class EntranceServiceBean implements EntranceService {
 		police.setOwnerIntimate(request.getOwnerIntimate());
 		police.setAuthorizedAlienation(request.getAuthorizedAlienation());
 		police.setDebits(request.getDebits());
-		
+
+		location.setShed(shed);
 		location.setRow(request.getRow());
 		location.setColumn(request.getColumn());
 		location.setFloor(request.getFloor());
-		
+
 		entrance.setVehicle(vehicle);
 		entrance.setPolice(police);
 		entrance.setLocation(location);
-		
+
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
 		protocol.setAmountSeals(request.getAmountSeals());
@@ -101,9 +115,11 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setProtocol(request.getProtocol());
 		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
-		
+
+		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);
-		
+		LOG.debug("Entrada salva.");
+
 		return protocol.getId();
 	}
 
@@ -180,12 +196,29 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 	}
-	
-	private void validateChassis(ProtocolRequestDTO request){
+
+	private void validateChassis(ProtocolRequestDTO request) {
 		List<Protocol> protocols = entranceRepository.findChassisWithoutExit(request.getChassis());
-		if(!CollectionUtils.isEmpty(protocols)){
+		if (!CollectionUtils.isEmpty(protocols)) {
 			throw new BusinessException("chassis", "Veículo já se encontra no pátio");
 		}
 	}
 
+	private void validateLocation(ProtocolRequestDTO request) {
+		List<Protocol> protocols = entranceRepository.findLocationWithoutExit(request.getShed(), request.getRow(),
+				request.getFloor(), request.getColumn());
+		if (!CollectionUtils.isEmpty(protocols)) {
+			throw new BusinessException("location", "Local informado já está preenchido");
+		}
+	}
+
+	private Shed validateAndReturnShed(String initials) {
+		Optional<Shed> shed = shedRepository.findByinitials(initials);
+
+		if (!shed.isPresent()) {
+			throw new BusinessException("shed", "Barracão não encontrado");
+		}
+
+		return shed.get();
+	}
 }

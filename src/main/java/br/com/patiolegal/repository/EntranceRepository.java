@@ -21,4 +21,8 @@ public interface EntranceRepository extends MongoRepository<Protocol, String>, Q
 
 	List<Protocol> findByProtocol(String protocol);
 
+	@Query(value = "{'entrance.location.shed.initials': :#{#shed}, 'entrance.location.row': :#{#row}, 'entrance.location.floor': :#{#floor}, 'entrance.location.column': :#{#column}, 'exit': null }")
+	List<Protocol> findLocationWithoutExit(@Param("shed") String shed, @Param("row") String row,
+			@Param("floor") String floor, @Param("column") String column);
+
 }
