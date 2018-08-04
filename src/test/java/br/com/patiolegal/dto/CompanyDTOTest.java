@@ -7,12 +7,6 @@ import br.com.patiolegal.dto.CompanyDTO.CompanyDTOBuilder;
 
 public class CompanyDTOTest {
 
-	/*
-	 * private String name; private String socialName; private String
-	 * publicPlace; private String postalCode; private String city; private
-	 * String state; private String phone; private String image;
-	 */
-
 	@Test
 	public void shouldBuilderWithName() {
 
