@@ -10,7 +10,7 @@ import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 public class SearchEntranceResponseDTOTest {
 
 	@Test
-	public void withDateTimeIn() {
+	public void shouldBuildWithDateTimeIn() {
 		LocalDateTime dateTimeIn = LocalDateTime.now();
 
 		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withDateTimeIn(dateTimeIn).build();
@@ -19,7 +19,7 @@ public class SearchEntranceResponseDTOTest {
 	}
 
 	@Test
-	public void withDateTimeOut() {
+	public void shouldBuildWithDateTimeOut() {
 		LocalDateTime dateTimeOut = LocalDateTime.of(2018, 12, 23, 18, 55);
 
 		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withDateTimeOut(dateTimeOut).build();
@@ -28,7 +28,7 @@ public class SearchEntranceResponseDTOTest {
 	}
 
 	@Test
-	public void withProtocol() {
+	public void shouldBuildWithProtocol() {
 		String protocol = "PROTOCOLO2015081520568978";
 
 		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withProtocol(protocol).build();
@@ -37,7 +37,7 @@ public class SearchEntranceResponseDTOTest {
 	}
 
 	@Test
-	public void withSportingPlate() {
+	public void shouldBuildWithSportingPlate() {
 		String sportingPlate = "AAE-9858";
 
 		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withSportingPlate(sportingPlate).build();
@@ -46,7 +46,7 @@ public class SearchEntranceResponseDTOTest {
 	}
 
 	@Test
-	public void withOriginalPlate() {
+	public void shouldBuildWithOriginalPlate() {
 		String originalPlate = "AAS-2356";
 
 		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withOriginalPlate(originalPlate).build();
