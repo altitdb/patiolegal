@@ -235,4 +235,23 @@ public class ProtocolRequestDTO {
 		return amountSeals;
 	}
 
+	@Override
+	public String toString() {
+		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
+				+ dateTimeIn + ", dateTimeOut=" + dateTimeOut + ", policeInvestigation=" + policeInvestigation
+				+ ", eventBulletin=" + eventBulletin + ", taxId=" + taxId + ", name=" + name + ", theyRenamed="
+				+ theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier=" + ownerTaxIdentifier + ", brand="
+				+ brand + ", model=" + model + ", category=" + category + ", color=" + color + ", fuel=" + fuel
+				+ ", yearFactory=" + yearFactory + ", yearModel=" + yearModel + ", sportingPlate=" + sportingPlate
+				+ ", originalPlate=" + originalPlate + ", originCapture=" + originCapture + ", chassisState="
+				+ chassisState + ", chassis=" + chassis + ", motorState=" + motorState + ", motor=" + motor
+				+ ", insured=" + insured + ", financed=" + financed + ", stolen=" + stolen + ", drugTrafficking="
+				+ drugTrafficking + ", moneyLaundry=" + moneyLaundry + ", perquisite=" + perquisite
+				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
+				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
+				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
+				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
+				+ ", amountSeals=" + amountSeals + "]";
+	}
+
 }

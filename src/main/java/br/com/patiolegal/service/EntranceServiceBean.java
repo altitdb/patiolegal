@@ -40,6 +40,8 @@ public class EntranceServiceBean implements EntranceService {
 	@Override
 	public String save(ProtocolRequestDTO request) {
 		
+		LOG.info("Dados recebidos na requisição:" + request);
+		
 		validateOriginalPlate(request);
 		validateChassis(request);
 		
