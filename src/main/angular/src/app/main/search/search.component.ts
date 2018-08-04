@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SearchService } from './search.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { PrintService } from '../services/print.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-search',
@@ -13,11 +15,13 @@ export class SearchComponent implements OnInit {
 
   filtred: boolean = false;
   form: FormGroup;
-  displayedColumns: string[] = ['entranceDate', 'exitDate', 'protocol', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
+  displayedColumns: string[] = ['protocol', 'entranceDate', 'exitDate', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
   dataSource: MatTableDataSource<Protocol>;
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router,
-              private _searchService: SearchService) { }
+  constructor(private _formBuilder: FormBuilder, 
+              private _router: Router,
+              private _searchService: SearchService,
+              private _printService: PrintService) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -37,7 +41,11 @@ export class SearchComponent implements OnInit {
   }
 
   printProtocol(protocol) {
-
+    this._printService.printProcol(protocol).subscribe(
+      suc => {
+        saveAs(suc.body, 'protocolo.pdf')
+      }
+    );
   }
 
   printSeals(protocol) {
