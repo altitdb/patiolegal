@@ -13,4 +13,5 @@ before_install:
   - nvm install $NODE_VERSION
   - npm install -g @angular/cli@$ANGULAR_CLI_VERSION
 script:
+  - mvn -N io.takari:maven:wrapper -Dmaven=3.5.4
   - ./mvnw clean heroku:deploy sonar:sonar -Pbuild
