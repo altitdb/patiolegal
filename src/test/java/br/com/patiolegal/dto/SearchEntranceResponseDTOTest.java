@@ -13,16 +13,16 @@ public class SearchEntranceResponseDTOTest {
 	public void shouldBuildWithDateTimeIn() {
 		LocalDateTime dateTimeIn = LocalDateTime.now();
 
-		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withDateTimeIn(dateTimeIn).build();
+		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withEntranceDate(dateTimeIn).build();
 
-		Assert.assertEquals(dto.getDateTimeIn(), dateTimeIn);
+		Assert.assertEquals(dto.getEntranceDate(), dateTimeIn);
 	}
 
 	@Test
 	public void shouldBuildWithDateTimeOut() {
 		LocalDateTime dateTimeOut = LocalDateTime.of(2018, 12, 23, 18, 55);
 
-		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withDateTimeOut(dateTimeOut).build();
+		SearchEntranceResponseDTO dto = new SearchEntranceBuilder().withExitDate(dateTimeOut).build();
 
 		Assert.assertEquals(dto.getDateTimeOut(), dateTimeOut);
 	}

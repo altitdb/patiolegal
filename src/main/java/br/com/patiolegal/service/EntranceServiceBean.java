@@ -104,10 +104,15 @@ public class EntranceServiceBean implements EntranceService {
 		return protocols.stream().map(protocol -> {
 			String sportingPlate = protocol.getEntrance().getVehicle().getSportingPlate();
 			String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
-			return new SearchEntranceBuilder().withDateTimeIn(protocol.getDateTimeIn())
-					.withDateTimeOut(protocol.getExit() != null ? protocol.getExit().getDateTimeOut() : null)
-					.withProtocol(protocol.getProtocol()).withSportingPlate(sportingPlate)
-					.withOriginalPlate(originalPlate).build();
+			LocalDate entranceDate = protocol.getDate();
+			LocalDate exitDate = protocol.getExit() != null ? protocol.getExit().getDate() : null;
+            return new SearchEntranceBuilder()
+                    .withEntranceDate(entranceDate)
+					.withExitDate(exitDate)
+					.withProtocol(protocol.getProtocol())
+					.withSportingPlate(sportingPlate)
+					.withOriginalPlate(originalPlate)
+					.build();
 		}).collect(Collectors.toList());
 	}
 
