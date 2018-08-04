@@ -8,13 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SearchService {
 
-  private url = environment.url + "/api/v1/entrance";
+  private url = environment.url + "/api/v1/entrance/search";
 
   constructor(private _httpClient: HttpClient, private _router: Router) { }
 
-  public search() {
+  public search(data) {
     const HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._httpClient.get<Array<Protocol>>(this.url,
+    return this._httpClient.post<Array<Protocol>>(this.url,
+      data,
       {
         headers: HEADERS
       }

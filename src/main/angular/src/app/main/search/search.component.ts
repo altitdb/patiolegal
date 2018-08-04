@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.filtred = true;
-    this._searchService.search().subscribe(
+    this._searchService.search(this.form.value).subscribe(
       suc => {
         this.dataSource = new MatTableDataSource(suc);
       }
