@@ -8,7 +8,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ import br.com.patiolegal.repository.ShedRepository;
 @Service
 public class EntranceServiceBean implements EntranceService {
 
-	private static final Logger LOG = Logger.getLogger(EntranceServiceBean.class);
+	private static final Logger LOG = LogManager.getLogger(EntranceServiceBean.class);
 
 	@Autowired
 	private EntranceRepository entranceRepository;

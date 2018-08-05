@@ -3,7 +3,8 @@ package br.com.patiolegal.service;
 import java.io.InputStream;
 import java.util.Optional;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import br.com.patiolegal.repository.ProtocolRepository;
 @Service
 public class SealServiceBean implements SealService {
 
-	private static final Logger LOG = Logger.getLogger(SealServiceBean.class);
+	private static final Logger LOG = LogManager.getLogger(SealServiceBean.class);
 	@Autowired
 	private ReportUtils reportUtils;
 	

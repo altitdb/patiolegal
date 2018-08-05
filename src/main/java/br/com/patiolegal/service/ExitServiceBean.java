@@ -2,7 +2,8 @@ package br.com.patiolegal.service;
 
 import java.util.List;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import br.com.patiolegal.repository.EntranceRepository;
 @Service
 public class ExitServiceBean implements ExitService {
 
-    private static final Logger LOG = Logger.getLogger(ExitServiceBean.class);
+    private static final Logger LOG = LogManager.getLogger(ExitServiceBean.class);
 
     @Autowired
     private EntranceRepository repository;
