@@ -11,9 +11,8 @@ public class Exit {
 	private String taxId;
 	private String name;
 
-	public Exit(LocalDate date, String username, String taxId, String name) {
+	public Exit(LocalDate date, String taxId, String name) {
 		this.date = date;
-		this.username = username;
 		this.taxId = taxId;
 		this.name = name;
 	}

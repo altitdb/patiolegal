@@ -10,8 +10,6 @@ public class ExitRequestDTO {
 	@NotNull
 	private LocalDate date;
 	@NotBlank
-	private String username;
-	@NotBlank
 	private String taxId;
 	@NotBlank
 	private String name;
@@ -20,10 +18,6 @@ public class ExitRequestDTO {
 
 	public LocalDate getDate() {
 		return date;
-	}
-
-	public String getUsername() {
-		return username;
 	}
 
 	public String getTaxId() {
@@ -40,7 +34,7 @@ public class ExitRequestDTO {
 
 	@Override
 	public String toString() {
-		return "ExitRequestDTO [date=" + date + ", username=" + username + ", taxId=" + taxId + ", name=" + name
+		return "ExitRequestDTO [date=" + date + ", taxId=" + taxId + ", name=" + name
 				+ ", protocol=" + protocol + "]";
 	}
 

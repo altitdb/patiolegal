@@ -48,8 +48,7 @@ export class EntranceComponent implements OnInit {
     { description: 'OUTRO' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, 
-              private _router: Router, 
+  constructor(private _formBuilder: FormBuilder,
               private _successDialog: MatDialog,
               private _entranceService: EntranceService,
               private _shedService: ShedService) { }

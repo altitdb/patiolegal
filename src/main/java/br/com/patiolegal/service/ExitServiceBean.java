@@ -37,7 +37,7 @@ public class ExitServiceBean implements ExitService {
             throw new BusinessException("exit", "Protocolo já baixado.");
         }
 
-        Exit exit = new Exit(request.getDate(), request.getUsername(), request.getTaxId(), request.getName());
+        Exit exit = new Exit(request.getDate(), request.getTaxId(), request.getName());
         protocol.setExit(exit);
 
         LOG.debug("Efetuando saída.");
