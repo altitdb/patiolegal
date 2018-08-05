@@ -62,6 +62,8 @@ public class EntranceServiceBean implements EntranceService {
 		Shed shed;
 		ArrestOrgan arrestOrgan;
 
+		LOG.debug("Validando date...");
+		validateDate(request);
 		LOG.debug("Validando e retornando shed...");
 		shed = validateAndReturnShed(request.getShed());
 		LOG.debug("Validando e retornando arrestOrgan...");
@@ -240,6 +242,13 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 		return arrestOrgan.get();
+	}
+
+	private void validateDate(ProtocolRequestDTO request) {
+		if (request.getDate().isAfter(LocalDate.now())) {
+			throw new BusinessException("date", "Data de apreensão não pode ser maior que data atual");
+		}
+
 	}
 
 }
