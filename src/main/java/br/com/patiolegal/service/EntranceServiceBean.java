@@ -246,7 +246,11 @@ public class EntranceServiceBean implements EntranceService {
 
 	private void validateDate(ProtocolRequestDTO request) {
 		if (request.getDate().isAfter(LocalDate.now())) {
-			throw new BusinessException("date", "Data de apreensão não pode ser maior que data atual");
+			throw new BusinessException("date", "Data da entrada não pode ser maior que data atual");
+		}
+
+		if (request.getDateTimeIn().isAfter(LocalDateTime.now())) {
+			throw new BusinessException("dateTimeIn", "Data de apreensão não pode ser maior que data atual");
 		}
 
 	}
