@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import br.com.patiolegal.domain.ArrestOrgan;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
@@ -29,6 +30,7 @@ import br.com.patiolegal.dto.SearchEntranceRequestDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 import br.com.patiolegal.exception.BusinessException;
+import br.com.patiolegal.repository.ArrestOrganRepository;
 import br.com.patiolegal.repository.EntranceRepository;
 import br.com.patiolegal.repository.ShedRepository;
 
@@ -43,6 +45,9 @@ public class EntranceServiceBean implements EntranceService {
 	@Autowired
 	private ShedRepository shedRepository;
 
+	@Autowired
+	private ArrestOrganRepository arrestOrganRepository;
+
 	@Override
 	public String save(ProtocolRequestDTO request) {
 
@@ -54,9 +59,12 @@ public class EntranceServiceBean implements EntranceService {
 		Police police = new Police();
 		Location location = new Location();
 		Shed shed;
+		ArrestOrgan arrestOrgan;
 
 		LOG.debug("Validando e retornando shed...");
 		shed = validateAndReturnShed(request.getShed());
+		LOG.debug("Validando e retornando arrestOrgan...");
+		arrestOrgan = validateAndReturnArrestOrgan(request.getArrestOrgan());
 		LOG.debug("Validando orinalPlate...");
 		validateOriginalPlate(request);
 		LOG.debug("Validando chassis...");
@@ -115,6 +123,7 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setProtocol(request.getProtocol());
 		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
+		protocol.setArrestOrgan(arrestOrgan);
 
 		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);
@@ -221,4 +230,15 @@ public class EntranceServiceBean implements EntranceService {
 
 		return shed.get();
 	}
+
+	private ArrestOrgan validateAndReturnArrestOrgan(String initials) {
+		Optional<ArrestOrgan> arrestOrgan = arrestOrganRepository.findByInitials(initials);
+
+		if (!arrestOrgan.isPresent()) {
+			throw new BusinessException("arrestOrgan", "Órgão de apreensão não encontrado");
+		}
+
+		return arrestOrgan.get();
+	}
+
 }

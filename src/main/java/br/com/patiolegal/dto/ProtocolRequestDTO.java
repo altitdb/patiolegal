@@ -54,6 +54,7 @@ public class ProtocolRequestDTO {
 	private String board;
 	private String authentication;
 	private Integer amountSeals;
+	private String arrestOrgan;
 
 	public final String getPart() {
 		return part;
@@ -235,6 +236,10 @@ public class ProtocolRequestDTO {
 		return amountSeals;
 	}
 
+	public String getArrestOrgan() {
+		return arrestOrgan;
+	}
+
 	@Override
 	public String toString() {
 		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
@@ -251,7 +256,7 @@ public class ProtocolRequestDTO {
 				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
 				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
 				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
-				+ ", amountSeals=" + amountSeals + "]";
+				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + "]";
 	}
 
 }
