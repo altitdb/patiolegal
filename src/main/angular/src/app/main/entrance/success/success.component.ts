@@ -19,12 +19,6 @@ export class SuccessComponent implements OnInit {
   ngOnInit() {
   }
 
-  downloadFile(data: Response){
-    var blob = new Blob([data], { type: 'application/pdf' });
-    var url= window.URL.createObjectURL(blob);
-    window.open(url);
-  }
-
   printProtocol(protocol) {
     this._printService.printProcol(protocol).subscribe(
       suc => {

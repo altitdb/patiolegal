@@ -5,6 +5,8 @@ import { SearchService } from './search.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrintService } from '../services/print.service';
 import { saveAs } from 'file-saver';
+import { MatDialog } from '@angular/material';
+import { SealComponent } from './seal/seal.component';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +23,8 @@ export class SearchComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, 
               private _router: Router,
               private _searchService: SearchService,
-              private _printService: PrintService) { }
+              private _printService: PrintService,
+              private _sealDialog: MatDialog) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -49,7 +52,9 @@ export class SearchComponent implements OnInit {
   }
 
   printSeals(protocol) {
-    
+    this._sealDialog.open(SealComponent, {
+      data: protocol
+    });
   }
 
   exit(protocol) {

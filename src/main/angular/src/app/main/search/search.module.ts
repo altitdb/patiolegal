@@ -15,6 +15,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { SearchService } from './search.service';
+import { SealComponent } from './seal/seal.component';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -31,9 +33,16 @@ import { SearchService } from './search.service';
     MatNativeDateModule,
     MatExpansionModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
-  declarations: [SearchComponent],
+  entryComponents: [
+    SealComponent
+  ],
+  declarations: [
+    SearchComponent, 
+    SealComponent
+  ],
   providers: [
     SearchService
   ]
