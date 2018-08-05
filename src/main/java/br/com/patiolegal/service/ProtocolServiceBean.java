@@ -82,7 +82,6 @@ public class ProtocolServiceBean implements ProtocolService{
 										.withAccountableIn(protocolValue.getAccountableIn())
 										.withBoard(protocolValue.getBoard())
 										.withAuthentication(protocolValue.getAuthentication())
-										.withAmountSeals(protocolValue.getAmountSeals())
 										.build();
 			return reportUtils.generateProtocolReport(dto);
 		}else{

@@ -2,6 +2,7 @@ package br.com.patiolegal.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +13,6 @@ public class Protocol {
     @Id
     private String id;
     private String protocol;
-    private Entrance entrance;
     private String part;
     private LocalDate date;
     private LocalDateTime dateTimeIn;
@@ -25,7 +25,8 @@ public class Protocol {
     private String accountableIn;
     private String board;
     private String authentication;
-    private Integer amountSeals;
+    private List<Seal> seals;
+    private Entrance entrance;
     private Exit exit;
 
     public Entrance getEntrance() {
@@ -96,10 +97,6 @@ public class Protocol {
         this.authentication = authentication;
     }
 
-    public void setAmountSeals(Integer amountSeals) {
-        this.amountSeals = amountSeals;
-    }
-
     public String getProtocol() {
         return protocol;
     }
@@ -152,12 +149,12 @@ public class Protocol {
         return authentication;
     }
 
-    public Integer getAmountSeals() {
-        return amountSeals;
-    }
-
     public String getOriginCapture() {
         return originCapture;
+    }
+
+    public List<Seal> getSeals() {
+        return seals;
     }
 
 }
