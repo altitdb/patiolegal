@@ -142,7 +142,7 @@ public class EntranceServiceBean implements EntranceService {
 	}
 
 	@Override
-	public List<SearchEntranceResponseDTO> getBy(SearchEntranceRequestDTO request) {
+	public List<SearchEntranceResponseDTO> search(SearchEntranceRequestDTO request) {
 
 		LOG.info("Dados recebidos na requisição: " + request.toString());
 
