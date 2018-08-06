@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class ExitService {
 
-  private url = environment.url + "/api/v1/entrance/search";
+  private url = environment.url + "/api/v1/exit";
 
-  constructor(private _httpClient: HttpClient, private _router: Router) { }
+  constructor(private _httpCliente: HttpClient) { }
 
-  public search(data) {
+  public save(data) {
     const HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._httpClient.post<Array<Protocol>>(this.url,
+    return this._httpCliente.post<string>(this.url,
       data,
       {
         headers: HEADERS
       }
     );
   }
-
+  
 }

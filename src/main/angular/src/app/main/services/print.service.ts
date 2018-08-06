@@ -23,8 +23,9 @@ export class PrintService {
       });
   }
 
-  public printSeal(protocol) {
-    return this._httpClient.get(this.urlSeal + protocol,
+  public printSeal(data) {
+    return this._httpClient.post(this.urlSeal,
+      data,
       {
         observe: 'response',
         responseType: 'blob'

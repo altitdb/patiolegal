@@ -4,25 +4,25 @@ import java.time.LocalDate;
 
 public class SearchEntranceRequestDTO {
 	private String protocol;
-	private LocalDate initialDate;
-	private LocalDate finalDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 
 	public String getProtocol() {
 		return protocol;
 	}
 
-	public LocalDate getInitialDate() {
-		return initialDate;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public LocalDate getFinalDate() {
-		return finalDate;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
 	@Override
 	public String toString() {
-		return "SearchEntranceRequestDTO [protocol=" + protocol + ", initialDate=" + initialDate + ", finalDate="
-				+ finalDate + "]";
+		return "SearchEntranceRequestDTO [protocol=" + protocol + ", startDate=" + startDate + ", endDate="
+				+ endDate + "]";
 	}
 
 }

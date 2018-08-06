@@ -1,20 +1,21 @@
 package br.com.patiolegal.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class SearchEntranceResponseDTO {
-	private LocalDateTime dateTimeIn;
-	private LocalDateTime dateTimeOut;
+    
+	private LocalDate entranceDate;
+	private LocalDate exitDate;
 	private String protocol;
 	private String sportingPlate;
 	private String originalPlate;
 
-	public LocalDateTime getDateTimeIn() {
-		return dateTimeIn;
+	public LocalDate getEntranceDate() {
+		return entranceDate;
 	}
 
-	public LocalDateTime getDateTimeOut() {
-		return dateTimeOut;
+	public LocalDate getExitDate() {
+		return exitDate;
 	}
 
 	public String getProtocol() {
@@ -36,13 +37,13 @@ public class SearchEntranceResponseDTO {
 			dto = new SearchEntranceResponseDTO();
 		}
 
-		public SearchEntranceBuilder withDateTimeIn(LocalDateTime dateTimeIn) {
-			dto.dateTimeIn = dateTimeIn;
+		public SearchEntranceBuilder withEntranceDate(LocalDate entranceDate) {
+			dto.entranceDate = entranceDate;
 			return this;
 		}
 
-		public SearchEntranceBuilder withDateTimeOut(LocalDateTime dateTimeOut) {
-			dto.dateTimeOut = dateTimeOut;
+		public SearchEntranceBuilder withExitDate(LocalDate exitDate) {
+			dto.exitDate = exitDate;
 			return this;
 		}
 

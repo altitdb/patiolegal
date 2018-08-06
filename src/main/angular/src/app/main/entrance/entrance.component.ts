@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { EntranceService } from './entrance.service';
 import { Router } from '@angular/router';
@@ -48,8 +48,7 @@ export class EntranceComponent implements OnInit {
     { description: 'OUTRO' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, 
-              private _router: Router, 
+  constructor(private _formBuilder: FormBuilder,
               private _successDialog: MatDialog,
               private _entranceService: EntranceService,
               private _shedService: ShedService) { }
