@@ -11,6 +11,7 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 
 import { AuthGuard } from './auth.guard';
 import { LoadingService } from './services/loading.service';
+import { ErrorModule } from '../error/error.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { LoadingService } from './services/loading.service';
     MatListModule,
     MatToolbarModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ErrorModule
   ],
   declarations: [MainComponent],
   providers: [

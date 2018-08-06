@@ -16,7 +16,7 @@ import br.com.patiolegal.exception.PrintException;
 @RestController
 public class PrintController {
 
-    @GetMapping(value = "/api/v1/print/protocol/{protocol}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/api/v1/print/protocol/{protocol}", produces = {MediaType.APPLICATION_PDF_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<InputStreamResource> downloadProtocol(@PathVariable("protocol") String protocol) {
         ClassPathResource pdfFile = new ClassPathResource("protocol.pdf");
         
@@ -37,7 +37,7 @@ public class PrintController {
         }
     }
     
-    @GetMapping(value = "/api/v1/print/seal/{protocol}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/api/v1/print/seal/{protocol}", produces = {MediaType.APPLICATION_PDF_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<InputStreamResource> downloadSeal(@PathVariable("protocol") String protocol) {
         ClassPathResource pdfFile = new ClassPathResource("seal.pdf");
         

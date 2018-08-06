@@ -27,6 +27,7 @@ export class SealComponent implements OnInit {
   }
 
   print() {
+    this.form.value.protocol = this.data;
     this._printService.printSeal(this.form.value).subscribe(
       suc => {
         saveAs(suc.body, 'lacre.pdf')

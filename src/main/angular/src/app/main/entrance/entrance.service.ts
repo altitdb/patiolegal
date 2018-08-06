@@ -9,11 +9,11 @@ export class EntranceService {
 
   private url = environment.url + "/api/v1/entrance";
 
-  constructor(private _httpCliente: HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
   public save(data) {
     const HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._httpCliente.post<string>(this.url,
+    return this._httpClient.post<string>(this.url,
       data,
       {
         headers: HEADERS

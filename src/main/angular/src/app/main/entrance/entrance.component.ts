@@ -108,10 +108,6 @@ export class EntranceComponent implements OnInit {
     this._entranceService.save(this.form.value).subscribe(
       suc=>{
         this.openSuccessDialog(suc);
-      },
-      err=>{
-        console.log(err);
-        //this.error = err;
       }
     );
   }

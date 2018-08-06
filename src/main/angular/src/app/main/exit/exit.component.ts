@@ -41,14 +41,9 @@ export class ExitComponent implements OnInit {
     this.form.value.date = moment(this.form.value.date).format('YYYY-MM-DD');
     this.form.value.taxIdentifier = this.form.value.taxIdentifier.replace(/\D+/g, '');
     this.form.value.protocol = this.protocol;
-    console.log(this.form.value);
     this._exitService.save(this.form.value).subscribe(
       suc=>{
         this.openSuccessDialog();
-      },
-      err=>{
-        console.log(err);
-        //this.error = err;
       }
     );
   }

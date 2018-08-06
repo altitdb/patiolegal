@@ -40,7 +40,7 @@ import { MatDialogModule } from '@angular/material';
     SealComponent
   ],
   declarations: [
-    SearchComponent, 
+    SearchComponent,
     SealComponent
   ],
   providers: [

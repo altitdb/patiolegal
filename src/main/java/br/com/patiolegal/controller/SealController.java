@@ -23,7 +23,7 @@ public class SealController {
 	@Autowired
 	private ReportUtils report;
 
-	@PostMapping(path = "/api/v1/print/seal", produces = MediaType.APPLICATION_PDF_VALUE)
+	@PostMapping(path = "/api/v1/print/seal", produces = {MediaType.APPLICATION_PDF_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<InputStreamResource> generate(@RequestBody SealRequestDTO request) {
 		String fileName = String.format("seal_%s.pdf", request.getProtocol());
         InputStream generate = service.generate(request);

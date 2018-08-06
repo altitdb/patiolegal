@@ -21,7 +21,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
     MatButtonModule,
     MatProgressBarModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     LoginComponent
