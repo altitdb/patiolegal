@@ -10,151 +10,164 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "protocol")
 public class Protocol {
 
-    @Id
-    private String id;
-    private String protocol;
-    private String part;
-    private LocalDate date;
-    private LocalDateTime dateTimeIn;
-    private String policeInvestigation;
-    private String eventBulletin;
-    private String taxId;
-    private String name;
-    private String originCapture;
-    private String accountableOut;
-    private String accountableIn;
-    private String board;
-    private String authentication;
-    private List<Seal> seals;
-    private Entrance entrance;
-    private Exit exit;
+	@Id
+	private String id;
+	private String protocol;
+	private String part;
+	private LocalDate date;
+	private LocalDateTime dateTimeIn;
+	private String policeInvestigation;
+	private String eventBulletin;
+	private String taxId;
+	private String name;
+	private String originCapture;
+	private String accountableOut;
+	private String accountableIn;
+	private String board;
+	private String authentication;
+	private List<Seal> seals;
+	private Entrance entrance;
+	private Exit exit;
+	private ArrestOrgan arrestOrgan;
 
-    public Entrance getEntrance() {
-        return entrance;
-    }
+	public String getProtocol() {
+		return protocol;
+	}
 
-    public void setEntrance(Entrance entrance) {
-        this.entrance = entrance;
-    }
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
+	}
 
-    public Exit getExit() {
-        return exit;
-    }
+	public String getPart() {
+		return part;
+	}
 
-    public void setExit(Exit exit) {
-        this.exit = exit;
-    }
+	public void setPart(String part) {
+		this.part = part;
+	}
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    public void setPart(String part) {
-        this.part = part;
-    }
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+	public LocalDateTime getDateTimeIn() {
+		return dateTimeIn;
+	}
 
-    public void setDateTimeIn(LocalDateTime dateTimeIn) {
-        this.dateTimeIn = dateTimeIn;
-    }
+	public void setDateTimeIn(LocalDateTime dateTimeIn) {
+		this.dateTimeIn = dateTimeIn;
+	}
 
-    public void setPoliceInvestigation(String policeInvestigation) {
-        this.policeInvestigation = policeInvestigation;
-    }
+	public String getPoliceInvestigation() {
+		return policeInvestigation;
+	}
 
-    public void setEventBulletin(String eventBulletin) {
-        this.eventBulletin = eventBulletin;
-    }
+	public void setPoliceInvestigation(String policeInvestigation) {
+		this.policeInvestigation = policeInvestigation;
+	}
 
-    public void setTaxId(String taxId) {
-        this.taxId = taxId;
-    }
+	public String getEventBulletin() {
+		return eventBulletin;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setEventBulletin(String eventBulletin) {
+		this.eventBulletin = eventBulletin;
+	}
 
-    public void setOriginCapture(String originCapture) {
-        this.originCapture = originCapture;
-    }
+	public String getTaxId() {
+		return taxId;
+	}
 
-    public void setAccountableOut(String accountableOut) {
-        this.accountableOut = accountableOut;
-    }
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
 
-    public void setAccountableIn(String accountableIn) {
-        this.accountableIn = accountableIn;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setBoard(String board) {
-        this.board = board;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setAuthentication(String authentication) {
-        this.authentication = authentication;
-    }
+	public String getOriginCapture() {
+		return originCapture;
+	}
 
-    public String getProtocol() {
-        return protocol;
-    }
+	public void setOriginCapture(String originCapture) {
+		this.originCapture = originCapture;
+	}
 
-    public String getPart() {
-        return part;
-    }
+	public String getAccountableOut() {
+		return accountableOut;
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	public void setAccountableOut(String accountableOut) {
+		this.accountableOut = accountableOut;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getAccountableIn() {
+		return accountableIn;
+	}
 
-    public LocalDateTime getDateTimeIn() {
-        return dateTimeIn;
-    }
+	public void setAccountableIn(String accountableIn) {
+		this.accountableIn = accountableIn;
+	}
 
-    public String getPoliceInvestigation() {
-        return policeInvestigation;
-    }
+	public String getBoard() {
+		return board;
+	}
 
-    public String getEventBulletin() {
-        return eventBulletin;
-    }
+	public void setBoard(String board) {
+		this.board = board;
+	}
 
-    public String getTaxId() {
-        return taxId;
-    }
+	public String getAuthentication() {
+		return authentication;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setAuthentication(String authentication) {
+		this.authentication = authentication;
+	}
 
-    public String getAccountableOut() {
-        return accountableOut;
-    }
+	public List<Seal> getSeals() {
+		return seals;
+	}
 
-    public String getAccountableIn() {
-        return accountableIn;
-    }
+	public void setSeals(List<Seal> seals) {
+		this.seals = seals;
+	}
 
-    public String getBoard() {
-        return board;
-    }
+	public Entrance getEntrance() {
+		return entrance;
+	}
 
-    public String getAuthentication() {
-        return authentication;
-    }
+	public void setEntrance(Entrance entrance) {
+		this.entrance = entrance;
+	}
 
-    public String getOriginCapture() {
-        return originCapture;
-    }
+	public Exit getExit() {
+		return exit;
+	}
 
-    public List<Seal> getSeals() {
-        return seals;
-    }
+	public void setExit(Exit exit) {
+		this.exit = exit;
+	}
+
+	public ArrestOrgan getArrestOrgan() {
+		return arrestOrgan;
+	}
+
+	public void setArrestOrgan(ArrestOrgan arrestOrgan) {
+		this.arrestOrgan = arrestOrgan;
+	}
+
+	public String getId() {
+		return id;
+	}
 
 }

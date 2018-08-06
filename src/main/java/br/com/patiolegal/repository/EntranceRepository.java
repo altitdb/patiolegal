@@ -16,6 +16,13 @@ public interface EntranceRepository extends MongoRepository<Protocol, String>, Q
 	@Query(value = "{'entrance.vehicle.originalPlate': :#{#originalPlate}, 'exit': null}")
 	List<Protocol> findOriginalPlateWithoutExit(@Param("originalPlate") String originalPlate);
 
+	@Query(value = "{'entrance.vehicle.chassis': :#{#chassis}, 'exit': null}")
+	List<Protocol> findChassisWithoutExit(@Param("chassis") String chassis);
+
 	List<Protocol> findByProtocol(String protocol);
+
+	@Query(value = "{'entrance.location.shed.initials': :#{#shed}, 'entrance.location.row': :#{#row}, 'entrance.location.floor': :#{#floor}, 'entrance.location.column': :#{#column}, 'exit': null }")
+	List<Protocol> findLocationWithoutExit(@Param("shed") String shed, @Param("row") String row,
+			@Param("floor") String floor, @Param("column") String column);
 
 }

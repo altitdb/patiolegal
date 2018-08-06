@@ -15,8 +15,20 @@ public class Shed {
 		return initials;
 	}
 
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
+
 	public String getDescription() {
 		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 }

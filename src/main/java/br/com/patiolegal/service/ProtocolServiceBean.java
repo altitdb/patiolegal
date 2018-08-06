@@ -3,7 +3,8 @@ package br.com.patiolegal.service;
 import java.io.InputStream;
 import java.util.Optional;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,20 @@ import br.com.patiolegal.reports.ReportUtils;
 import br.com.patiolegal.repository.ProtocolRepository;
 
 @Service
-public class ProtocolServiceBean implements ProtocolService{
+public class ProtocolServiceBean implements ProtocolService {
 
-	private static final Logger LOG = Logger.getLogger(ProtocolServiceBean.class);
-	
+	private static final Logger LOG = LogManager.getLogger(ProtocolServiceBean.class);
+
 	@Autowired
 	private ReportUtils reportUtils;
-	
+
 	@Autowired
 	private ProtocolRepository repository;
-	
+
 	@Override
 	public InputStream generate(ProtocolRequestDTO request) {
 		Optional<Protocol> protocol = repository.findByProtocol(request.getProtocol());
-		if(protocol.isPresent()){
+		if (protocol.isPresent()) {
 			Protocol protocolValue = protocol.get();
             Vehicle vehicle = protocolValue.getEntrance().getVehicle();
             Police police = protocolValue.getEntrance().getPolice();
@@ -84,10 +85,10 @@ public class ProtocolServiceBean implements ProtocolService{
 										.withAuthentication(protocolValue.getAuthentication())
 										.build();
 			return reportUtils.generateProtocolReport(dto);
-		}else{
+		} else {
 			LOG.error("Protocolo " + request.getProtocol() + " nao localizado em base de dados.");
 			throw new ProtocolNotFoundException();
 		}
-		
+
 	}
 }

@@ -38,8 +38,8 @@ public class EntranceController {
     }
     
     @PostMapping(value = "/api/v1/entrance/search")
-	public List<SearchEntranceResponseDTO> getBy(@RequestBody SearchEntranceRequestDTO request) {
-		return entranceService.getBy(request);
+	public List<SearchEntranceResponseDTO> search(@RequestBody SearchEntranceRequestDTO request) {
+		return entranceService.search(request);
 	}
 
 }

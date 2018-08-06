@@ -13,6 +13,6 @@ public interface EntranceService {
 
 	List<ProtocolDTO> find();
 
-	List<SearchEntranceResponseDTO> getBy(SearchEntranceRequestDTO request);
+	List<SearchEntranceResponseDTO> search(SearchEntranceRequestDTO request);
 
 }

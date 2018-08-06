@@ -3,22 +3,26 @@ package br.com.patiolegal.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import br.com.patiolegal.domain.ArrestOrgan;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
+import br.com.patiolegal.domain.Shed;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
@@ -27,25 +31,50 @@ import br.com.patiolegal.dto.SearchEntranceRequestDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 import br.com.patiolegal.exception.BusinessException;
+import br.com.patiolegal.repository.ArrestOrganRepository;
 import br.com.patiolegal.repository.EntranceRepository;
+import br.com.patiolegal.repository.ShedRepository;
 
 @Service
 public class EntranceServiceBean implements EntranceService {
 
-	private static final Logger LOG = Logger.getLogger(EntranceServiceBean.class);
+	private static final Logger LOG = LogManager.getLogger(EntranceServiceBean.class);
 
 	@Autowired
 	private EntranceRepository entranceRepository;
 
+	@Autowired
+	private ShedRepository shedRepository;
+
+	@Autowired
+	private ArrestOrganRepository arrestOrganRepository;
+
 	@Override
 	public String save(ProtocolRequestDTO request) {
-		validateOriginalPlate(request);
+
+		LOG.info("Dados recebidos na requisição:" + request);
+
 		Protocol protocol = new Protocol();
-		protocol.setName(request.getName());
 		Entrance entrance = new Entrance();
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
+		Shed shed;
+		ArrestOrgan arrestOrgan;
+
+		LOG.debug("Validando date...");
+		validateDate(request);
+		LOG.debug("Validando e retornando shed...");
+		shed = validateAndReturnShed(request.getShed());
+		LOG.debug("Validando e retornando arrestOrgan...");
+		arrestOrgan = validateAndReturnArrestOrgan(request.getArrestOrgan());
+		LOG.debug("Validando orinalPlate...");
+		validateOriginalPlate(request);
+		LOG.debug("Validando chassis...");
+		validateChassis(request);
+		LOG.debug("Validando location...");
+		validateLocation(request);
+
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
 		vehicle.setOwnerName(request.getOwnerName());
@@ -61,6 +90,7 @@ public class EntranceServiceBean implements EntranceService {
 		vehicle.setChassis(request.getChassis());
 		vehicle.setEngineState(request.getMotorState());
 		vehicle.setEngine(request.getMotor());
+
 		police.setInsured(request.getInsured());
 		police.setFinanced(request.getFinanced());
 		police.setStolen(request.getStolen());
@@ -71,15 +101,38 @@ public class EntranceServiceBean implements EntranceService {
 		police.setOwnerIntimate(request.getOwnerIntimate());
 		police.setAuthorizedAlienation(request.getAuthorizedAlienation());
 		police.setDebits(request.getDebits());
+
+		location.setShed(shed);
 		location.setRow(request.getRow());
 		location.setColumn(request.getColumn());
 		location.setFloor(request.getFloor());
+
 		entrance.setVehicle(vehicle);
 		entrance.setPolice(police);
 		entrance.setLocation(location);
+
+		protocol.setAccountableIn(request.getAccountableIn());
+		protocol.setAccountableOut(request.getAccountableOut());
+		protocol.setAmountSeals(request.getAmountSeals());
+		protocol.setAuthentication(request.getAuthentication());
+		protocol.setBoard(request.getBoard());
+		protocol.setDate(request.getDate());
+		protocol.setDateTimeIn(request.getDateTimeIn());
+		protocol.setEventBulletin(request.getEventBulletin());
+		protocol.setName(request.getName());
+		protocol.setOriginCapture(request.getOriginCapture());
+		protocol.setPart(request.getPart());
+		protocol.setPoliceInvestigation(request.getPoliceInvestigation());
+		protocol.setProtocol(request.getProtocol());
+		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
+		protocol.setArrestOrgan(arrestOrgan);
+
+		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);
-		return "PROTOCOLO";
+		LOG.debug("Entrada salva.");
+
+		return protocol.getId();
 	}
 
 	@Override
@@ -91,7 +144,7 @@ public class EntranceServiceBean implements EntranceService {
 	}
 
 	@Override
-	public List<SearchEntranceResponseDTO> getBy(SearchEntranceRequestDTO request) {
+	public List<SearchEntranceResponseDTO> search(SearchEntranceRequestDTO request) {
 
 		LOG.info("Dados recebidos na requisição: " + request.toString());
 
@@ -157,6 +210,52 @@ public class EntranceServiceBean implements EntranceService {
 		List<Protocol> protocols = entranceRepository.findOriginalPlateWithoutExit(request.getOriginalPlate());
 		if (!CollectionUtils.isEmpty(protocols)) {
 			throw new BusinessException("originalPlate", "Veículo já se encontra no pátio");
+		}
+
+	}
+
+	private void validateChassis(ProtocolRequestDTO request) {
+		List<Protocol> protocols = entranceRepository.findChassisWithoutExit(request.getChassis());
+		if (!CollectionUtils.isEmpty(protocols)) {
+			throw new BusinessException("chassis", "Veículo já se encontra no pátio");
+		}
+	}
+
+	private void validateLocation(ProtocolRequestDTO request) {
+		List<Protocol> protocols = entranceRepository.findLocationWithoutExit(request.getShed(), request.getRow(),
+				request.getFloor(), request.getColumn());
+		if (!CollectionUtils.isEmpty(protocols)) {
+			throw new BusinessException("location", "Local informado já está preenchido");
+		}
+	}
+
+	private Shed validateAndReturnShed(String initials) {
+		Optional<Shed> shed = shedRepository.findByinitials(initials);
+
+		if (!shed.isPresent()) {
+			throw new BusinessException("shed", "Barracão não encontrado");
+		}
+
+		return shed.get();
+	}
+
+	private ArrestOrgan validateAndReturnArrestOrgan(String initials) {
+		Optional<ArrestOrgan> arrestOrgan = arrestOrganRepository.findByInitials(initials);
+
+		if (!arrestOrgan.isPresent()) {
+			throw new BusinessException("arrestOrgan", "Órgão de apreensão não encontrado");
+		}
+
+		return arrestOrgan.get();
+	}
+
+	private void validateDate(ProtocolRequestDTO request) {
+		if (request.getDate().isAfter(LocalDate.now())) {
+			throw new BusinessException("date", "Data da entrada não pode ser maior que data atual");
+		}
+
+		if (request.getDateTimeIn().isAfter(LocalDateTime.now())) {
+			throw new BusinessException("dateTimeIn", "Data de apreensão não pode ser maior que data atual");
 		}
 
 	}

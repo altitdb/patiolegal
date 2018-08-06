@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+
 public class ProtocolRequestDTO {
 
 	private String part;
@@ -15,11 +18,14 @@ public class ProtocolRequestDTO {
 	private String policeInvestigation;
 	private String eventBulletin;
 	@NotNull
+	@CPF(message = "CPF inválido")
 	private String taxId;
 	@NotNull
 	private String name;
 	private String theyRenamed;
 	private String ownerName;
+	@CPF(message = "CPF inválido")
+	@CNPJ(message = "CNPJ inválido")
 	private String ownerTaxIdentifier;
 	private String brand;
 	private String model;
@@ -53,7 +59,8 @@ public class ProtocolRequestDTO {
 	private String accountableIn;
 	private String board;
 	private String authentication;
-	private Long amountSeals;
+	private Integer amountSeals;
+	private String arrestOrgan;
 
 	public final String getPart() {
 		return part;
@@ -231,8 +238,31 @@ public class ProtocolRequestDTO {
 		return authentication;
 	}
 
-	public Long getAmountSeals() {
+	public Integer getAmountSeals() {
 		return amountSeals;
+	}
+
+	public String getArrestOrgan() {
+		return arrestOrgan;
+	}
+
+	@Override
+	public String toString() {
+		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
+				+ dateTimeIn + ", dateTimeOut=" + dateTimeOut + ", policeInvestigation=" + policeInvestigation
+				+ ", eventBulletin=" + eventBulletin + ", taxId=" + taxId + ", name=" + name + ", theyRenamed="
+				+ theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier=" + ownerTaxIdentifier + ", brand="
+				+ brand + ", model=" + model + ", category=" + category + ", color=" + color + ", fuel=" + fuel
+				+ ", yearFactory=" + yearFactory + ", yearModel=" + yearModel + ", sportingPlate=" + sportingPlate
+				+ ", originalPlate=" + originalPlate + ", originCapture=" + originCapture + ", chassisState="
+				+ chassisState + ", chassis=" + chassis + ", motorState=" + motorState + ", motor=" + motor
+				+ ", insured=" + insured + ", financed=" + financed + ", stolen=" + stolen + ", drugTrafficking="
+				+ drugTrafficking + ", moneyLaundry=" + moneyLaundry + ", perquisite=" + perquisite
+				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
+				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
+				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
+				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
+				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + "]";
 	}
 
 }

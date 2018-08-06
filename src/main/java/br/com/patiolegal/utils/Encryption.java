@@ -2,13 +2,14 @@ package br.com.patiolegal.utils;
 
 import java.security.MessageDigest;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.com.patiolegal.exception.PasswordEncryptException;
 
 public class Encryption {
 
-    private static final Logger LOG = Logger.getLogger(Encryption.class);
+    private static final Logger LOG = LogManager.getLogger(Encryption.class);
     private static final String ALGORITHM = "SHA-256";
     private static final String CHARSET = "UTF-8";
 
