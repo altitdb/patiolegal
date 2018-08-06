@@ -113,7 +113,6 @@ public class EntranceServiceBean implements EntranceService {
 
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
-		protocol.setAmountSeals(request.getAmountSeals());
 		protocol.setAuthentication(request.getAuthentication());
 		protocol.setBoard(request.getBoard());
 		protocol.setDate(request.getDate());
