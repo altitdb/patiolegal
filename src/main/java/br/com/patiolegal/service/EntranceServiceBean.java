@@ -74,6 +74,8 @@ public class EntranceServiceBean implements EntranceService {
 		validateChassis(request);
 		LOG.debug("Validando location...");
 		validateLocation(request);
+		LOG.debug("Validando yearFactory");
+		validateYearFactory(request);
 
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
@@ -257,6 +259,13 @@ public class EntranceServiceBean implements EntranceService {
 			throw new BusinessException("dateTimeIn", "Data de apreensão não pode ser maior que data atual");
 		}
 
+	}
+	
+	private void validateYearFactory(ProtocolRequestDTO request) {
+		if(request.getYearFactory() > LocalDate.now().getYear()){
+			throw new BusinessException("yearFactory", "Ano de fabricação não pode ser maior que ano atual");
+		}
+		
 	}
 
 }
