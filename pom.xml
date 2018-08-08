@@ -415,10 +415,11 @@
 		</dependency>
 		
 		<!-- hibernate-validator -->
-			<dependency>
-			    <groupId>org.hibernate</groupId>
-			    <artifactId>hibernate-validator</artifactId>
-			</dependency>
+		<dependency>
+		   <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		</dependency>
+			
 	</dependencies>
 
 </project>

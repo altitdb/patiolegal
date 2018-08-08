@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.com.patiolegal.validations.CPFCNPJ;
+
 public class ProtocolRequestDTO {
 
 	private String part;
@@ -23,7 +25,7 @@ public class ProtocolRequestDTO {
 	private String name;
 	private String theyRenamed;
 	private String ownerName;
-	@CPF(message = "CPF inválido")
+	@CPFCNPJ(message = "CPF/CNPJ inválido")
 	private String ownerTaxIdentifier;
 	private String brand;
 	private String model;
