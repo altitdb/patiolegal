@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 public class ProtocolRequestDTO {
@@ -25,7 +24,6 @@ public class ProtocolRequestDTO {
 	private String theyRenamed;
 	private String ownerName;
 	@CPF(message = "CPF inválido")
-	@CNPJ(message = "CNPJ inválido")
 	private String ownerTaxIdentifier;
 	private String brand;
 	private String model;
