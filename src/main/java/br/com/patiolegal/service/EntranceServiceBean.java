@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -124,7 +125,7 @@ public class EntranceServiceBean implements EntranceService {
 
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
-		protocol.setAuthentication(request.getAuthentication());
+		protocol.setAuthentication(generateAuthentication(request.getProtocol()));
 		protocol.setBoard(request.getBoard());
 		protocol.setDate(request.getDate());
 		protocol.setDateTimeIn(request.getDateTimeIn());
@@ -297,5 +298,14 @@ public class EntranceServiceBean implements EntranceService {
 			throw new BusinessException("chassis", "Estado de chassis inválido");
 		}
 
+	}
+	
+	private String generateAuthentication(String protocol) {
+		LOG.debug("Iniciando geração de authentication com protocol: " + protocol);
+		String source = protocol;
+		byte[] bytes = source.getBytes();
+		UUID uuid = UUID.nameUUIDFromBytes(bytes);
+		LOG.debug("Authentication gerado");
+		return uuid.toString();
 	}
 }

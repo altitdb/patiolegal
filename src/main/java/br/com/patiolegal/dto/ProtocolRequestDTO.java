@@ -60,7 +60,6 @@ public class ProtocolRequestDTO {
 	private String accountableOut;
 	private String accountableIn;
 	private String board;
-	private String authentication;
 	private Integer amountSeals;
 	private String arrestOrgan;
 
@@ -236,10 +235,6 @@ public class ProtocolRequestDTO {
 		return board;
 	}
 
-	public String getAuthentication() {
-		return authentication;
-	}
-
 	public Integer getAmountSeals() {
 		return amountSeals;
 	}
@@ -263,8 +258,8 @@ public class ProtocolRequestDTO {
 				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
 				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
 				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
-				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
-				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + "]";
+				+ ", accountableIn=" + accountableIn + ", board=" + board + ", amountSeals=" + amountSeals
+				+ ", arrestOrgan=" + arrestOrgan + "]";
 	}
 
 }
