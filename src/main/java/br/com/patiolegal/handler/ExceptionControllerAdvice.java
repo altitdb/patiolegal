@@ -48,6 +48,9 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<ErrorDTO> handleHttpMediaTypeNotAcceptableException(final HttpMessageNotReadableException e) {
         InvalidFormatException ex = (InvalidFormatException) e.getCause();
         List<Reference> path = ex.getPath();
+        Reference reference = path.stream().findFirst().get();
+        @SuppressWarnings("unused")
+        String fieldName = reference.getFieldName();
         ErrorDTO error = new ErrorDTO("Valor inválido");
         MultiValueMap<String, String> headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
