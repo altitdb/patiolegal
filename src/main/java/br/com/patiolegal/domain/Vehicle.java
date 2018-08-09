@@ -14,7 +14,7 @@ public class Vehicle {
 	private String fuel;
 	private Integer yearFactory;
 	private Integer yearModel;
-	private String chassisState;
+	private ChassisState chassisState;
 	private String chassis;
 	private EngineState engineState;
 	private String engine;
@@ -115,11 +115,11 @@ public class Vehicle {
 		this.yearModel = yearModel;
 	}
 
-	public String getChassisState() {
+	public ChassisState getChassisState() {
 		return chassisState;
 	}
 
-	public void setChassisState(String chassisState) {
+	public void setChassisState(ChassisState chassisState) {
 		this.chassisState = chassisState;
 	}
 

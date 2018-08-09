@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
 
@@ -213,7 +214,7 @@ public class ProtocolDTOTest {
 
 	@Test
 	public void shouldBuilderWithChassisState() {
-		String chassisState = "Adulterado";
+		ChassisState chassisState = ChassisState.ADULTERADO;
 
 		ProtocolDTO dto = new ProtocolDTOBuilder().withChassisState(chassisState).build();
 

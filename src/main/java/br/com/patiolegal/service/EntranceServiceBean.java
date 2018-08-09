@@ -18,6 +18,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import br.com.patiolegal.domain.ArrestOrgan;
+import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
@@ -82,6 +83,8 @@ public class EntranceServiceBean implements EntranceService {
 		validadeYearModel(request);
 		LOG.debug("Validando motorState...");
 		validateMotorState(request);
+		LOG.debug("Validando chassisState...");
+		validateChassisState(request);
 
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
@@ -282,6 +285,16 @@ public class EntranceServiceBean implements EntranceService {
 
 		if (!states.contains(request.getMotorState())) {
 			throw new BusinessException("motorState", "Estado de motor inválido");
+		}
+
+	}
+	
+	private void validateChassisState(ProtocolRequestDTO request) {
+
+		List<ChassisState> states = Arrays.asList(ChassisState.values());
+
+		if (!states.contains(request.getChassisState())) {
+			throw new BusinessException("chassis", "Estado de chassis inválido");
 		}
 
 	}
