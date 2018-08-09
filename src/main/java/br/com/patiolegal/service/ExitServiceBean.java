@@ -34,13 +34,13 @@ public class ExitServiceBean implements ExitService {
 
 		LOG.debug("Protocolo encontrado. Iniciando processo de saida...");
 
-		LOG.debug("Validando date...");
-		validateDate(request);
-
 		Protocol protocol = protocols.get(0);
 		if (protocol.getExit() != null) {
 			throw new BusinessException("exit", "Protocolo já baixado.");
 		}
+
+		LOG.debug("Validando date...");
+		validateDate(request, protocol);
 
 		Exit exit = new Exit(request.getDate(), request.getTaxId(), request.getName());
 		protocol.setExit(exit);
@@ -50,9 +50,12 @@ public class ExitServiceBean implements ExitService {
 		LOG.debug("Saída efetuada.");
 	}
 
-	private void validateDate(ExitRequestDTO request) {
+	private void validateDate(ExitRequestDTO request, Protocol protocol) {
 		if (request.getDate().isAfter(LocalDate.now())) {
 			throw new BusinessException("date", "Data de saida não pode ser maior que data atual");
+		}
+		if (request.getDate().isBefore(protocol.getDate())) {
+			throw new BusinessException("date", "Data de saida não pode ser menor que data entrada");
 		}
 
 	}
