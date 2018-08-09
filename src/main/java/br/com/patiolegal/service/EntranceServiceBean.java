@@ -80,7 +80,7 @@ public class EntranceServiceBean implements EntranceService {
 		LOG.debug("Validando yearFactory...");
 		validateYearFactory(request);
 		LOG.debug("Validando yearModel...");
-		validadeYearModel(request);
+		validateYearModel(request);
 		LOG.debug("Validando motorState...");
 		validateMotorState(request);
 		LOG.debug("Validando chassisState...");
@@ -273,7 +273,7 @@ public class EntranceServiceBean implements EntranceService {
 
 	}
 
-	private void validadeYearModel(ProtocolRequestDTO request) {
+	private void validateYearModel(ProtocolRequestDTO request) {
 		if (request.getYearModel() > (LocalDate.now().getYear() + 1)) {
 			throw new BusinessException("yearModel", "Ano do modelo não pode ser maior que ano atual + 1");
 		}
