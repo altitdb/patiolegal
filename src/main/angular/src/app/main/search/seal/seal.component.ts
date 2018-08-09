@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { PrintService } from '../../services/print.service';
-import { saveAs } from 'file-saver';
+import { SealService } from './seal.service';
 
 @Component({
   selector: 'app-seal',
@@ -16,7 +15,7 @@ export class SealComponent implements OnInit {
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private _formBuilder: FormBuilder,
-              private _printService: PrintService) { }
+              private _sealService: SealService) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -28,10 +27,7 @@ export class SealComponent implements OnInit {
 
   print() {
     this.form.value.protocol = this.data;
-    this._printService.printSeal(this.form.value).subscribe(
-      suc => {
-        saveAs(suc.body, 'lacre.pdf')
-      });
+    this._sealService.print(this.form.value);
   }
 
 }

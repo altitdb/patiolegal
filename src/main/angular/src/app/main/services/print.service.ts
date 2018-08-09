@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Http, ResponseContentType } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +10,18 @@ export class PrintService {
   private urlProtocol = environment.url + "/api/v1/print/protocol/";
   private urlSeal = environment.url + "/api/v1/print/seal/";
 
-  constructor(private _httpClient: HttpClient, private _router: Router) { }
+  constructor(private _httpClient: HttpClient) { }
 
-  public printProcol(protocol) {
-    return this._httpClient.get(this.urlProtocol + protocol,
-      {
-        observe: 'response',
-        responseType: 'blob'
-      });
+  public printProcol(id) {
+    return this.print(this.urlProtocol + id);
   }
 
-  public printSeal(data) {
-    return this._httpClient.post(this.urlSeal,
-      data,
+  public printSeal(id) {
+    return this.print(this.urlSeal + id);
+  }
+
+  private print(url) {
+    return this._httpClient.get(url,
       {
         observe: 'response',
         responseType: 'blob'

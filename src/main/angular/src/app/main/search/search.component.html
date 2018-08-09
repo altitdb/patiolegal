@@ -71,7 +71,7 @@
     <ng-container matColumnDef="printSeals">
       <th mat-header-cell *matHeaderCellDef> Lacre </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button class="home" (click)="printSeals(element.protocol)">
+        <button mat-button class="home" (click)="printSeals(element.protocol)" [disabled]="element.exitDate != null">
           <mat-icon>dns</mat-icon>
         </button>
       </td>

@@ -20,6 +20,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else if (err.status === 401) {
           this.openDialog({ message: "Sessão expirada" });
           this._router.navigate(["/login"]);
+        } else if (err.status === 404) {
+          this.openDialog({ message: "Serviço não disponível"});
+        } else {
+          this.openDialog({ message: "Não foi possível validar a causa do erro" })  
         }
       } else {
         this.openDialog({ code: "Indisponível", message: "Não foi possível validar a causa do erro" })

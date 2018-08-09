@@ -10,3 +10,7 @@ class Protocol {
     sportingPlate: string;
     originalPlate: string;
 }
+
+class FileIdentifier { 
+    identifier: string;
+}
