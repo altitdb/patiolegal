@@ -1,4 +1,4 @@
-package br.com.patiolegal.validations;
+package br.com.patiolegal.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -10,11 +10,9 @@ import br.com.caelum.stella.validation.CPFValidator;
 
 public class CPFCNPJValidator implements ConstraintValidator<CPFCNPJ, String> {
 
-	private String value;
-
 	@Override
 	public void initialize(CPFCNPJ cpfcnpj) {
-		this.value = cpfcnpj.value();
+
 	}
 
 	@Override

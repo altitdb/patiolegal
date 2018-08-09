@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import br.com.patiolegal.validations.CPFCNPJ;
+import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {
 

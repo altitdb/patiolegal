@@ -275,5 +275,4 @@ public class EntranceServiceBean implements EntranceService {
 			throw new BusinessException("yearModel", "Ano do modelo não pode ser maior que ano atual + 1");
 		}
 	}
-
 }
