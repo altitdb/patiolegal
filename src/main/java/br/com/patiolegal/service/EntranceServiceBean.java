@@ -2,6 +2,7 @@ package br.com.patiolegal.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import br.com.patiolegal.domain.ArrestOrgan;
+import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
@@ -78,6 +80,8 @@ public class EntranceServiceBean implements EntranceService {
 		validateYearFactory(request);
 		LOG.debug("Validando yearModel...");
 		validadeYearModel(request);
+		LOG.debug("Validando motorState...");
+		validateMotorState(request);
 
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
@@ -162,13 +166,9 @@ public class EntranceServiceBean implements EntranceService {
 			String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
 			LocalDate entranceDate = protocol.getDate();
 			LocalDate exitDate = protocol.getExit() != null ? protocol.getExit().getDate() : null;
-            return new SearchEntranceBuilder()
-                    .withEntranceDate(entranceDate)
-					.withExitDate(exitDate)
-					.withProtocol(protocol.getProtocol())
-					.withSportingPlate(sportingPlate)
-					.withOriginalPlate(originalPlate)
-					.build();
+			return new SearchEntranceBuilder().withEntranceDate(entranceDate).withExitDate(exitDate)
+					.withProtocol(protocol.getProtocol()).withSportingPlate(sportingPlate)
+					.withOriginalPlate(originalPlate).build();
 		}).collect(Collectors.toList());
 	}
 
@@ -201,8 +201,8 @@ public class EntranceServiceBean implements EntranceService {
 							.or(qProtocol.exit.dateTimeOut.goe(startDate.atStartOfDay())));
 		}
 		if (endDate != null) {
-			expression = expression.and(
-					qProtocol.date.loe(endDate).or(qProtocol.dateTimeIn.loe(endDate.atTime(23, 59, 59, 999999999)))
+			expression = expression
+					.and(qProtocol.date.loe(endDate).or(qProtocol.dateTimeIn.loe(endDate.atTime(23, 59, 59, 999999999)))
 							.or(qProtocol.exit.dateTimeOut.loe(endDate.atTime(23, 59, 59, 999999999))));
 		}
 
@@ -262,17 +262,27 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 	}
-	
+
 	private void validateYearFactory(ProtocolRequestDTO request) {
-		if(request.getYearFactory() > LocalDate.now().getYear()){
+		if (request.getYearFactory() > LocalDate.now().getYear()) {
 			throw new BusinessException("yearFactory", "Ano de fabricação não pode ser maior que ano atual");
 		}
-		
+
 	}
-	
+
 	private void validadeYearModel(ProtocolRequestDTO request) {
-		if(request.getYearModel() > (LocalDate.now().getYear() + 1)){
+		if (request.getYearModel() > (LocalDate.now().getYear() + 1)) {
 			throw new BusinessException("yearModel", "Ano do modelo não pode ser maior que ano atual + 1");
 		}
+	}
+
+	private void validateMotorState(ProtocolRequestDTO request) {
+
+		List<EngineState> states = Arrays.asList(EngineState.values());
+
+		if (!states.contains(request.getMotorState())) {
+			throw new BusinessException("motorState", "Estado de motor inválido");
+		}
+
 	}
 }

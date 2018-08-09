@@ -3,6 +3,8 @@ package br.com.patiolegal.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import br.com.patiolegal.domain.EngineState;
+
 public class ProtocolDTO {
 
 	private String part;
@@ -29,7 +31,7 @@ public class ProtocolDTO {
 	private String originCapture;
 	private String chassisState;
 	private String chassis;
-	private String motorState;
+	private EngineState motorState;
 	private String motor;
 	private Boolean insured;
 	private Boolean financed;
@@ -147,7 +149,7 @@ public class ProtocolDTO {
 		return chassis;
 	}
 
-	public String getMotorState() {
+	public EngineState getMotorState() {
 		return motorState;
 	}
 
@@ -361,7 +363,7 @@ public class ProtocolDTO {
 			return this;
 		}
 
-		public ProtocolDTOBuilder withMotorState(String motorState) {
+		public ProtocolDTOBuilder withMotorState(EngineState motorState) {
 			dto.motorState = motorState;
 			return this;
 		}

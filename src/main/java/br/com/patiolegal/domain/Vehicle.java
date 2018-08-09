@@ -16,7 +16,7 @@ public class Vehicle {
 	private Integer yearModel;
 	private String chassisState;
 	private String chassis;
-	private String engineState;
+	private EngineState engineState;
 	private String engine;
 
 	public String getTheyRenamed() {
@@ -118,7 +118,7 @@ public class Vehicle {
 	public String getChassisState() {
 		return chassisState;
 	}
-	
+
 	public void setChassisState(String chassisState) {
 		this.chassisState = chassisState;
 	}
@@ -131,11 +131,11 @@ public class Vehicle {
 		this.chassis = chassis;
 	}
 
-	public String getEngineState() {
+	public EngineState getEngineState() {
 		return engineState;
 	}
 
-	public void setEngineState(String engineState) {
+	public void setEngineState(EngineState engineState) {
 		this.engineState = engineState;
 	}
 

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {
@@ -39,7 +40,7 @@ public class ProtocolRequestDTO {
 	private String originCapture;
 	private String chassisState;
 	private String chassis;
-	private String motorState;
+	private EngineState motorState;
 	private String motor;
 	private Boolean insured;
 	private Boolean financed;
@@ -158,7 +159,7 @@ public class ProtocolRequestDTO {
 		return chassis;
 	}
 
-	public final String getMotorState() {
+	public final EngineState getMotorState() {
 		return motorState;
 	}
 
