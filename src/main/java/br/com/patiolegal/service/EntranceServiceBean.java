@@ -3,8 +3,10 @@ package br.com.patiolegal.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,6 +20,8 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import br.com.patiolegal.domain.ArrestOrgan;
+import br.com.patiolegal.domain.ChassisState;
+import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
@@ -77,6 +81,14 @@ public class EntranceServiceBean implements EntranceService {
 		validateChassis(request);
 		LOG.debug("Validando location...");
 		validateLocation(request);
+		LOG.debug("Validando yearFactory...");
+		validateYearFactory(request);
+		LOG.debug("Validando yearModel...");
+		validateYearModel(request);
+		LOG.debug("Validando motorState...");
+		validateMotorState(request);
+		LOG.debug("Validando chassisState...");
+		validateChassisState(request);
 
 		vehicle.setOriginalPlate(request.getOriginalPlate());
 		vehicle.setSportingPlate(request.getSportingPlate());
@@ -118,7 +130,7 @@ public class EntranceServiceBean implements EntranceService {
 
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
-		protocol.setAuthentication(request.getAuthentication());
+		protocol.setAuthentication(generateAuthentication(request.getProtocol()));
 		protocol.setBoard(request.getBoard());
 		protocol.setDate(request.getDate());
 		protocol.setDateTimeIn(request.getDateTimeIn());
@@ -261,4 +273,45 @@ public class EntranceServiceBean implements EntranceService {
 
 	}
 
+	private void validateYearFactory(ProtocolRequestDTO request) {
+		if (request.getYearFactory() > LocalDate.now().getYear()) {
+			throw new BusinessException("yearFactory", "Ano de fabricação não pode ser maior que ano atual");
+		}
+
+	}
+
+	private void validateYearModel(ProtocolRequestDTO request) {
+		if (request.getYearModel() > (LocalDate.now().getYear() + 1)) {
+			throw new BusinessException("yearModel", "Ano do modelo não pode ser maior que ano atual + 1");
+		}
+	}
+
+	private void validateMotorState(ProtocolRequestDTO request) {
+
+		List<EngineState> states = Arrays.asList(EngineState.values());
+
+		if (!states.contains(request.getMotorState())) {
+			throw new BusinessException("motorState", "Estado de motor inválido");
+		}
+
+	}
+	
+	private void validateChassisState(ProtocolRequestDTO request) {
+
+		List<ChassisState> states = Arrays.asList(ChassisState.values());
+
+		if (!states.contains(request.getChassisState())) {
+			throw new BusinessException("chassis", "Estado de chassis inválido");
+		}
+
+	}
+	
+	private String generateAuthentication(String protocol) {
+		LOG.debug("Iniciando geração de authentication com protocol: " + protocol);
+		String source = protocol;
+		byte[] bytes = source.getBytes();
+		UUID uuid = UUID.nameUUIDFromBytes(bytes);
+		LOG.debug("Authentication gerado");
+		return uuid.toString();
+	}
 }

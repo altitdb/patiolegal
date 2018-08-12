@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.com.patiolegal.domain.ChassisState;
+import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Seal;
+import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {
 
@@ -26,8 +28,7 @@ public class ProtocolRequestDTO {
 	private String name;
 	private String theyRenamed;
 	private String ownerName;
-	@CPF(message = "CPF inválido")
-	@CNPJ(message = "CNPJ inválido")
+	@CPFCNPJ(message = "CPF/CNPJ inválido")
 	private String ownerTaxIdentifier;
 	private String brand;
 	private String model;
@@ -39,9 +40,9 @@ public class ProtocolRequestDTO {
 	private String sportingPlate;
 	private String originalPlate;
 	private String originCapture;
-	private String chassisState;
+	private ChassisState chassisState;
 	private String chassis;
-	private String motorState;
+	private EngineState motorState;
 	private String motor;
 	private Boolean insured;
 	private Boolean financed;
@@ -60,7 +61,6 @@ public class ProtocolRequestDTO {
 	private String accountableOut;
 	private String accountableIn;
 	private String board;
-	private String authentication;
 	private Integer amountSeals;
 	private String arrestOrgan;
 	private Seal seal;
@@ -153,7 +153,7 @@ public class ProtocolRequestDTO {
 		return originCapture;
 	}
 
-	public final String getChassisState() {
+	public ChassisState getChassisState() {
 		return chassisState;
 	}
 
@@ -161,7 +161,7 @@ public class ProtocolRequestDTO {
 		return chassis;
 	}
 
-	public final String getMotorState() {
+	public final EngineState getMotorState() {
 		return motorState;
 	}
 
@@ -237,10 +237,6 @@ public class ProtocolRequestDTO {
 		return board;
 	}
 
-	public String getAuthentication() {
-		return authentication;
-	}
-
 	public Integer getAmountSeals() {
 		return amountSeals;
 	}
@@ -268,8 +264,8 @@ public class ProtocolRequestDTO {
 				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
 				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
 				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
-				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
-				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + ", seal=" + seal + "]";
+				+ ", accountableIn=" + accountableIn + ", board=" + board + ", amountSeals=" + amountSeals
+				+ ", arrestOrgan=" + arrestOrgan + "]";
 	}
 
 }
