@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.com.patiolegal.domain.Seal;
+
 public class ProtocolRequestDTO {
 
 	private String part;
@@ -61,6 +63,7 @@ public class ProtocolRequestDTO {
 	private String authentication;
 	private Integer amountSeals;
 	private String arrestOrgan;
+	private Seal seal;
 
 	public final String getPart() {
 		return part;
@@ -246,6 +249,10 @@ public class ProtocolRequestDTO {
 		return arrestOrgan;
 	}
 
+	public Seal getSeal() {
+		return seal;
+	}
+
 	@Override
 	public String toString() {
 		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
@@ -262,7 +269,7 @@ public class ProtocolRequestDTO {
 				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
 				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
 				+ ", accountableIn=" + accountableIn + ", board=" + board + ", authentication=" + authentication
-				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + "]";
+				+ ", amountSeals=" + amountSeals + ", arrestOrgan=" + arrestOrgan + ", seal=" + seal + "]";
 	}
 
 }

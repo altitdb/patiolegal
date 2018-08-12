@@ -2,6 +2,7 @@ package br.com.patiolegal.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
+import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.domain.Shed;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;
@@ -59,6 +61,7 @@ public class EntranceServiceBean implements EntranceService {
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
+		List<Seal> seals = new ArrayList<Seal>();
 		Shed shed;
 		ArrestOrgan arrestOrgan;
 
@@ -111,6 +114,8 @@ public class EntranceServiceBean implements EntranceService {
 		entrance.setPolice(police);
 		entrance.setLocation(location);
 
+		seals.add(request.getSeal());
+
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
 		protocol.setAuthentication(request.getAuthentication());
@@ -126,6 +131,7 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
 		protocol.setArrestOrgan(arrestOrgan);
+		protocol.setSeals(seals);
 
 		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);
@@ -158,13 +164,9 @@ public class EntranceServiceBean implements EntranceService {
 			String originalPlate = protocol.getEntrance().getVehicle().getOriginalPlate();
 			LocalDate entranceDate = protocol.getDate();
 			LocalDate exitDate = protocol.getExit() != null ? protocol.getExit().getDate() : null;
-            return new SearchEntranceBuilder()
-                    .withEntranceDate(entranceDate)
-					.withExitDate(exitDate)
-					.withProtocol(protocol.getProtocol())
-					.withSportingPlate(sportingPlate)
-					.withOriginalPlate(originalPlate)
-					.build();
+			return new SearchEntranceBuilder().withEntranceDate(entranceDate).withExitDate(exitDate)
+					.withProtocol(protocol.getProtocol()).withSportingPlate(sportingPlate)
+					.withOriginalPlate(originalPlate).build();
 		}).collect(Collectors.toList());
 	}
 
@@ -197,8 +199,8 @@ public class EntranceServiceBean implements EntranceService {
 							.or(qProtocol.exit.dateTimeOut.goe(startDate.atStartOfDay())));
 		}
 		if (endDate != null) {
-			expression = expression.and(
-					qProtocol.date.loe(endDate).or(qProtocol.dateTimeIn.loe(endDate.atTime(23, 59, 59, 999999999)))
+			expression = expression
+					.and(qProtocol.date.loe(endDate).or(qProtocol.dateTimeIn.loe(endDate.atTime(23, 59, 59, 999999999)))
 							.or(qProtocol.exit.dateTimeOut.loe(endDate.atTime(23, 59, 59, 999999999))));
 		}
 
