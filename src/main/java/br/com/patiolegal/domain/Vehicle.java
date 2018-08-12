@@ -14,9 +14,9 @@ public class Vehicle {
 	private String fuel;
 	private Integer yearFactory;
 	private Integer yearModel;
-	private String chassisState;
+	private ChassisState chassisState;
 	private String chassis;
-	private String engineState;
+	private EngineState engineState;
 	private String engine;
 
 	public String getTheyRenamed() {
@@ -115,11 +115,11 @@ public class Vehicle {
 		this.yearModel = yearModel;
 	}
 
-	public String getChassisState() {
+	public ChassisState getChassisState() {
 		return chassisState;
 	}
-	
-	public void setChassisState(String chassisState) {
+
+	public void setChassisState(ChassisState chassisState) {
 		this.chassisState = chassisState;
 	}
 
@@ -131,11 +131,11 @@ public class Vehicle {
 		this.chassis = chassis;
 	}
 
-	public String getEngineState() {
+	public EngineState getEngineState() {
 		return engineState;
 	}
 
-	public void setEngineState(String engineState) {
+	public void setEngineState(EngineState engineState) {
 		this.engineState = engineState;
 	}
 

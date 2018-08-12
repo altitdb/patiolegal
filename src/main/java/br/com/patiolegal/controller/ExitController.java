@@ -1,5 +1,7 @@
 package br.com.patiolegal.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +17,7 @@ public class ExitController {
 	private ExitService service;
 
 	@PostMapping(value = "/api/v1/exit")
-	public void exit(@RequestBody ExitRequestDTO request) {
+	public void exit(@Valid @RequestBody ExitRequestDTO request) {
 		service.exit(request);
 	}
 }
