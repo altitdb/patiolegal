@@ -2,6 +2,8 @@ package br.com.patiolegal.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class EntranceController {
     private EntranceService entranceService;
 
     @RequestMapping(value = "/api/v1/entrance", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody ProtocolResponseDTO entrance(@RequestBody ProtocolRequestDTO request) {
+    public @ResponseBody ProtocolResponseDTO entrance(@Valid @RequestBody ProtocolRequestDTO request) {
         String protocol = entranceService.save(request);
         return new ProtocolResponseDTO(protocol);
     }
