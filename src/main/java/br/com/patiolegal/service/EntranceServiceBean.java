@@ -2,6 +2,7 @@ package br.com.patiolegal.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
+import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.domain.Shed;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;
@@ -63,6 +65,7 @@ public class EntranceServiceBean implements EntranceService {
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
+		List<Seal> seals = new ArrayList<Seal>();
 		Shed shed;
 		ArrestOrgan arrestOrgan;
 
@@ -123,6 +126,8 @@ public class EntranceServiceBean implements EntranceService {
 		entrance.setPolice(police);
 		entrance.setLocation(location);
 
+		seals.add(request.getSeal());
+
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
 		protocol.setAuthentication(generateAuthentication(request.getProtocol()));
@@ -138,6 +143,7 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setTaxId(request.getTaxId());
 		protocol.setEntrance(entrance);
 		protocol.setArrestOrgan(arrestOrgan);
+		protocol.setSeals(seals);
 
 		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);

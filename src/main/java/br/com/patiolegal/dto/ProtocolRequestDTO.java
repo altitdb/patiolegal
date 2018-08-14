@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
+import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {
@@ -62,6 +63,7 @@ public class ProtocolRequestDTO {
 	private String board;
 	private Integer amountSeals;
 	private String arrestOrgan;
+	private Seal seal;
 
 	public final String getPart() {
 		return part;
@@ -241,6 +243,10 @@ public class ProtocolRequestDTO {
 
 	public String getArrestOrgan() {
 		return arrestOrgan;
+	}
+
+	public Seal getSeal() {
+		return seal;
 	}
 
 	@Override
