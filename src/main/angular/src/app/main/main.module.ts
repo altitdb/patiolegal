@@ -28,7 +28,9 @@ import { ErrorModule } from '../error/error.module';
     MatProgressBarModule,
     ErrorModule
   ],
-  declarations: [MainComponent],
+  declarations: [
+    MainComponent
+  ],
   providers: [
     AuthGuard,
     LoadingService

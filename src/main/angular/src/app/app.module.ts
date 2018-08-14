@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app.routing';
 import { RouterModule } from '@angular/router';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './login/login.module';
+import { UppercaseModule } from './directives/uppercase/uppercase.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoginModule } from './login/login.module';
     BrowserAnimationsModule,
     FlexLayoutModule,
     RouterModule,
+    UppercaseModule,
     MainModule,
     LoginModule,
     AppRoutingModule
