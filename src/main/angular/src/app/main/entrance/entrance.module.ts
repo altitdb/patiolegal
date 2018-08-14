@@ -16,7 +16,6 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { UppercaseDirective } from '../../directives/uppercase.directive';
 import { SuccessComponent } from './success/success.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -46,7 +45,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     SuccessComponent
   ],
   declarations: [
-    UppercaseDirective,
     EntranceComponent,
     SuccessComponent
   ]

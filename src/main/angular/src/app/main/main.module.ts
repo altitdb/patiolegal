@@ -12,6 +12,7 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 import { AuthGuard } from './auth.guard';
 import { LoadingService } from './services/loading.service';
 import { ErrorModule } from '../error/error.module';
+import { UppercaseDirective } from '../directives/uppercase.directive';
 
 @NgModule({
   imports: [
@@ -28,7 +29,10 @@ import { ErrorModule } from '../error/error.module';
     MatProgressBarModule,
     ErrorModule
   ],
-  declarations: [MainComponent],
+  declarations: [
+    MainComponent,
+    UppercaseDirective
+  ],
   providers: [
     AuthGuard,
     LoadingService

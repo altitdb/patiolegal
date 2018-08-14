@@ -4,7 +4,6 @@ import { ExitComponent } from './exit.component';
 import { RouterModule } from '@angular/router';
 import { ExitRouting } from './exit.routing';
 import { SuccessComponent } from './success/success.component';
-import { UppercaseDirective } from '../../directives/uppercase.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,7 +43,6 @@ import { TextMaskModule } from 'angular2-text-mask';
     SuccessComponent
   ],
   declarations: [
-    UppercaseDirective,
     ExitComponent,
     SuccessComponent
   ]

@@ -18,6 +18,7 @@ export class ExitComponent implements OnInit {
 
   protocol: string;
   form: FormGroup;
+  maxDate = new Date();
   taxIdentifierMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   
   constructor(private _activateRoute: ActivatedRoute,
