@@ -18,6 +18,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SuccessComponent } from './success/success.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UppercaseModule } from '../../directives/uppercase/uppercase.module';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatNativeDateModule,
     MatRadioModule,    
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    UppercaseModule
   ],
   providers: [
     FormBuilder,

@@ -17,6 +17,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
+import { UppercaseModule } from '../../directives/uppercase/uppercase.module';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatExpansionModule,
     MatIconModule,
     MatDialogModule,
-    TextMaskModule
+    TextMaskModule,
+    UppercaseModule
   ],
   providers: [
     FormBuilder,

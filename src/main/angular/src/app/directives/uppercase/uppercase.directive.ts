@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[uppercase]'

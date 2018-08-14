@@ -12,7 +12,6 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 import { AuthGuard } from './auth.guard';
 import { LoadingService } from './services/loading.service';
 import { ErrorModule } from '../error/error.module';
-import { UppercaseDirective } from '../directives/uppercase.directive';
 
 @NgModule({
   imports: [
@@ -30,8 +29,7 @@ import { UppercaseDirective } from '../directives/uppercase.directive';
     ErrorModule
   ],
   declarations: [
-    MainComponent,
-    UppercaseDirective
+    MainComponent
   ],
   providers: [
     AuthGuard,
