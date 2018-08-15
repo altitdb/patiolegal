@@ -23,7 +23,7 @@ public class ProtocolRequestDTO {
 	private String eventBulletin;
 	@NotNull
 	@CPF(message = "CPF inválido")
-	private String taxId;
+	private String taxIdentifier;
 	@NotNull
 	private String name;
 	private String theyRenamed;
@@ -93,8 +93,8 @@ public class ProtocolRequestDTO {
 		return eventBulletin;
 	}
 
-	public final String getTaxId() {
-		return taxId;
+	public final String getTaxIdentifier() {
+		return taxIdentifier;
 	}
 
 	public final String getName() {
@@ -253,7 +253,7 @@ public class ProtocolRequestDTO {
 	public String toString() {
 		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
 				+ dateTimeIn + ", dateTimeOut=" + dateTimeOut + ", policeInvestigation=" + policeInvestigation
-				+ ", eventBulletin=" + eventBulletin + ", taxId=" + taxId + ", name=" + name + ", theyRenamed="
+				+ ", eventBulletin=" + eventBulletin + ", taxIdentifier=" + taxIdentifier + ", name=" + name + ", theyRenamed="
 				+ theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier=" + ownerTaxIdentifier + ", brand="
 				+ brand + ", model=" + model + ", category=" + category + ", color=" + color + ", fuel=" + fuel
 				+ ", yearFactory=" + yearFactory + ", yearModel=" + yearModel + ", sportingPlate=" + sportingPlate
