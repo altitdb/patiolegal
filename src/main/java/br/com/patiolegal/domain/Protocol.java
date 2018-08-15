@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,7 +19,7 @@ public class Protocol {
 	private LocalDateTime dateTimeIn;
 	private String policeInvestigation;
 	private String eventBulletin;
-	private String taxId;
+	private String taxIdentifier;
 	private String name;
 	private String originCapture;
 	private String accountableOut;
@@ -79,11 +80,11 @@ public class Protocol {
 	}
 
 	public String getTaxId() {
-		return taxId;
+		return taxIdentifier;
 	}
 
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
+	public void setTaxIdentifier(String taxIdentifier) {
+		this.taxIdentifier = taxIdentifier;
 	}
 
 	public String getName() {
@@ -131,7 +132,7 @@ public class Protocol {
 	}
 
 	public void setAuthentication(String authentication) {
-		this.authentication = authentication;
+		this.authentication = StringUtils.upperCase(authentication);
 	}
 
 	public List<Seal> getSeals() {

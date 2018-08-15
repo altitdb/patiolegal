@@ -140,7 +140,7 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setPart(request.getPart());
 		protocol.setPoliceInvestigation(request.getPoliceInvestigation());
 		protocol.setProtocol(request.getProtocol());
-		protocol.setTaxId(request.getTaxIdentifier());
+		protocol.setTaxIdentifier(request.getTaxIdentifier());
 		protocol.setEntrance(entrance);
 		protocol.setArrestOrgan(arrestOrgan);
 		protocol.setSeals(seals);
