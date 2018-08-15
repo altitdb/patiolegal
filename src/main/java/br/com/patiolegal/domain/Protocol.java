@@ -2,169 +2,176 @@ package br.com.patiolegal.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "protocol")
 public class Protocol {
 
-	@Id
-	private String id;
-	private String protocol;
-	private String part;
-	private LocalDate date;
-	private LocalDateTime dateTimeIn = LocalDateTime.now();
-	private String policeInvestigation;
-	private String eventBulletin;
-	private String taxIdentifier;
-	private String name;
-	private String originCapture;
-	private String accountableOut;
-	private String accountableIn;
-	private String board;
-	private String authentication;
-	private List<Seal> seals;
-	private Entrance entrance;
-	private Exit exit;
-	private Part arrestOrgan;
+    @Id
+    private String id;
+    private String protocol;
+    private String part;
+    private LocalDate date;
+    private LocalDateTime dateTimeIn = LocalDateTime.now();
+    private String policeInvestigation;
+    private String eventBulletin;
+    private String taxIdentifier;
+    private String name;
+    private String originCapture;
+    private String accountableOut;
+    private String accountableIn;
+    private String board;
+    private String authentication;
+    @DBRef
+    private List<Seal> seals = new ArrayList<>();
+    private Entrance entrance;
+    private Exit exit;
+    private Part arrestOrgan;
 
-	public String getProtocol() {
-		return protocol;
-	}
+    public void addSeal(Seal seal) {
+        seals.add(seal);
+    }
 
-	public void setProtocol(String protocol) {
-		this.protocol = protocol;
-	}
+    public String getProtocol() {
+        return protocol;
+    }
 
-	public String getPart() {
-		return part;
-	}
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
-	public void setPart(String part) {
-		this.part = part;
-	}
+    public String getPart() {
+        return part;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public void setPart(String part) {
+        this.part = part;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	public LocalDateTime getDateTimeIn() {
-		return dateTimeIn;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-	public String getPoliceInvestigation() {
-		return policeInvestigation;
-	}
+    public LocalDateTime getDateTimeIn() {
+        return dateTimeIn;
+    }
 
-	public void setPoliceInvestigation(String policeInvestigation) {
-		this.policeInvestigation = policeInvestigation;
-	}
+    public String getPoliceInvestigation() {
+        return policeInvestigation;
+    }
 
-	public String getEventBulletin() {
-		return eventBulletin;
-	}
+    public void setPoliceInvestigation(String policeInvestigation) {
+        this.policeInvestigation = policeInvestigation;
+    }
 
-	public void setEventBulletin(String eventBulletin) {
-		this.eventBulletin = eventBulletin;
-	}
+    public String getEventBulletin() {
+        return eventBulletin;
+    }
 
-	public String getTaxId() {
-		return taxIdentifier;
-	}
+    public void setEventBulletin(String eventBulletin) {
+        this.eventBulletin = eventBulletin;
+    }
 
-	public void setTaxIdentifier(String taxIdentifier) {
-		this.taxIdentifier = taxIdentifier;
-	}
+    public String getTaxId() {
+        return taxIdentifier;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setTaxIdentifier(String taxIdentifier) {
+        this.taxIdentifier = taxIdentifier;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getOriginCapture() {
-		return originCapture;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setOriginCapture(String originCapture) {
-		this.originCapture = originCapture;
-	}
+    public String getOriginCapture() {
+        return originCapture;
+    }
 
-	public String getAccountableOut() {
-		return accountableOut;
-	}
+    public void setOriginCapture(String originCapture) {
+        this.originCapture = originCapture;
+    }
 
-	public void setAccountableOut(String accountableOut) {
-		this.accountableOut = accountableOut;
-	}
+    public String getAccountableOut() {
+        return accountableOut;
+    }
 
-	public String getAccountableIn() {
-		return accountableIn;
-	}
+    public void setAccountableOut(String accountableOut) {
+        this.accountableOut = accountableOut;
+    }
 
-	public void setAccountableIn(String accountableIn) {
-		this.accountableIn = accountableIn;
-	}
+    public String getAccountableIn() {
+        return accountableIn;
+    }
 
-	public String getBoard() {
-		return board;
-	}
+    public void setAccountableIn(String accountableIn) {
+        this.accountableIn = accountableIn;
+    }
 
-	public void setBoard(String board) {
-		this.board = board;
-	}
+    public String getBoard() {
+        return board;
+    }
 
-	public String getAuthentication() {
-		return authentication;
-	}
+    public void setBoard(String board) {
+        this.board = board;
+    }
 
-	public void setAuthentication(String authentication) {
-		this.authentication = StringUtils.upperCase(authentication);
-	}
+    public String getAuthentication() {
+        return authentication;
+    }
 
-	public List<Seal> getSeals() {
-		return seals;
-	}
+    public void setAuthentication(String authentication) {
+        this.authentication = StringUtils.upperCase(authentication);
+    }
 
-	public void setSeals(List<Seal> seals) {
-		this.seals = seals;
-	}
+    public List<Seal> getSeals() {
+        return seals;
+    }
 
-	public Entrance getEntrance() {
-		return entrance;
-	}
+    public void setSeals(List<Seal> seals) {
+        this.seals = seals;
+    }
 
-	public void setEntrance(Entrance entrance) {
-		this.entrance = entrance;
-	}
+    public Entrance getEntrance() {
+        return entrance;
+    }
 
-	public Exit getExit() {
-		return exit;
-	}
+    public void setEntrance(Entrance entrance) {
+        this.entrance = entrance;
+    }
 
-	public void setExit(Exit exit) {
-		this.exit = exit;
-	}
+    public Exit getExit() {
+        return exit;
+    }
 
-	public Part getArrestOrgan() {
-		return arrestOrgan;
-	}
+    public void setExit(Exit exit) {
+        this.exit = exit;
+    }
 
-	public void setArrestOrgan(Part arrestOrgan) {
-		this.arrestOrgan = arrestOrgan;
-	}
+    public Part getArrestOrgan() {
+        return arrestOrgan;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setArrestOrgan(Part arrestOrgan) {
+        this.arrestOrgan = arrestOrgan;
+    }
+
+    public String getId() {
+        return id;
+    }
 
 }

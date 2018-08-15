@@ -84,7 +84,7 @@ public class ProtocolServiceBean implements ProtocolService {
 										.withBoard(protocolValue.getBoard())
 										.withAuthentication(protocolValue.getAuthentication())
 										.build();
-			return reportUtils.generateProtocolReport(dto);
+			return null;
 		} else {
 			LOG.error("Protocolo " + request.getProtocol() + " nao localizado em base de dados.");
 			throw new ProtocolNotFoundException();

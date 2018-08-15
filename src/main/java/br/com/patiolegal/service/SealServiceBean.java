@@ -1,80 +1,90 @@
 package br.com.patiolegal.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.patiolegal.domain.Configuration;
 import br.com.patiolegal.domain.Protocol;
-import br.com.patiolegal.dto.ProtocolDTO;
-import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
+import br.com.patiolegal.domain.Seal;
+import br.com.patiolegal.dto.FileIdentifierDTO;
 import br.com.patiolegal.dto.SealRequestDTO;
 import br.com.patiolegal.exception.BusinessException;
 import br.com.patiolegal.exception.ConfigurationNotFoundException;
+import br.com.patiolegal.exception.NotFoundException;
 import br.com.patiolegal.exception.ProtocolNotFoundException;
 import br.com.patiolegal.reports.ReportUtils;
 import br.com.patiolegal.repository.ConfigurationRepository;
 import br.com.patiolegal.repository.ProtocolRepository;
+import br.com.patiolegal.repository.SealRepository;
 
 @Service
 public class SealServiceBean implements SealService {
 
-	private static final Logger LOG = LogManager.getLogger(SealServiceBean.class);
-	private static final String KEY_PRINT_SEAL_LIMIT = "print.seal.limit";
-	@Autowired
-	private ReportUtils reportUtils;
-	
-	@Autowired
-	private ProtocolRepository protocolRepository;
-	@Autowired
-	private ConfigurationRepository configurationRepository;
-	
+    private static final Logger LOG = LogManager.getLogger(SealServiceBean.class);
+    private static final String KEY_PRINT_SEAL_LIMIT = "print.seal.limit";
+    @Autowired
+    private ReportUtils reportUtils;
+    @Autowired
+    private ProtocolRepository protocolRepository;
+    @Autowired
+    private ConfigurationRepository configurationRepository;
+    @Autowired
+    private SealRepository sealRepository;
 
-	@Override
-	public InputStream generate(SealRequestDTO request) {
-		Optional<Protocol> protocol = protocolRepository.findByProtocol(request.getProtocol());
-		
-		if (protocol.isPresent()){
-			
-			LOG.debug("Validando quantidade ja impressa...");
-			validatePrintSealLimit(protocol.get(), request.getAmount());
-			
-			ProtocolDTO dto = new ProtocolDTOBuilder()
-								.withProtocol(protocol.get().getProtocol())
-								.withAuthentication(protocol.get().getAuthentication())
-								.build();
-			return reportUtils.generateSealReport(request, dto);
-		}
-		LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());
-		throw new ProtocolNotFoundException();
-	}
+    @Override
+    public FileIdentifierDTO generate(SealRequestDTO request) {
+        Optional<Protocol> result = protocolRepository.findByProtocol(request.getProtocol());
+        if (!result.isPresent()) {
+            LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());
+            throw new ProtocolNotFoundException();
+        }
+        
+        LOG.debug("Validando quantidade de lacres...");
+        validatePrintSealLimit(request.getAmount());
 
+        Protocol protocol = result.get();
+        byte[] file = reportUtils.generateSealReport(request, protocol.getAuthentication());
 
-	private void validatePrintSealLimit(Protocol protocol, Integer amountRequired) {
-		Integer amountPrinted = protocol
-						 .getSeals()
-						 .stream()
-						 .mapToInt(seal -> seal.getAmount())
-						 .sum();
-		
-		LOG.debug("Quantidade ja impressa de lacres : " + amountPrinted);
+        Seal seal = new Seal();
+        seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
+        sealRepository.save(seal);
+        
+        protocol.addSeal(seal);
+        protocolRepository.save(protocol);
+        return new FileIdentifierDTO(seal.getId());
+    }
 
-		Optional<Configuration> configuration = configurationRepository.findByKey(KEY_PRINT_SEAL_LIMIT);
-		if (configuration.isPresent()) {
-			Integer limitPrintConfig = new Integer(configuration.get().getValue());
-			LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
-			if (limitPrintConfig < (amountPrinted + amountRequired)) {
-				throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Execdido valor máximo de impressões configurado");
-			}
-		} else {
-			LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
-			throw new ConfigurationNotFoundException();
-		}
-		
-	}
+    private void validatePrintSealLimit(Integer amount) {
+        Optional<Configuration> configuration = configurationRepository.findByKey(KEY_PRINT_SEAL_LIMIT);
+        if (configuration.isPresent()) {
+            Integer limitPrintConfig = new Integer(configuration.get().getValue());
+            LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
+            if (amount > limitPrintConfig) {
+                throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
+            }
+        } else {
+            LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
+            throw new ConfigurationNotFoundException();
+        }
+
+    }
+
+    @Override
+    public InputStream get(String id) {
+        Optional<Seal> seal = sealRepository.findById(id);
+        if (seal.isPresent()) {
+            Binary file = seal.get().getFile();
+            return new ByteArrayInputStream(file.getData());
+        }
+        throw new NotFoundException();
+    }
 
 }
