@@ -3,14 +3,14 @@ package br.com.patiolegal.dto;
 public class SealRequestDTO {
 
 	private String protocol;
-	private Long amount;
+	private Integer amount;
 	private String reason;
 
 	public String getProtocol() {
 		return protocol;
 	}
 
-	public Long getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
