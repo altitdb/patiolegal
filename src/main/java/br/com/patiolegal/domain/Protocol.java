@@ -16,7 +16,7 @@ public class Protocol {
 	private String protocol;
 	private String part;
 	private LocalDate date;
-	private LocalDateTime dateTimeIn;
+	private LocalDateTime dateTimeIn = LocalDateTime.now();
 	private String policeInvestigation;
 	private String eventBulletin;
 	private String taxIdentifier;
@@ -29,7 +29,7 @@ public class Protocol {
 	private List<Seal> seals;
 	private Entrance entrance;
 	private Exit exit;
-	private ArrestOrgan arrestOrgan;
+	private Part arrestOrgan;
 
 	public String getProtocol() {
 		return protocol;
@@ -57,10 +57,6 @@ public class Protocol {
 
 	public LocalDateTime getDateTimeIn() {
 		return dateTimeIn;
-	}
-
-	public void setDateTimeIn(LocalDateTime dateTimeIn) {
-		this.dateTimeIn = dateTimeIn;
 	}
 
 	public String getPoliceInvestigation() {
@@ -159,11 +155,11 @@ public class Protocol {
 		this.exit = exit;
 	}
 
-	public ArrestOrgan getArrestOrgan() {
+	public Part getArrestOrgan() {
 		return arrestOrgan;
 	}
 
-	public void setArrestOrgan(ArrestOrgan arrestOrgan) {
+	public void setArrestOrgan(Part arrestOrgan) {
 		this.arrestOrgan = arrestOrgan;
 	}
 

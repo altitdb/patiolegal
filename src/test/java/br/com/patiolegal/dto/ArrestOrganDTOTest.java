@@ -2,7 +2,7 @@ package br.com.patiolegal.dto;
 
 import org.junit.Assert;
 import org.junit.Test;
-import br.com.patiolegal.dto.ArrestOrganDTO.ArrestOrganBuilder;
+import br.com.patiolegal.dto.PartDTO.ArrestOrganBuilder;
 
 public class ArrestOrganDTOTest {
 
@@ -12,7 +12,7 @@ public class ArrestOrganDTOTest {
         String initials = "BF";
 
         // Act
-        ArrestOrganDTO dto = new ArrestOrganBuilder()
+        PartDTO dto = new ArrestOrganBuilder()
         					.withInitials(initials)
         					.build();
         
@@ -26,7 +26,7 @@ public class ArrestOrganDTOTest {
         String description = "BARRACÃO FUNDOS";
 
         // Act
-        ArrestOrganDTO dto = new ArrestOrganBuilder()
+        PartDTO dto = new ArrestOrganBuilder()
         					.withDescription(description)
         					.build();
         

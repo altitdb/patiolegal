@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import br.com.patiolegal.domain.ArrestOrgan;
+import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Entrance;
@@ -37,7 +37,7 @@ import br.com.patiolegal.dto.SearchEntranceRequestDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 import br.com.patiolegal.exception.BusinessException;
-import br.com.patiolegal.repository.ArrestOrganRepository;
+import br.com.patiolegal.repository.PartRepository;
 import br.com.patiolegal.repository.EntranceRepository;
 import br.com.patiolegal.repository.ShedRepository;
 
@@ -53,7 +53,7 @@ public class EntranceServiceBean implements EntranceService {
 	private ShedRepository shedRepository;
 
 	@Autowired
-	private ArrestOrganRepository arrestOrganRepository;
+	private PartRepository partRepository;
 
 	@Override
 	public String save(ProtocolRequestDTO request) {
@@ -67,14 +67,13 @@ public class EntranceServiceBean implements EntranceService {
 		Location location = new Location();
 		List<Seal> seals = new ArrayList<Seal>();
 		Shed shed;
-		ArrestOrgan arrestOrgan;
 
 		LOG.debug("Validando date...");
 		validateDate(request);
 		LOG.debug("Validando e retornando shed...");
 		shed = validateAndReturnShed(request.getShed());
-		LOG.debug("Validando e retornando arrestOrgan...");
-		arrestOrgan = validateAndReturnArrestOrgan(request.getArrestOrgan());
+		LOG.debug("Validando e retornando part...");
+		Part part = validateAndReturnPart(request.getPart());
 		LOG.debug("Validando orinalPlate...");
 		validateOriginalPlate(request);
 		LOG.debug("Validando chassis...");
@@ -99,8 +98,8 @@ public class EntranceServiceBean implements EntranceService {
 		vehicle.setCategory(request.getCategory());
 		vehicle.setColor(request.getColor());
 		vehicle.setFuel(request.getFuel());
-		vehicle.setYearFactory(request.getYearFactory());
-		vehicle.setYearModel(request.getYearModel());
+		vehicle.setYearFactory(request.getFactoryYear());
+		vehicle.setYearModel(request.getModelYear());
 		vehicle.setChassisState(request.getChassisState());
 		vehicle.setChassis(request.getChassis());
 		vehicle.setEngineState(request.getMotorState());
@@ -130,19 +129,16 @@ public class EntranceServiceBean implements EntranceService {
 
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
-		protocol.setAuthentication(generateAuthentication(request.getProtocol()));
 		protocol.setBoard(request.getBoard());
 		protocol.setDate(request.getDate());
-		protocol.setDateTimeIn(request.getDateTimeIn());
 		protocol.setEventBulletin(request.getEventBulletin());
 		protocol.setName(request.getName());
 		protocol.setOriginCapture(request.getOriginCapture());
 		protocol.setPart(request.getPart());
 		protocol.setPoliceInvestigation(request.getPoliceInvestigation());
-		protocol.setProtocol(request.getProtocol());
 		protocol.setTaxIdentifier(request.getTaxIdentifier());
 		protocol.setEntrance(entrance);
-		protocol.setArrestOrgan(arrestOrgan);
+		protocol.setArrestOrgan(part);
 		protocol.setSeals(seals);
 
 		LOG.debug("Salvando entrada...");
@@ -252,36 +248,31 @@ public class EntranceServiceBean implements EntranceService {
 		return shed.get();
 	}
 
-	private ArrestOrgan validateAndReturnArrestOrgan(String initials) {
-		Optional<ArrestOrgan> arrestOrgan = arrestOrganRepository.findByInitials(initials);
+	private Part validateAndReturnPart(String initials) {
+		Optional<Part> part = partRepository.findByInitials(initials);
 
-		if (!arrestOrgan.isPresent()) {
-			throw new BusinessException("arrestOrgan", "Órgão de apreensão não encontrado");
+		if (part.isPresent()) {
+		    return part.get();
 		}
 
-		return arrestOrgan.get();
+		throw new BusinessException("part", "Órgão de apreensão não encontrado");
 	}
 
 	private void validateDate(ProtocolRequestDTO request) {
 		if (request.getDate().isAfter(LocalDate.now())) {
 			throw new BusinessException("date", "Data da entrada não pode ser maior que data atual");
 		}
-
-		if (request.getDateTimeIn().isAfter(LocalDateTime.now())) {
-			throw new BusinessException("dateTimeIn", "Data de apreensão não pode ser maior que data atual");
-		}
-
 	}
 
 	private void validateYearFactory(ProtocolRequestDTO request) {
-		if (request.getYearFactory() > LocalDate.now().getYear()) {
+		if (request.getFactoryYear() > LocalDate.now().getYear()) {
 			throw new BusinessException("yearFactory", "Ano de fabricação não pode ser maior que ano atual");
 		}
 
 	}
 
 	private void validateYearModel(ProtocolRequestDTO request) {
-		if (request.getYearModel() > (LocalDate.now().getYear() + 1)) {
+		if (request.getModelYear() > (LocalDate.now().getYear() + 1)) {
 			throw new BusinessException("yearModel", "Ano do modelo não pode ser maior que ano atual + 1");
 		}
 	}
@@ -308,8 +299,7 @@ public class EntranceServiceBean implements EntranceService {
 	
 	private String generateAuthentication(String protocol) {
 		LOG.debug("Iniciando geração de authentication com protocol: " + protocol);
-		String source = protocol;
-		byte[] bytes = source.getBytes();
+		byte[] bytes = protocol.getBytes();
 		UUID uuid = UUID.nameUUIDFromBytes(bytes);
 		LOG.debug("Authentication gerado");
 		return uuid.toString();

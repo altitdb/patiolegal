@@ -35,8 +35,8 @@ public class ProtocolRequestDTO {
 	private String category;
 	private String color;
 	private String fuel;
-	private Integer yearFactory;
-	private Integer yearModel;
+	private Integer factoryYear;
+	private Integer modelYear;
 	private String sportingPlate;
 	private String originalPlate;
 	private String originCapture;
@@ -62,12 +62,7 @@ public class ProtocolRequestDTO {
 	private String accountableIn;
 	private String board;
 	private Integer amountSeals;
-	private String arrestOrgan;
 	private Seal seal;
-
-	public final String getPart() {
-		return part;
-	}
 
 	public String getProtocol() {
 		return protocol;
@@ -133,12 +128,12 @@ public class ProtocolRequestDTO {
 		return fuel;
 	}
 
-	public final Integer getYearFactory() {
-		return yearFactory;
+	public final Integer getFactoryYear() {
+		return factoryYear;
 	}
 
-	public final Integer getYearModel() {
-		return yearModel;
+	public final Integer getModelYear() {
+		return modelYear;
 	}
 
 	public final String getSportingPlate() {
@@ -241,8 +236,8 @@ public class ProtocolRequestDTO {
 		return amountSeals;
 	}
 
-	public String getArrestOrgan() {
-		return arrestOrgan;
+	public String getPart() {
+		return part;
 	}
 
 	public Seal getSeal() {
@@ -256,7 +251,7 @@ public class ProtocolRequestDTO {
 				+ ", eventBulletin=" + eventBulletin + ", taxIdentifier=" + taxIdentifier + ", name=" + name + ", theyRenamed="
 				+ theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier=" + ownerTaxIdentifier + ", brand="
 				+ brand + ", model=" + model + ", category=" + category + ", color=" + color + ", fuel=" + fuel
-				+ ", yearFactory=" + yearFactory + ", yearModel=" + yearModel + ", sportingPlate=" + sportingPlate
+				+ ", factoryYear=" + factoryYear + ", modelYear=" + modelYear + ", sportingPlate=" + sportingPlate
 				+ ", originalPlate=" + originalPlate + ", originCapture=" + originCapture + ", chassisState="
 				+ chassisState + ", chassis=" + chassis + ", motorState=" + motorState + ", motor=" + motor
 				+ ", insured=" + insured + ", financed=" + financed + ", stolen=" + stolen + ", drugTrafficking="
@@ -264,8 +259,7 @@ public class ProtocolRequestDTO {
 				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
 				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
 				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
-				+ ", accountableIn=" + accountableIn + ", board=" + board + ", amountSeals=" + amountSeals
-				+ ", arrestOrgan=" + arrestOrgan + "]";
+				+ ", accountableIn=" + accountableIn + ", board=" + board + ", amountSeals=" + amountSeals + "]";
 	}
 
 }

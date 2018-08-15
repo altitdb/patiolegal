@@ -65,7 +65,7 @@ public class ExceptionControllerAdvice {
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> notFoundException(final Exception e) {
-        ErrorDTO error = new ErrorDTO(e.getMessage());
+        ErrorDTO error = new ErrorDTO("Não foi possível completar sua requisição.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

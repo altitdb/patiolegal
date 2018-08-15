@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.patiolegal.domain.ArrestOrgan;
+import br.com.patiolegal.domain.Part;
 
 @Repository
-public interface ArrestOrganRepository extends MongoRepository<ArrestOrgan, String> {
+public interface PartRepository extends MongoRepository<Part, String> {
 
-	Optional<ArrestOrgan> findByInitials(String initials);
+	Optional<Part> findByInitials(String initials);
 
 }

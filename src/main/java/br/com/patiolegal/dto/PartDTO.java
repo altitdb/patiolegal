@@ -1,16 +1,16 @@
 package br.com.patiolegal.dto;
 
-public class ArrestOrganDTO {
+public class PartDTO {
 	
 	private String initials;
 	private String description;
 	
 	public static class ArrestOrganBuilder{
 		
-		private ArrestOrganDTO dto;
+		private PartDTO dto;
 		
 		public ArrestOrganBuilder() {
-			dto = new ArrestOrganDTO();
+			dto = new PartDTO();
 		}
 		
 		public ArrestOrganBuilder withInitials(String initials) {
@@ -23,7 +23,7 @@ public class ArrestOrganDTO {
 			return this;
 		}
 		
-		public ArrestOrganDTO build() {
+		public PartDTO build() {
 			return dto;
 		}
 		
