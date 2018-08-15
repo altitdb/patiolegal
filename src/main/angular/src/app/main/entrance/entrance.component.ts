@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { EntranceService } from './entrance.service';
-import { Router } from '@angular/router';
 import { ShedService } from '../services/shed.service';
+import { PartService } from '../services/part.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessComponent } from './success/success.component';
 
@@ -22,10 +22,7 @@ export class EntranceComponent implements OnInit {
   public taxIdentifierMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public yearMask = [/\d/, /\d/, /\d/, /\d/];
   public plateMask = [/[A-Z]/, /[A-Z]/, /[A-Z]/, '-', /\d/, /\d/, /\d/, /\d/];
-  public parts = [
-    { initials: 'PC', description: 'POLÍCIA CIVIL' },
-    { initials: 'PM', description: 'POLÍCIA MILITAR' }
-  ];
+  public parts: Array<Part>;
   public sheds: Array<Shed>;
   public categories = [
     { id: '1', description: 'OFICIAL' },
@@ -51,7 +48,8 @@ export class EntranceComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private _successDialog: MatDialog,
               private _entranceService: EntranceService,
-              private _shedService: ShedService) { }
+              private _shedService: ShedService,
+              private _partService: PartService) { }
 
   ngOnInit() {
     var date = new Date();
@@ -95,6 +93,7 @@ export class EntranceComponent implements OnInit {
       floor: ['', Validators.required]
     });
     this.findSheds();
+    this.findParts();
   }
 
   save() {
@@ -116,6 +115,14 @@ export class EntranceComponent implements OnInit {
     this._shedService.findAll().subscribe(
       suc => {
         this.sheds = suc;
+      }
+    );
+  }
+
+  findParts() {
+    this._partService.findAll().subscribe(
+      suc => {
+        this.parts = suc;
       }
     );
   }

@@ -14,3 +14,8 @@ class Protocol {
 class FileIdentifier { 
     identifier: string;
 }
+
+class Part {
+    initials: string;
+    description: string;
+}
