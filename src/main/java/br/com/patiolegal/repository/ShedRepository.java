@@ -8,6 +8,6 @@ import br.com.patiolegal.domain.Shed;
 
 public interface ShedRepository extends MongoRepository<Shed, String>{
 
-	Optional<Shed> findByinitials(String initials);
+	Optional<Shed> findByInitials(String initials);
 	
 }
