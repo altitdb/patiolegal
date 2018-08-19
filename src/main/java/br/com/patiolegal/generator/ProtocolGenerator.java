@@ -9,19 +9,20 @@ import org.apache.logging.log4j.Logger;
 
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
-import br.com.patiolegal.domain.Part;
+import br.com.patiolegal.domain.Shed;
 
 public class ProtocolGenerator {
 
 	private static final Logger LOG = LogManager.getLogger(ProtocolGenerator.class);
 	
-	public String generateProtocolNumber(Part arrestOrgan, Entrance entrance) {
+	public String generateProtocolNumber(Entrance entrance) {
 
-		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("ddMMyyyy");
+		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyyMMdd");
 		DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HHmmssSSS");
 		String now = LocalDate.now().format(formatterDate);
 		String uniqueKey = LocalDateTime.now().format(formatterTime);
-		String initials = arrestOrgan.getInitials();
+		Shed shed = entrance.getLocation().getShed();
+		String initials = shed.getInitials();
 		Location location = entrance.getLocation();
 		String row = location.getRow();
 		String column = location.getColumn();

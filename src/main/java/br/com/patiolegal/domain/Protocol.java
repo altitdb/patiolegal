@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -133,10 +132,6 @@ public class Protocol {
 		return authentication;
 	}
 
-	public void setAuthentication(String authentication) {
-		this.authentication = StringUtils.upperCase(authentication);
-	}
-
 	public List<Seal> getSeals() {
 		return seals;
 	}
@@ -175,7 +170,7 @@ public class Protocol {
 
 	public void generateProtocol() {
 		ProtocolGenerator generator = new ProtocolGenerator();
-		protocol = generator.generateProtocolNumber(arrestOrgan, entrance);
+		protocol = generator.generateProtocolNumber(entrance);
 	}
 
 	public void generateAuthentication() {
