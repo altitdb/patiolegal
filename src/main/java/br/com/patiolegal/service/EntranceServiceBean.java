@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -19,11 +18,11 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
 import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
+import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
@@ -37,8 +36,8 @@ import br.com.patiolegal.dto.SearchEntranceRequestDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO;
 import br.com.patiolegal.dto.SearchEntranceResponseDTO.SearchEntranceBuilder;
 import br.com.patiolegal.exception.BusinessException;
-import br.com.patiolegal.repository.PartRepository;
 import br.com.patiolegal.repository.EntranceRepository;
+import br.com.patiolegal.repository.PartRepository;
 import br.com.patiolegal.repository.ShedRepository;
 
 @Service
@@ -141,11 +140,19 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setArrestOrgan(part);
 		protocol.setSeals(seals);
 
+		LOG.debug("Gerando protocol...");
+		protocol.generateProtocol();
+		LOG.debug("Protocol gerado.");
+
+		LOG.debug("Gerando authentication...");
+		protocol.generateAuthentication();
+		LOG.debug("Authentication gerado.");
+
 		LOG.debug("Salvando entrada...");
 		entranceRepository.save(protocol);
 		LOG.debug("Entrada salva.");
 
-		return protocol.getId();
+		return protocol.getProtocol();
 	}
 
 	@Override
@@ -239,7 +246,7 @@ public class EntranceServiceBean implements EntranceService {
 	}
 
 	private Shed validateAndReturnShed(String initials) {
-		Optional<Shed> shed = shedRepository.findByinitials(initials);
+		Optional<Shed> shed = shedRepository.findByInitials(initials);
 
 		if (!shed.isPresent()) {
 			throw new BusinessException("shed", "Barracão não encontrado");
@@ -252,7 +259,7 @@ public class EntranceServiceBean implements EntranceService {
 		Optional<Part> part = partRepository.findByInitials(initials);
 
 		if (part.isPresent()) {
-		    return part.get();
+			return part.get();
 		}
 
 		throw new BusinessException("part", "Órgão de apreensão não encontrado");
@@ -286,7 +293,7 @@ public class EntranceServiceBean implements EntranceService {
 		}
 
 	}
-	
+
 	private void validateChassisState(ProtocolRequestDTO request) {
 
 		List<ChassisState> states = Arrays.asList(ChassisState.values());
@@ -295,13 +302,5 @@ public class EntranceServiceBean implements EntranceService {
 			throw new BusinessException("chassis", "Estado de chassis inválido");
 		}
 
-	}
-	
-	private String generateAuthentication(String protocol) {
-		LOG.debug("Iniciando geração de authentication com protocol: " + protocol);
-		byte[] bytes = protocol.getBytes();
-		UUID uuid = UUID.nameUUIDFromBytes(bytes);
-		LOG.debug("Authentication gerado");
-		return uuid.toString();
 	}
 }
