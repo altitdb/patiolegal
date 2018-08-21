@@ -35,6 +35,7 @@ public class Protocol {
 	private Entrance entrance;
 	private Exit exit;
 	private Part arrestOrgan;
+	private LocalDateTime modificationDate = LocalDateTime.now();
 
 	public void addSeal(Seal seal) {
 		seals.add(seal);
@@ -166,6 +167,10 @@ public class Protocol {
 
 	public String getId() {
 		return id;
+	}
+
+	public LocalDateTime getModificationDate() {
+		return modificationDate;
 	}
 
 	public void generateProtocol() {
