@@ -2,6 +2,7 @@ package br.com.patiolegal.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.patiolegal.domain.Configuration;
+import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.dto.FileIdentifierDTO;
@@ -50,9 +52,14 @@ public class SealServiceBean implements SealService {
         LOG.debug("Validando quantidade de lacres...");
         validatePrintSealLimit(request.getAmount());
 
-        Protocol protocol = result.get();
-        LOG.debug("Criando file para o lacre gerado...");
-        byte[] file = reportUtils.generateSealReport(request, protocol.getAuthentication());
+		Protocol protocol = result.get();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		Location location = protocol.getEntrance().getLocation();
+		String dateProtocol = protocol.getDate().format(formatter);
+
+		LOG.debug("Criando file para o lacre gerado...");
+		byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(), dateProtocol);
 
         Seal seal = new Seal();
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));

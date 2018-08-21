@@ -39,4 +39,11 @@ public class Location {
         this.floor = floor;
     }
 
+	@Override
+	public String toString() {
+		return "Localização [Barracão: " + shed.getDescription() + ", Fileira: " + row + ", Coluna: " + column + ", Andar: " + floor + "]";
+	}
+    
+    
+
 }
