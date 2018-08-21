@@ -51,14 +51,19 @@ public class SealServiceBean implements SealService {
         validatePrintSealLimit(request.getAmount());
 
         Protocol protocol = result.get();
+        LOG.debug("Criando file para o lacre gerado...");
         byte[] file = reportUtils.generateSealReport(request, protocol.getAuthentication());
 
         Seal seal = new Seal();
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
+        seal.generateAuthentication();
+        LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
         
         protocol.addSeal(seal);
+        LOG.debug("Salvando protocolo...");
         protocolRepository.save(protocol);
+        LOG.debug("Lacre gerado com sucesso.");
         return new FileIdentifierDTO(seal.getId());
     }
 
