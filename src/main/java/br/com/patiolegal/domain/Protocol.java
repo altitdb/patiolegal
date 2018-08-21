@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -181,7 +182,7 @@ public class Protocol {
 	public void generateAuthentication() {
 		byte[] bytes = protocol.getBytes();
 		UUID uuid = UUID.nameUUIDFromBytes(bytes);
-		authentication = uuid.toString();
+		authentication = StringUtils.upperCase(uuid.toString());
 	}
 
 }
