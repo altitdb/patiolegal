@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="protocol" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2d0b9cb-fb50-4744-87f2-f55d0842d5b9">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="360"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="626"/>
 	<parameter name="TITLE.LINE1" class="java.lang.String"/>
 	<parameter name="TITLE.LINE2" class="java.lang.String"/>
 	<parameter name="TITLE.LINE3" class="java.lang.String"/>
@@ -9,23 +11,98 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="date" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
 	<field name="originCapture" class="java.lang.String">
 		<fieldDescription><![CDATA[originCapture]]></fieldDescription>
+	</field>
+	<field name="motor" class="java.lang.String">
+		<fieldDescription><![CDATA[motor]]></fieldDescription>
+	</field>
+	<field name="motorState" class="br.com.patiolegal.domain.EngineState">
+		<fieldDescription><![CDATA[motorState]]></fieldDescription>
+	</field>
+	<field name="shed" class="java.lang.String">
+		<fieldDescription><![CDATA[shed]]></fieldDescription>
 	</field>
 	<field name="color" class="java.lang.String">
 		<fieldDescription><![CDATA[color]]></fieldDescription>
 	</field>
-	<field name="yearFactory" class="java.lang.Integer">
-		<fieldDescription><![CDATA[yearFactory]]></fieldDescription>
+	<field name="insured" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[insured]]></fieldDescription>
 	</field>
 	<field name="fuel" class="java.lang.String">
 		<fieldDescription><![CDATA[fuel]]></fieldDescription>
 	</field>
-	<field name="theyRenamed" class="java.lang.String">
-		<fieldDescription><![CDATA[theyRenamed]]></fieldDescription>
+	<field name="authorizedAlienation" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[authorizedAlienation]]></fieldDescription>
+	</field>
+	<field name="part" class="java.lang.String">
+		<fieldDescription><![CDATA[part]]></fieldDescription>
 	</field>
 	<field name="yearModel" class="java.lang.Integer">
 		<fieldDescription><![CDATA[yearModel]]></fieldDescription>
+	</field>
+	<field name="chassisState" class="br.com.patiolegal.domain.ChassisState">
+		<fieldDescription><![CDATA[chassisState]]></fieldDescription>
+	</field>
+	<field name="protocol" class="java.lang.String">
+		<fieldDescription><![CDATA[protocol]]></fieldDescription>
+	</field>
+	<field name="sportingPlate" class="java.lang.String">
+		<fieldDescription><![CDATA[sportingPlate]]></fieldDescription>
+	</field>
+	<field name="drugTrafficking" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[drugTrafficking]]></fieldDescription>
+	</field>
+	<field name="ownerName" class="java.lang.String">
+		<fieldDescription><![CDATA[ownerName]]></fieldDescription>
+	</field>
+	<field name="ownerTaxIdentifier" class="java.lang.String">
+		<fieldDescription><![CDATA[ownerTaxIdentifier]]></fieldDescription>
+	</field>
+	<field name="accountableIn" class="java.lang.String">
+		<fieldDescription><![CDATA[accountableIn]]></fieldDescription>
+	</field>
+	<field name="dateTimeOut" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[dateTimeOut]]></fieldDescription>
+	</field>
+	<field name="ownerIntimate" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[ownerIntimate]]></fieldDescription>
+	</field>
+	<field name="model" class="java.lang.String">
+		<fieldDescription><![CDATA[model]]></fieldDescription>
+	</field>
+	<field name="row" class="java.lang.String">
+		<fieldDescription><![CDATA[row]]></fieldDescription>
+	</field>
+	<field name="floor" class="java.lang.String">
+		<fieldDescription><![CDATA[floor]]></fieldDescription>
+	</field>
+	<field name="brand" class="java.lang.String">
+		<fieldDescription><![CDATA[brand]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="authentication" class="java.lang.String">
+		<fieldDescription><![CDATA[authentication]]></fieldDescription>
+	</field>
+	<field name="perquisite" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[perquisite]]></fieldDescription>
+	</field>
+	<field name="yearFactory" class="java.lang.Integer">
+		<fieldDescription><![CDATA[yearFactory]]></fieldDescription>
+	</field>
+	<field name="debits" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[debits]]></fieldDescription>
+	</field>
+	<field name="theyRenamed" class="java.lang.String">
+		<fieldDescription><![CDATA[theyRenamed]]></fieldDescription>
+	</field>
+	<field name="column" class="java.lang.String">
+		<fieldDescription><![CDATA[column]]></fieldDescription>
 	</field>
 	<field name="chassis" class="java.lang.String">
 		<fieldDescription><![CDATA[chassis]]></fieldDescription>
@@ -36,40 +113,42 @@
 	<field name="dateTimeIn" class="java.time.LocalDateTime">
 		<fieldDescription><![CDATA[dateTimeIn]]></fieldDescription>
 	</field>
-	<field name="protocol" class="java.lang.String">
-		<fieldDescription><![CDATA[protocol]]></fieldDescription>
+	<field name="financed" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[financed]]></fieldDescription>
 	</field>
-	<field name="accountableIn" class="java.lang.String">
-		<fieldDescription><![CDATA[accountableIn]]></fieldDescription>
+	<field name="moneyLaundry" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[moneyLaundry]]></fieldDescription>
+	</field>
+	<field name="eventBulletin" class="java.lang.String">
+		<fieldDescription><![CDATA[eventBulletin]]></fieldDescription>
+	</field>
+	<field name="stolen" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[stolen]]></fieldDescription>
 	</field>
 	<field name="taxId" class="java.lang.String">
 		<fieldDescription><![CDATA[taxId]]></fieldDescription>
 	</field>
+	<field name="papillaryExpertise" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[papillaryExpertise]]></fieldDescription>
+	</field>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
 	</field>
-	<field name="dateTimeOut" class="java.time.LocalDateTime">
-		<fieldDescription><![CDATA[dateTimeOut]]></fieldDescription>
-	</field>
-	<field name="model" class="java.lang.String">
-		<fieldDescription><![CDATA[model]]></fieldDescription>
+	<field name="policeInvestigation" class="java.lang.String">
+		<fieldDescription><![CDATA[policeInvestigation]]></fieldDescription>
 	</field>
 	<field name="category" class="java.lang.String">
 		<fieldDescription><![CDATA[category]]></fieldDescription>
 	</field>
-	<field name="brand" class="java.lang.String">
-		<fieldDescription><![CDATA[brand]]></fieldDescription>
+	<field name="originalPlate" class="java.lang.String">
+		<fieldDescription><![CDATA[originalPlate]]></fieldDescription>
 	</field>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
+	<field name="amountSeals" class="java.lang.Integer">
+		<fieldDescription><![CDATA[amountSeals]]></fieldDescription>
 	</field>
 	<field name="board" class="java.lang.String">
 		<fieldDescription><![CDATA[board]]></fieldDescription>
 	</field>
-	<field name="authentication" class="java.lang.String">
-		<fieldDescription><![CDATA[authentication]]></fieldDescription>
-	</field>
-	<field name="amountSeals" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

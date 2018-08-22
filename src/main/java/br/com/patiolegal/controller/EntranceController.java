@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +37,9 @@ public class EntranceController {
     @GetMapping(value = "/api/v1/entrance")
     public List<ProtocolDTO> getAll() {
         return entranceService.find();
-
     }
     
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/api/v1/entrance/search")
 	public List<SearchEntranceResponseDTO> search(@RequestBody SearchEntranceRequestDTO request) {
 		return entranceService.search(request);
