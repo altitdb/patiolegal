@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.dto.CompanyDTO;
 import br.com.patiolegal.dto.SealDTO;
@@ -69,16 +72,18 @@ public class ReportUtils {
 		}
 	}
 
-	public byte[] generateSealReport(SealRequestDTO request, String authentication) {
+	public byte[] generateSealReport(SealRequestDTO request, String location, String authenticationProtocol, String dateProtocol) {
 		LOG.info("Dados recebidos na requisicao para geracao de lacres: " + request.toString());
 		long amount = (request.getAmount() != null ? request.getAmount() : 1);
 
 		SealDTO sealDto = new SealDTO();
 		sealDto.setProtocol(request.getProtocol());
-		sealDto.setAuthentication(authentication);
+		sealDto.setAuthentication(authenticationProtocol);
 
 		try {
-		    ByteArrayOutputStream qrCodeImage = QRCodeUtils.getQRCodeImage(request.getProtocol(), 100, 100);
+			String qrcodeText = location + authenticationProtocol + dateProtocol;
+			
+		    ByteArrayOutputStream qrCodeImage = QRCodeUtils.getQRCodeImage(qrcodeText, 100, 100);
 		    InputStream imageIs = new ByteArrayInputStream(qrCodeImage.toByteArray());
 			sealDto.setImage(ImageIO.read(imageIs));
 		} catch (IOException e) {
