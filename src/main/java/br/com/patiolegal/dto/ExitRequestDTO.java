@@ -13,7 +13,7 @@ public class ExitRequestDTO {
 	private LocalDate date;
 	@NotBlank
 	@CPF(message = "CPF inválido")
-	private String taxId;
+	private String taxIdentifier;
 	@NotBlank
 	private String name;
 	@NotBlank
@@ -23,8 +23,8 @@ public class ExitRequestDTO {
 		return date;
 	}
 
-	public String getTaxId() {
-		return taxId;
+	public String getTaxIdentifier() {
+		return taxIdentifier;
 	}
 
 	public String getName() {
@@ -37,7 +37,7 @@ public class ExitRequestDTO {
 
 	@Override
 	public String toString() {
-		return "ExitRequestDTO [date=" + date + ", taxId=" + taxId + ", name=" + name
+		return "ExitRequestDTO [date=" + date + ", taxIdentifier=" + taxIdentifier + ", name=" + name
 				+ ", protocol=" + protocol + "]";
 	}
 

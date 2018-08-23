@@ -11,12 +11,11 @@ import br.com.patiolegal.domain.Entrance;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Shed;
 
-public class ProtocolGenerator {
+public final class ProtocolGenerator {
 
 	private static final Logger LOG = LogManager.getLogger(ProtocolGenerator.class);
 	
 	public String generateProtocolNumber(Entrance entrance) {
-
 		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyyMMdd");
 		DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HHmmssSSS");
 		String now = LocalDate.now().format(formatterDate);
