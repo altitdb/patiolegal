@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,14 +14,15 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.dto.CompanyDTO;
 import br.com.patiolegal.dto.SealDTO;
@@ -41,14 +40,16 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ReportUtils {
 
 	private static final Logger LOG = LogManager.getLogger(ReportUtils.class);
-	private static final String PATH = System.getProperty("user.dir") + "/src/main/resources/reports/";
+	@Value("classpath:reports/seal.jasper")
+    private Resource sealResource;
+	@Value("classpath:reports/protocol.jasper")
+    private Resource protocolResource;
+
 
 	public InputStream generateProtocolReport(CompanyDTO company, Protocol protocol) {
 
 		LOG.info("Dados recebidos na requisicao para geracao de protocolo: " + protocol);
 
-		String sourceFileName = PATH + "protocol.jasper";
-		
 		List<Protocol> list = new ArrayList<>();
 		list.add(protocol);
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(list);
@@ -63,7 +64,7 @@ public class ReportUtils {
 
 		try {
 			LOG.debug("Preparando para gerar protocolo...");
-			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(protocolResource.getInputStream(), parameters, beanColDataSource);
 			byte[] exportReportToPdf = JasperExportManager.exportReportToPdf(jasperPrint);
             return new ByteArrayInputStream(exportReportToPdf);
 		} catch (Exception e) {
@@ -97,10 +98,9 @@ public class ReportUtils {
 
 		try {
 			LOG.debug("Preparando para gerar lacres...");
-			String sourceFileName = PATH + "seal.jasper";
 			Map<String, Object> parameters = new HashMap<>();
 			JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(seals);
-			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(sealResource.getInputStream(), parameters, beanColDataSource);
             return JasperExportManager.exportReportToPdf(jasperPrint); 
 		} catch (Exception e) {
 			LOG.error("Erro ao gerar lacres: ", e);
