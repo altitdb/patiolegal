@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   private validateAccess() {
     let item = JSON.parse(sessionStorage.getItem("access"));
-    let isValid = item && item.accessToken != null;
+    let isValid = item && item.access_token != null;
     if(!isValid){
       this._router.navigate(["/login"]);
     }

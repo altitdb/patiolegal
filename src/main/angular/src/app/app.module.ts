@@ -20,8 +20,8 @@ import { UppercaseModule } from './directives/uppercase/uppercase.module';
     FlexLayoutModule,
     RouterModule,
     UppercaseModule,
-    MainModule,
     LoginModule,
+    MainModule,
     AppRoutingModule
   ],
   providers: [],

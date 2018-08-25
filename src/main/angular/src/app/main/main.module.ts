@@ -12,6 +12,8 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 import { AuthGuard } from './auth.guard';
 import { LoadingService } from './services/loading.service';
 import { ErrorModule } from '../error/error.module';
+import { TokenInterceptor } from './token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -33,7 +35,12 @@ import { ErrorModule } from '../error/error.module';
   ],
   providers: [
     AuthGuard,
-    LoadingService
+    LoadingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ]
 })
 export class MainModule { }
