@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.patiolegal.domain.Configuration;
@@ -64,6 +66,9 @@ public class SealServiceBean implements SealService {
         Seal seal = new Seal();
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
         seal.generateAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        seal.setUsername(username);
         LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
         

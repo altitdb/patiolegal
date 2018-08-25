@@ -42,7 +42,7 @@ public class ExitServiceBean implements ExitService {
 		LOG.debug("Validando date...");
 		validateDate(request, protocol);
 
-		Exit exit = new Exit(request.getDate(), request.getTaxId(), request.getName());
+		Exit exit = new Exit(request.getDate(), request.getTaxIdentifier(), request.getName());
 		protocol.setExit(exit);
 
 		LOG.debug("Efetuando saída.");

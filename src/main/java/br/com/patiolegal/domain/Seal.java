@@ -20,6 +20,13 @@ public class Seal {
 	private String reason;
 	private Binary file;
 	private String authentication;
+	
+    public void generateAuthentication() {
+        LocalDateTime now = LocalDateTime.now();
+        byte[] bytes = now.toString().getBytes();
+        UUID uuid = UUID.nameUUIDFromBytes(bytes);
+        authentication = StringUtils.upperCase(uuid.toString());
+    }
 
 	public void setFile(Binary file) {
 		this.file = file;
@@ -53,11 +60,8 @@ public class Seal {
 		return authentication;
 	}
 
-	public void generateAuthentication() {
-		LocalDateTime now = LocalDateTime.now();
-		byte[] bytes = now.toString().getBytes();
-		UUID uuid = UUID.nameUUIDFromBytes(bytes);
-		authentication = StringUtils.upperCase(uuid.toString());
-	}
+    public void setUsername(String username) {
+        this.username = username;        
+    }
 
 }
