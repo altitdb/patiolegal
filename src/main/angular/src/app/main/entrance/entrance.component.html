@@ -46,9 +46,28 @@
         Dados do Veículo
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-form-field>
-      <input matInput placeholder="Renavam" formControlName="theyRenamed" required uppercase>
-    </mat-form-field>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Placa Ostentada" [textMask]="{mask: plateMask}" formControlName="sportingPlate" required uppercase>
+      </mat-form-field>
+      <span fxFlex="2"></span>
+      <mat-form-field>
+        <input matInput placeholder="Placa Original" [textMask]="{mask: plateMask}" formControlName="originalPlate" uppercase>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Renavam" formControlName="theyRenamed" required uppercase>
+      </mat-form-field>
+      <span fxFlex="2"></span>
+      <mat-form-field>
+        <mat-select placeholder="Categoria" formControlName="category" required>
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <div>
       <mat-form-field>
         <input matInput placeholder="CPF/CNPJ Proprietário" [textMask]="{mask: taxIdentifierMask}" formControlName="ownerTaxIdentifier"
@@ -70,14 +89,6 @@
     </div>
     <div>
       <mat-form-field>
-        <mat-select placeholder="Categoria" formControlName="category" required>
-          <mat-option *ngFor="let category of categories" [value]="category.id">
-            {{ category.description }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <span fxFlex="2"></span>
-      <mat-form-field>
         <input matInput placeholder="Cor" formControlName="color" required uppercase>
       </mat-form-field>
       <span fxFlex="2"></span>
@@ -96,15 +107,6 @@
       <span fxFlex="2"></span>
       <mat-form-field>
         <input matInput placeholder="Ano do Modelo" [textMask]="{mask: yearMask}" formControlName="modelYear" required>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <input matInput placeholder="Placa Ostentada" [textMask]="{mask: plateMask}" formControlName="sportingPlate" required uppercase>
-      </mat-form-field>
-      <span fxFlex="2"></span>
-      <mat-form-field>
-        <input matInput placeholder="Placa Original" [textMask]="{mask: plateMask}" formControlName="originalPlate" uppercase>
       </mat-form-field>
     </div>
     <div>
