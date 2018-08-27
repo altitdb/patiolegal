@@ -64,7 +64,6 @@ public class EntranceServiceBean implements EntranceService {
 		Vehicle vehicle = new Vehicle();
 		Police police = new Police();
 		Location location = new Location();
-		List<Seal> seals = new ArrayList<Seal>();
 		Shed shed;
 
 		LOG.debug("Validando date...");
@@ -124,8 +123,6 @@ public class EntranceServiceBean implements EntranceService {
 		entrance.setPolice(police);
 		entrance.setLocation(location);
 
-		seals.add(request.getSeal());
-
 		protocol.setAccountableIn(request.getAccountableIn());
 		protocol.setAccountableOut(request.getAccountableOut());
 		protocol.setBoard(request.getBoard());
@@ -138,7 +135,6 @@ public class EntranceServiceBean implements EntranceService {
 		protocol.setTaxIdentifier(request.getTaxIdentifier());
 		protocol.setEntrance(entrance);
 		protocol.setArrestOrgan(part);
-		protocol.setSeals(seals);
 
 		LOG.debug("Gerando protocol...");
 		protocol.generateProtocol();

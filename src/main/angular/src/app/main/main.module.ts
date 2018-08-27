@@ -14,6 +14,7 @@ import { LoadingService } from './services/loading.service';
 import { ErrorModule } from '../error/error.module';
 import { TokenInterceptor } from './token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MainService } from './main.service';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [
     AuthGuard,
     LoadingService,
+    MainService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

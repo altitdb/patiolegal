@@ -11,8 +11,16 @@ export class LoadingService {
   constructor() {
     this.isLoadingChange.next(false);
   }
+
+  public show() {
+    this.callNextStatus(true);
+  }
+
+  public hide() {
+    this.callNextStatus(false);
+  }
   
-  public callNextStatus(status:boolean){
+  private callNextStatus(status:boolean){
     this.isLoading = status;
     this.isLoadingChange.next(this.isLoading);
   }

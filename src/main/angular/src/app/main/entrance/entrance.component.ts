@@ -6,6 +6,7 @@ import { ShedService } from '../services/shed.service';
 import { PartService } from '../services/part.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessComponent } from './success/success.component';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-entrance',
@@ -49,9 +50,11 @@ export class EntranceComponent implements OnInit {
               private _successDialog: MatDialog,
               private _entranceService: EntranceService,
               private _shedService: ShedService,
-              private _partService: PartService) { }
+              private _partService: PartService,
+              private _loadingService: LoadingService) { }
 
   ngOnInit() {
+    this._loadingService.show();
     var date = new Date();
     var option = false;
     this.form = this._formBuilder.group({
@@ -97,6 +100,7 @@ export class EntranceComponent implements OnInit {
   }
 
   save() {
+    this._loadingService.show();
     this.form.value.date = moment(this.form.value.date).format('YYYY-MM-DD');
     this.form.value.taxIdentifier = this.form.value.taxIdentifier.replace(/\D+/g, '');
     
@@ -107,6 +111,7 @@ export class EntranceComponent implements OnInit {
     this._entranceService.save(this.form.value).subscribe(
       suc=>{
         this.openSuccessDialog(suc);
+        this._loadingService.hide();
       }
     );
   }
@@ -115,6 +120,7 @@ export class EntranceComponent implements OnInit {
     this._shedService.findAll().subscribe(
       suc => {
         this.sheds = suc;
+        this._loadingService.hide();
       }
     );
   }
@@ -123,6 +129,7 @@ export class EntranceComponent implements OnInit {
     this._partService.findAll().subscribe(
       suc => {
         this.parts = suc;
+        this._loadingService.hide();
       }
     );
   }

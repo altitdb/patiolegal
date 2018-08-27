@@ -1,6 +1,5 @@
-<div fxFlexFill fxLayout="column" fxLayoutAlign="center"> 
-  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center" class="overflowScroll"> 
-      <div fxFlex="500px" fxFlex.xs="90">
+<div class="block"> 
+  <div class="centered"> 
         <mat-card class="mat-elevation-z7">
             <mat-card-header fxLayoutAlign="center">
                 <mat-card-title fxLayoutAlign="center"><b> {{ error }} </b></mat-card-title>
@@ -10,7 +9,7 @@
                 <div fxLayout="column" fxFlex="28">
                     <img src="./assets/img/logo.jpg" width="90%"/>
                 </div>
-                <form fxLayout="column" fxFlex="68" [formGroup]="form">
+                <form fxLayout="column" fxFlex="68" [formGroup]="form" (keydown)="keydown($event)">
                     <mat-form-field>
                         <input matInput formControlName="username" placeholder="Usuário" value="">
                         <mat-error *ngIf="form.controls['username'].hasError('required')">
@@ -29,6 +28,5 @@
             </mat-card-content>
           </mat-card>
           <mat-progress-bar *ngIf="login" mode="indeterminate"> </mat-progress-bar>
-      </div> 
   </div>
 </div>

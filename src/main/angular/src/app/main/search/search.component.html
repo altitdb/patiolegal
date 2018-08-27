@@ -1,6 +1,6 @@
 <div class="mat-elevation-z7">
   <mat-accordion class="headers-align">
-    <mat-expansion-panel [expanded]="!filtred" [disabled]="!filtred" (opened)="filtred = false" hideToggle="true">
+    <mat-expansion-panel [expanded]="true" [disabled]="true" (opened)="true" hideToggle="true">
       <mat-expansion-panel-header>
         <mat-panel-title fxFlex="70">
           <mat-icon>filter_list</mat-icon>
@@ -38,7 +38,7 @@
   </mat-accordion>
 </div>
 <br/>
-<div *ngIf="filtred" class="mat-elevation-z7">
+<div class="mat-elevation-z7">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z7" fxFlex="100">
     <ng-container matColumnDef="entranceDate">
       <th mat-header-cell *matHeaderCellDef> Data da Entrada </th>
@@ -84,7 +84,18 @@
         </button>
       </td>
     </ng-container>
+    <ng-container matColumnDef="disclaimer">
+      <td mat-footer-cell *matFooterCellDef colspan="8">
+        <label *ngIf="results == 0">Nenhum registro encontrado</label>
+        <label *ngIf="results == 1">{{results}} registro encontrado</label>
+        <label *ngIf="results > 1">{{results}} registros encontrados</label>
+      </td>
+    </ng-container>
+    
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="['disclaimer']"></tr>
+    
   </table>
+  <br />
 </div>

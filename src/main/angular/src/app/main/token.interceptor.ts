@@ -6,6 +6,7 @@ import {
     HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { LoadingService } from './services/loading.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -26,4 +27,5 @@ export class TokenInterceptor implements HttpInterceptor {
         });
         return next.handle(request);
     }
+    
 }

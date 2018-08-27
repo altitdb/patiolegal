@@ -7,6 +7,7 @@ import { PrintService } from '../services/print.service';
 import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material';
 import { SealComponent } from './seal/seal.component';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +16,7 @@ import { SealComponent } from './seal/seal.component';
 })
 export class SearchComponent implements OnInit {
 
-  filtred: boolean = false;
+  results = 0;
   form: FormGroup;
   displayedColumns: string[] = ['protocol', 'entranceDate', 'exitDate', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
   dataSource: MatTableDataSource<Protocol>;
@@ -24,7 +25,8 @@ export class SearchComponent implements OnInit {
               private _router: Router,
               private _searchService: SearchService,
               private _printService: PrintService,
-              private _sealDialog: MatDialog) { }
+              private _sealDialog: MatDialog,
+              private _loadingService: LoadingService) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -35,18 +37,22 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this.filtred = true;
+    this._loadingService.show();
     this._searchService.search(this.form.value).subscribe(
       suc => {
+        this.results = suc.length;
         this.dataSource = new MatTableDataSource(suc);
+        this._loadingService.hide();
       }
     );
   }
 
   printProtocol(protocol) {
+    this._loadingService.show();
     this._printService.printProcol(protocol).subscribe(
       suc => {
         saveAs(suc.body, 'protocolo.pdf')
+        this._loadingService.hide();
       }
     );
   }

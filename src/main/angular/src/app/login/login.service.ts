@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
@@ -9,7 +8,7 @@ export class LoginService {
 
   private url = environment.url + "/oauth/token";
 
-  constructor(private _httpCliente: HttpClient, private _router: Router) { }
+  constructor(private _httpCliente: HttpClient) { }
 
   public login(data) {
     let params = new URLSearchParams();
@@ -26,11 +25,6 @@ export class LoginService {
         headers: HEADERS
       }
     );
-  }
-
-  public logoff() {
-    sessionStorage.removeItem("access");
-    this._router.navigate(["/login"]);
   }
 
 }

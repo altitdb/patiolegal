@@ -2,6 +2,8 @@ package br.com.patiolegal.handler;
 
 import java.util.List;
 
+import javax.validation.ValidationException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -60,6 +62,12 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<ErrorDTO> notFoundException(final InvalidFormatException e) {
         ErrorDTO error = new ErrorDTO(e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ErrorDTO> validation(final ValidationException e) {
+        ErrorDTO error = new ErrorDTO("CPF e/ou CNPJ inválidos");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
     

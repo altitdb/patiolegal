@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   public login:boolean = false;
   public error;
 
-  constructor(private _formBuilder:FormBuilder, private _loginService: LoginService, private _router: Router) {
-    this.form  = _formBuilder.group({
+  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService, private _router: Router) {
+    this.form = _formBuilder.group({
       "username": [null, Validators.required],
       "password" : [null, Validators.required]
     });
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     this._loginService.login(this.form.value).subscribe(
       suc=>{
         sessionStorage.setItem("access", JSON.stringify(suc));
-        this._router.navigate(["/main"]);
+        this._router.navigate(["/main/search"]);
         this.login = false;
       },
       err=>{        
@@ -41,6 +41,12 @@ export class LoginComponent implements OnInit {
         this.error = "Usuário e/ou Senha estão errados.";
       }
     );
+  }
+
+  keydown(event) {
+    if(event.keyCode == 13) {
+      this.doLogin();
+    }
   }
 
 }

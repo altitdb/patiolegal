@@ -27,14 +27,6 @@ export class SuccessComponent implements OnInit {
     );
   }
 
-  printSeal(protocol) {
-    this._printService.printSeal(protocol).subscribe(
-      suc => {
-        saveAs(suc.body, 'lacre.pdf')
-      }
-    );
-  }
-
   search() {
     this._router.navigate(["/main/search"]);
   }

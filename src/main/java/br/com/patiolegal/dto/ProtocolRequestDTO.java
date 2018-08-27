@@ -62,7 +62,6 @@ public class ProtocolRequestDTO {
 	private String accountableIn;
 	private String board;
 	private Integer amountSeals;
-	private Seal seal;
 
 	public String getProtocol() {
 		return protocol;
@@ -238,10 +237,6 @@ public class ProtocolRequestDTO {
 
 	public String getPart() {
 		return part;
-	}
-
-	public Seal getSeal() {
-		return seal;
 	}
 
 	@Override
