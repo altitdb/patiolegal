@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import br.com.patiolegal.exception.BusinessException;
 import br.com.patiolegal.exception.ConfigurationNotFoundException;
 import br.com.patiolegal.exception.NotFoundException;
 import br.com.patiolegal.exception.ProtocolNotFoundException;
+import br.com.patiolegal.exception.SealNotFoundException;
 import br.com.patiolegal.reports.ReportUtils;
 import br.com.patiolegal.repository.ConfigurationRepository;
 import br.com.patiolegal.repository.ProtocolRepository;
@@ -50,18 +53,19 @@ public class SealServiceBean implements SealService {
             LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());
             throw new ProtocolNotFoundException();
         }
-        
+
         LOG.debug("Validando quantidade de lacres...");
         validatePrintSealLimit(request.getAmount());
 
-		Protocol protocol = result.get();
+        Protocol protocol = result.get();
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		Location location = protocol.getEntrance().getLocation();
-		String dateProtocol = protocol.getDate().format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Location location = protocol.getEntrance().getLocation();
+        String dateProtocol = protocol.getDate().format(formatter);
 
-		LOG.debug("Criando file para o lacre gerado...");
-		byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(), dateProtocol);
+        LOG.debug("Criando file para o lacre gerado...");
+        byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(),
+                dateProtocol);
 
         Seal seal = new Seal();
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
@@ -71,7 +75,7 @@ public class SealServiceBean implements SealService {
         seal.setUsername(username);
         LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
-        
+
         protocol.addSeal(seal);
         LOG.debug("Salvando protocolo...");
         protocolRepository.save(protocol);
@@ -94,14 +98,25 @@ public class SealServiceBean implements SealService {
 
     }
 
-    @Override
-    public InputStream get(String id) {
+    private Seal findSealById(String id) {
         Optional<Seal> seal = sealRepository.findById(id);
         if (seal.isPresent()) {
-            Binary file = seal.get().getFile();
-            return new ByteArrayInputStream(file.getData());
+            return seal.get();
         }
-        throw new NotFoundException();
+        throw new SealNotFoundException();
+    }
+
+    private InputStream getInputStreamSeal(Seal seal) {
+        Binary file = seal.getFile();
+        return new ByteArrayInputStream(file.getData());
+    }
+
+    @Override
+    public ResponseEntity<InputStreamResource> downloadSeal(String id) {
+        Seal seal = findSealById(id);
+        InputStream inputStream = getInputStreamSeal(seal);
+        ReportUtils reportUtils = new ReportUtils();
+        return reportUtils.downloadPdfReport("lacre.pdf", inputStream);
     }
 
 }
