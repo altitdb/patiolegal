@@ -84,18 +84,24 @@ public class SealServiceBean implements SealService {
     }
 
     private void validatePrintSealLimit(Integer amount) {
-        Optional<Configuration> configuration = configurationRepository.findByKey(KEY_PRINT_SEAL_LIMIT);
-        if (configuration.isPresent()) {
-            Integer limitPrintConfig = new Integer(configuration.get().getValue());
-            LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
-            if (amount > limitPrintConfig) {
-                throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
-            }
-        } else {
-            LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
-            throw new ConfigurationNotFoundException();
+        Configuration configuration = findConfigurationByKey(KEY_PRINT_SEAL_LIMIT);
+        Integer limitPrintConfig = new Integer(configuration.getValue());
+        
+        LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
+        
+        if (amount > limitPrintConfig) {
+            throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
         }
 
+    }
+
+    private Configuration findConfigurationByKey(String key) {
+        Optional<Configuration> configuration = configurationRepository.findByKey(key);
+        if (configuration.isPresent()) {
+            return configuration.get();
+        }
+        LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
+        throw new ConfigurationNotFoundException();
     }
 
     private Seal findSealById(String id) {
