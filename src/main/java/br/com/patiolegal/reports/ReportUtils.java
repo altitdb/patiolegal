@@ -21,10 +21,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.dto.CompanyDTO;
 import br.com.patiolegal.dto.SealDTO;
+import br.com.patiolegal.dto.SealReportDTO;
 import br.com.patiolegal.dto.SealRequestDTO;
 import br.com.patiolegal.exception.GenerateProtocolReportException;
 import br.com.patiolegal.exception.GenerateSealReportException;
@@ -35,6 +37,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+@Component
 public class ReportUtils {
 
     private static final Logger LOG = LogManager.getLogger(ReportUtils.class);
@@ -71,17 +74,16 @@ public class ReportUtils {
         }
     }
 
-    public byte[] generateSealReport(SealRequestDTO request, String location, String authenticationProtocol,
-            String dateProtocol) {
+    public byte[] generateSealReport(SealRequestDTO request, SealReportDTO sealReportDTO) {
         LOG.info("Dados recebidos na requisicao para geracao de lacres: " + request.toString());
         long amount = (request.getAmount() != null ? request.getAmount() : 1);
 
         SealDTO sealDto = new SealDTO();
         sealDto.setProtocol(request.getProtocol());
-        sealDto.setAuthentication(authenticationProtocol);
+        sealDto.setAuthentication(sealReportDTO.getAuthentication());
 
         try {
-            String qrcodeText = location + authenticationProtocol + dateProtocol;
+            String qrcodeText = sealReportDTO.stringfy();
 
             ByteArrayOutputStream qrCodeImage = QRCodeUtils.getQRCodeImage(qrcodeText, 100, 100);
             InputStream imageIs = new ByteArrayInputStream(qrCodeImage.toByteArray());

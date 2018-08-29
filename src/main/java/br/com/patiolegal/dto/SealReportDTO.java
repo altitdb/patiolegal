@@ -3,7 +3,8 @@ package br.com.patiolegal.dto;
 public class SealReportDTO {
 
     private String location;
-    private String authenticationProtocol;
+    private String authentication;
+    private String protocol;
     private String dateProtocol;
 
     public static class SealReportBuilder {
@@ -19,8 +20,13 @@ public class SealReportDTO {
             return this;
         }
 
-        public SealReportBuilder withAuthenticationProtocol(String authenticationProtocol) {
-            dto.authenticationProtocol = authenticationProtocol;
+        public SealReportBuilder withAuthentication(String authentication) {
+            dto.authentication = authentication;
+            return this;
+        }
+
+        public SealReportBuilder withProtocol(String protocol) {
+            dto.protocol = protocol;
             return this;
         }
 
@@ -39,12 +45,26 @@ public class SealReportDTO {
         return location;
     }
 
-    public String getAuthenticationProtocol() {
-        return authenticationProtocol;
+    public String getAuthentication() {
+        return authentication;
+    }
+
+    public String getProtocol() {
+        return protocol;
     }
 
     public String getDateProtocol() {
         return dateProtocol;
+    }
+
+    public String stringfy() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(protocol);
+        stringBuilder.append("\n");
+        stringBuilder.append(location);
+        stringBuilder.append("\n");
+        stringBuilder.append(authentication);
+        return String.valueOf(stringBuilder);
     }
 
 }
