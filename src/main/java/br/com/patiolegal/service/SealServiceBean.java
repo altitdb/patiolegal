@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,13 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.dto.FileIdentifierDTO;
+import br.com.patiolegal.dto.SealReportDTO;
+import br.com.patiolegal.dto.SealReportDTO.SealReportBuilder;
 import br.com.patiolegal.dto.SealRequestDTO;
 import br.com.patiolegal.exception.BusinessException;
 import br.com.patiolegal.exception.ConfigurationNotFoundException;
-import br.com.patiolegal.exception.NotFoundException;
 import br.com.patiolegal.exception.ProtocolNotFoundException;
+import br.com.patiolegal.exception.SealNotFoundException;
 import br.com.patiolegal.reports.ReportUtils;
 import br.com.patiolegal.repository.ConfigurationRepository;
 import br.com.patiolegal.repository.ProtocolRepository;
@@ -43,65 +47,113 @@ public class SealServiceBean implements SealService {
     @Autowired
     private SealRepository sealRepository;
 
-    @Override
-    public FileIdentifierDTO generate(SealRequestDTO request) {
-        Optional<Protocol> result = protocolRepository.findByProtocol(request.getProtocol());
-        if (!result.isPresent()) {
-            LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());
-            throw new ProtocolNotFoundException();
-        }
-        
+    private void validatePrintSealLimit(Integer amount) {
         LOG.debug("Validando quantidade de lacres...");
-        validatePrintSealLimit(request.getAmount());
+        Configuration configuration = findConfigurationByKey(KEY_PRINT_SEAL_LIMIT);
+        Integer limitPrintConfig = new Integer(configuration.getValue());
 
-		Protocol protocol = result.get();
+        LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		Location location = protocol.getEntrance().getLocation();
-		String dateProtocol = protocol.getDate().format(formatter);
+        if (amount > limitPrintConfig) {
+            throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
+        }
 
-		LOG.debug("Criando file para o lacre gerado...");
-		byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(), dateProtocol);
+    }
 
-        Seal seal = new Seal();
-        seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
-        seal.generateAuthentication();
+    private Protocol findProtocol(String protocolRequest) {
+        Optional<Protocol> protocol = protocolRepository.findByProtocol(protocolRequest);
+        if (protocol.isPresent()) {
+            return protocol.get();
+        }
+        LOG.error("Protocolo não encontrado em base de dados: " + protocolRequest);
+        throw new ProtocolNotFoundException();
+    }
+
+    private Configuration findConfigurationByKey(String key) {
+        Optional<Configuration> configuration = configurationRepository.findByKey(key);
+        if (configuration.isPresent()) {
+            return configuration.get();
+        }
+        LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
+        throw new ConfigurationNotFoundException();
+    }
+
+    private Seal findSealById(String id) {
+        Optional<Seal> seal = sealRepository.findById(id);
+        if (seal.isPresent()) {
+            return seal.get();
+        }
+        throw new SealNotFoundException();
+    }
+
+    private InputStream getInputStreamSeal(Seal seal) {
+        Binary file = seal.getFile();
+        return new ByteArrayInputStream(file.getData());
+    }
+
+    private String getUserNameAuthentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        seal.setUsername(username);
+        return authentication.getName();
+    }
+
+    private byte[] generateSealReport(SealRequestDTO request, Protocol protocol, Seal seal) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Location location = protocol.getEntrance().getLocation();
+        String dateProtocol = protocol.getDate().format(formatter);
+
+        SealReportDTO sealReportDTO = new SealReportBuilder()
+                                          .withLocation(location.stringfy())
+                                          .withAuthentication(seal.getAuthentication())
+                                          .withDateProtocol(dateProtocol)
+                                          .build();
+
+        LOG.debug("Criando file para o lacre gerado...");
+        byte[] file = reportUtils.generateSealReport(request, sealReportDTO);
+
+        return file;
+    }
+
+    private Seal saveSealAndUpdateProtocol(Seal seal, Protocol protocol) {
+
         LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
-        
+
         protocol.addSeal(seal);
         LOG.debug("Salvando protocolo...");
         protocolRepository.save(protocol);
+        return seal;
+    }
+
+    @Override
+    public FileIdentifierDTO generateSeal(SealRequestDTO request) {
+        LOG.debug("Dados recebidos na requisição: " + request);
+
+        validatePrintSealLimit(request.getAmount());
+
+        Protocol protocol = findProtocol(request.getProtocol());
+
+        Seal seal = new Seal();
+        seal.generateAuthentication();
+        String username = getUserNameAuthentication();
+        seal.setUsername(username);
+        
+        byte[] file = generateSealReport(request, protocol, seal);
+   
+        seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
+        
+        seal = saveSealAndUpdateProtocol(seal, protocol);
+
         LOG.debug("Lacre gerado com sucesso.");
         return new FileIdentifierDTO(seal.getId());
     }
 
-    private void validatePrintSealLimit(Integer amount) {
-        Optional<Configuration> configuration = configurationRepository.findByKey(KEY_PRINT_SEAL_LIMIT);
-        if (configuration.isPresent()) {
-            Integer limitPrintConfig = new Integer(configuration.get().getValue());
-            LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
-            if (amount > limitPrintConfig) {
-                throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
-            }
-        } else {
-            LOG.error("Configuração não encontrada: " + KEY_PRINT_SEAL_LIMIT);
-            throw new ConfigurationNotFoundException();
-        }
-
-    }
-
     @Override
-    public InputStream get(String id) {
-        Optional<Seal> seal = sealRepository.findById(id);
-        if (seal.isPresent()) {
-            Binary file = seal.get().getFile();
-            return new ByteArrayInputStream(file.getData());
-        }
-        throw new NotFoundException();
+    public ResponseEntity<InputStreamResource> downloadSeal(String id) {
+        Seal seal = findSealById(id);
+        InputStream inputStream = getInputStreamSeal(seal);
+        ReportUtils reportUtils = new ReportUtils();
+        return reportUtils.downloadPdfReport("lacre.pdf", inputStream);
     }
 
 }

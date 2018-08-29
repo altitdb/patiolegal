@@ -39,11 +39,19 @@ public class Location {
         this.floor = floor;
     }
 
-	@Override
-	public String toString() {
-		return "Localização [Barracão: " + shed.getDescription() + ", Fileira: " + row + ", Coluna: " + column + ", Andar: " + floor + "]";
-	}
-    
-    
+    public String stringfy() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Barracão: ");
+        stringBuilder.append(shed.getInitials());
+        stringBuilder.append(" - ");
+        stringBuilder.append(shed.getDescription());
+        stringBuilder.append("\nFileira: ");
+        stringBuilder.append(row);
+        stringBuilder.append("\nColuna: ");
+        stringBuilder.append(column);
+        stringBuilder.append("\nAndar: ");
+        stringBuilder.append(floor);
+        return String.valueOf(stringBuilder);
+    }
 
 }
