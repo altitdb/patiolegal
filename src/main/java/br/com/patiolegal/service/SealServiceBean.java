@@ -46,53 +46,26 @@ public class SealServiceBean implements SealService {
     @Autowired
     private SealRepository sealRepository;
 
-    @Override
-    public FileIdentifierDTO generateSeal(SealRequestDTO request) {
-        Optional<Protocol> result = protocolRepository.findByProtocol(request.getProtocol());
-        if (!result.isPresent()) {
-            LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());
-            throw new ProtocolNotFoundException();
-        }
-
-        LOG.debug("Validando quantidade de lacres...");
-        validatePrintSealLimit(request.getAmount());
-
-        Protocol protocol = result.get();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Location location = protocol.getEntrance().getLocation();
-        String dateProtocol = protocol.getDate().format(formatter);
-
-        LOG.debug("Criando file para o lacre gerado...");
-        byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(),
-                dateProtocol);
-
-        Seal seal = new Seal();
-        seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
-        seal.generateAuthentication();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        seal.setUsername(username);
-        LOG.debug("Salvando lacres...");
-        sealRepository.save(seal);
-
-        protocol.addSeal(seal);
-        LOG.debug("Salvando protocolo...");
-        protocolRepository.save(protocol);
-        LOG.debug("Lacre gerado com sucesso.");
-        return new FileIdentifierDTO(seal.getId());
-    }
-
     private void validatePrintSealLimit(Integer amount) {
+        LOG.debug("Validando quantidade de lacres...");
         Configuration configuration = findConfigurationByKey(KEY_PRINT_SEAL_LIMIT);
         Integer limitPrintConfig = new Integer(configuration.getValue());
-        
+
         LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
-        
+
         if (amount > limitPrintConfig) {
             throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
         }
 
+    }
+
+    private Protocol findProtocol(String protocolRequest) {
+        Optional<Protocol> protocol = protocolRepository.findByProtocol(protocolRequest);
+        if (protocol.isPresent()) {
+            return protocol.get();
+        }
+        LOG.error("Protocolo não encontrado em base de dados: " + protocolRequest);
+        throw new ProtocolNotFoundException();
     }
 
     private Configuration findConfigurationByKey(String key) {
@@ -115,6 +88,54 @@ public class SealServiceBean implements SealService {
     private InputStream getInputStreamSeal(Seal seal) {
         Binary file = seal.getFile();
         return new ByteArrayInputStream(file.getData());
+    }
+
+    private String getUserNameAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+    private byte[] generateSealReport(SealRequestDTO request, Protocol protocol) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Location location = protocol.getEntrance().getLocation();
+        String dateProtocol = protocol.getDate().format(formatter);
+
+        LOG.debug("Criando file para o lacre gerado...");
+        byte[] file = reportUtils.generateSealReport(request, location.toString(), protocol.getAuthentication(),
+                dateProtocol);
+        return file;
+    }
+
+    private Seal saveSealAndUpdateProtocol(byte[] file, Protocol protocol) {
+        Seal seal = new Seal();
+        seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
+        seal.generateAuthentication();
+        String username = getUserNameAuthentication();
+        seal.setUsername(username);
+        LOG.debug("Salvando lacres...");
+        sealRepository.save(seal);
+
+        protocol.addSeal(seal);
+        LOG.debug("Salvando protocolo...");
+        protocolRepository.save(protocol);
+        return seal;
+    }
+
+    @Override
+    public FileIdentifierDTO generateSeal(SealRequestDTO request) {
+        LOG.debug("Dados recebidos na requisição: " + request);
+
+        validatePrintSealLimit(request.getAmount());
+
+        Protocol protocol = findProtocol(request.getProtocol());
+
+        byte[] file = generateSealReport(request, protocol);
+
+        Seal seal = saveSealAndUpdateProtocol(file, protocol);
+
+        LOG.debug("Lacre gerado com sucesso.");
+        return new FileIdentifierDTO(seal.getId());
     }
 
     @Override
