@@ -1,8 +1,5 @@
 package br.com.patiolegal.service;
 
-import java.io.InputStream;
-import java.util.Optional;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +9,11 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.Vehicle;
+import br.com.patiolegal.dto.FileIdentifierDTO;
 import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.ProtocolDTO.ProtocolDTOBuilder;
 import br.com.patiolegal.dto.ProtocolRequestDTO;
 import br.com.patiolegal.exception.ProtocolNotFoundException;
-import br.com.patiolegal.reports.ReportUtils;
 import br.com.patiolegal.repository.ProtocolRepository;
 
 @Service
@@ -25,29 +22,26 @@ public class ProtocolServiceBean implements ProtocolService {
 	private static final Logger LOG = LogManager.getLogger(ProtocolServiceBean.class);
 
 	@Autowired
-	private ReportUtils reportUtils;
-
-	@Autowired
 	private ProtocolRepository repository;
 
 	@Override
-	public InputStream generate(ProtocolRequestDTO request) {
-		Optional<Protocol> protocol = repository.findByProtocol(request.getProtocol());
-		if (protocol.isPresent()) {
-			Protocol protocolValue = protocol.get();
-            Vehicle vehicle = protocolValue.getEntrance().getVehicle();
-            Police police = protocolValue.getEntrance().getPolice();
-            Location location = protocolValue.getEntrance().getLocation();
+	public FileIdentifierDTO generateProtocol(ProtocolRequestDTO request) {
+        Protocol protocol = repository.findByProtocol(request.getProtocol())
+                .orElseThrow(ProtocolNotFoundException::new);
+		
+            Vehicle vehicle = protocol.getEntrance().getVehicle();
+            Police police = protocol.getEntrance().getPolice();
+            Location location = protocol.getEntrance().getLocation();
             ProtocolDTO dto = new ProtocolDTOBuilder()
-										.withPart(protocolValue.getPart())
-										.withProtocol(protocolValue.getProtocol())
-										.withDate(protocolValue.getDate())
-										.withDateTimeIn(protocolValue.getDateTimeIn())
-										.withDateTimeOut(protocolValue.getExit().getDateTimeOut())
-										.withPoliceInvestigation(protocolValue.getPoliceInvestigation())
-										.withEventBulletin(protocolValue.getEventBulletin())
-										.withTaxId(protocolValue.getTaxId())
-										.withName(protocolValue.getName())
+										.withPart(protocol.getPart())
+										.withProtocol(protocol.getProtocol())
+										.withDate(protocol.getDate())
+										.withDateTimeIn(protocol.getDateTimeIn())
+										.withDateTimeOut(protocol.getExit().getDateTimeOut())
+										.withPoliceInvestigation(protocol.getPoliceInvestigation())
+										.withEventBulletin(protocol.getEventBulletin())
+										.withTaxId(protocol.getTaxId())
+										.withName(protocol.getName())
 										.withTheyRenamed(vehicle.getTheyRenamed())
 										.withOwnerName(vehicle.getOwnerName())
 										.withOwnerTaxIdentifier(vehicle.getOwnerTaxIdentifier())
@@ -60,7 +54,7 @@ public class ProtocolServiceBean implements ProtocolService {
 										.withYearModel(vehicle.getYearModel())
 										.withSportingPlate(vehicle.getSportingPlate())
 										.withOriginalPlate(vehicle.getOriginalPlate())
-										.withOriginCapture(protocolValue.getOriginCapture())
+										.withOriginCapture(protocol.getOriginCapture())
 										.withChassisState(vehicle.getChassisState())
 										.withChassis(vehicle.getChassis())
 										.withMotorState(vehicle.getEngineState())
@@ -79,16 +73,12 @@ public class ProtocolServiceBean implements ProtocolService {
 										.withRow(location.getRow())
 										.withColumn(location.getColumn())
 										.withFloor(location.getFloor())
-										.withAccountableOut(protocolValue.getAccountableOut())
-										.withAccountableIn(protocolValue.getAccountableIn())
-										.withBoard(protocolValue.getBoard())
-										.withAuthentication(protocolValue.getAuthentication())
+										.withAccountableOut(protocol.getAccountableOut())
+										.withAccountableIn(protocol.getAccountableIn())
+										.withBoard(protocol.getBoard())
+										.withAuthentication(protocol.getAuthentication())
 										.build();
 			return null;
-		} else {
-			LOG.error("Protocolo " + request.getProtocol() + " nao localizado em base de dados.");
-			throw new ProtocolNotFoundException();
-		}
 
 	}
 }
