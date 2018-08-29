@@ -8,7 +8,7 @@ import br.com.patiolegal.dto.SealRequestDTO;
 
 public interface SealService {
 
-    FileIdentifierDTO generate(SealRequestDTO request);
+    FileIdentifierDTO generateSeal(SealRequestDTO request);
 
     ResponseEntity<InputStreamResource> downloadSeal(String id);
 

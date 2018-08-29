@@ -47,7 +47,7 @@ public class SealServiceBean implements SealService {
     private SealRepository sealRepository;
 
     @Override
-    public FileIdentifierDTO generate(SealRequestDTO request) {
+    public FileIdentifierDTO generateSeal(SealRequestDTO request) {
         Optional<Protocol> result = protocolRepository.findByProtocol(request.getProtocol());
         if (!result.isPresent()) {
             LOG.error("Protocolo não encontrado em base de dados: " + request.getProtocol());

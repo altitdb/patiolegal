@@ -24,8 +24,8 @@ public class SealController {
     private SealService sealService;
 
     @PostMapping(path = "/api/v1/print/seal", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FileIdentifierDTO> generate(@Valid @RequestBody SealRequestDTO request) {
-        FileIdentifierDTO fileIdentifier = sealService.generate(request);
+    public ResponseEntity<FileIdentifierDTO> generateSeal(@Valid @RequestBody SealRequestDTO request) {
+        FileIdentifierDTO fileIdentifier = sealService.generateSeal(request);
         return new ResponseEntity<>(fileIdentifier, HttpStatus.ACCEPTED);
     }
 
