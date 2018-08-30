@@ -8,6 +8,8 @@ import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material';
 import { SealComponent } from './seal/seal.component';
 import { LoadingService } from '../services/loading.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -20,13 +22,15 @@ export class SearchComponent implements OnInit {
   form: FormGroup;
   displayedColumns: string[] = ['protocol', 'entranceDate', 'exitDate', 'sportingPlate', 'originalPlate', 'printProtocol', 'printSeals', 'exit'];
   dataSource: MatTableDataSource<Protocol>;
+  url = environment.url + '/api/v1/print/protocol';
 
   constructor(private _formBuilder: FormBuilder, 
               private _router: Router,
               private _searchService: SearchService,
               private _printService: PrintService,
               private _sealDialog: MatDialog,
-              private _loadingService: LoadingService) { }
+              private _loadingService: LoadingService,
+              private _httpClient: HttpClient) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
@@ -49,12 +53,20 @@ export class SearchComponent implements OnInit {
 
   printProtocol(protocol) {
     this._loadingService.show();
-    this._printService.printProcol(protocol).subscribe(
-      suc => {
-        saveAs(suc.body, 'protocolo.pdf')
-        this._loadingService.hide();
+    var data = { 'protocol': protocol };
+    const HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
+    this._httpClient.post<FileIdentifier>(this.url,
+      data,
+      {
+        headers: HEADERS
       }
-    );
+    ).subscribe(suc => {
+      let identifier = suc.identifier;
+      this._printService.printProcol(identifier).subscribe(suc => {
+        saveAs(suc.body, 'protocolo.pdf');
+        this._loadingService.hide();
+      });    
+    });
   }
 
   printSeals(protocol) {

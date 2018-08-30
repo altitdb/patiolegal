@@ -1,7 +1,6 @@
 package br.com.patiolegal.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,8 +21,7 @@ public class Seal {
 	private String authentication;
 	
     public void generateAuthentication() {
-        LocalDateTime now = LocalDateTime.now();
-        byte[] bytes = now.toString().getBytes();
+        byte[] bytes = date.toString().getBytes();
         UUID uuid = UUID.nameUUIDFromBytes(bytes);
         authentication = StringUtils.upperCase(uuid.toString());
     }

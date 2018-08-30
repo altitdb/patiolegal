@@ -152,7 +152,6 @@ public class SealServiceBean implements SealService {
     public ResponseEntity<InputStreamResource> downloadSeal(String id) {
         Seal seal = findSealById(id);
         InputStream inputStream = getInputStreamSeal(seal);
-        ReportUtils reportUtils = new ReportUtils();
         return reportUtils.downloadPdfReport("lacre.pdf", inputStream);
     }
 
