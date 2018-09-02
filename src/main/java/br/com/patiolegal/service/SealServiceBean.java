@@ -102,11 +102,8 @@ public class SealServiceBean implements SealService {
         Location location = protocol.getEntrance().getLocation();
         String dateProtocol = protocol.getDate().format(formatter);
 
-        SealReportDTO sealReportDTO = new SealReportBuilder()
-                                          .withLocation(location.stringfy())
-                                          .withAuthentication(seal.getAuthentication())
-                                          .withDateProtocol(dateProtocol)
-                                          .build();
+        SealReportDTO sealReportDTO = new SealReportBuilder().withLocation(location.stringfy())
+                .withAuthentication(seal.getAuthentication()).withDateProtocol(dateProtocol).build();
 
         LOG.debug("Criando file para o lacre gerado...");
         byte[] file = reportUtils.generateSealReport(request, sealReportDTO);
@@ -114,15 +111,16 @@ public class SealServiceBean implements SealService {
         return file;
     }
 
-    private Seal saveSealAndUpdateProtocol(Seal seal, Protocol protocol) {
-
+    private Seal saveSeal(Seal seal) {
         LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
 
-        protocol.addSeal(seal);
+        return seal;
+    }
+
+    private void saveProtocol(Protocol protocol) {
         LOG.debug("Salvando protocolo...");
         protocolRepository.save(protocol);
-        return seal;
     }
 
     @Override
@@ -137,12 +135,16 @@ public class SealServiceBean implements SealService {
         seal.generateAuthentication();
         String username = getUserNameAuthentication();
         seal.setUsername(username);
-        
+
         byte[] file = generateSealReport(request, protocol, seal);
-   
+
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
-        
-        seal = saveSealAndUpdateProtocol(seal, protocol);
+
+        seal = saveSeal(seal);
+
+        protocol.addSeal(seal);
+
+        saveProtocol(protocol);
 
         LOG.debug("Lacre gerado com sucesso.");
         return new FileIdentifierDTO(seal.getId());
