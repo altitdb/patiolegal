@@ -5,7 +5,6 @@ public class SealReportDTO {
     private String location;
     private String authentication;
     private String protocol;
-    private String dateProtocol;
 
     public static class SealReportBuilder {
 
@@ -30,11 +29,6 @@ public class SealReportDTO {
             return this;
         }
 
-        public SealReportBuilder withDateProtocol(String dateProtocol) {
-            dto.dateProtocol = dateProtocol;
-            return this;
-        }
-
         public SealReportDTO build() {
             return dto;
         }
@@ -54,7 +48,7 @@ public class SealReportDTO {
     }
 
     public String getDateProtocol() {
-        return dateProtocol;
+        return protocol;
     }
 
     public String stringfy() {

@@ -2,7 +2,6 @@ package br.com.patiolegal.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -98,12 +97,13 @@ public class SealServiceBean implements SealService {
 
     private byte[] generateSealReport(SealRequestDTO request, Protocol protocol, Seal seal) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Location location = protocol.getEntrance().getLocation();
-        String dateProtocol = protocol.getDate().format(formatter);
 
-        SealReportDTO sealReportDTO = new SealReportBuilder().withLocation(location.stringfy())
-                .withAuthentication(seal.getAuthentication()).withDateProtocol(dateProtocol).build();
+        SealReportDTO sealReportDTO = new SealReportBuilder()
+                                          .withLocation(location.stringfy())
+                                          .withAuthentication(seal.getAuthentication())
+                                          .withProtocol(protocol.getProtocol())
+                                          .build();
 
         LOG.debug("Criando file para o lacre gerado...");
         byte[] file = reportUtils.generateSealReport(request, sealReportDTO);
