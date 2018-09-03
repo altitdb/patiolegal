@@ -18,7 +18,7 @@ import br.com.patiolegal.repository.UserRepository;
 import br.com.patiolegal.utils.CustomPasswordEncoder;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

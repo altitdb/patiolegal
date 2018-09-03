@@ -23,8 +23,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.dto.CompanyDTO;
+import br.com.patiolegal.dto.ProtocolDTO;
 import br.com.patiolegal.dto.SealDTO;
 import br.com.patiolegal.dto.SealReportDTO;
 import br.com.patiolegal.dto.SealRequestDTO;
@@ -46,11 +46,11 @@ public class ReportUtils {
     @Value("classpath:reports/protocol.jasper")
     private Resource protocolResource;
 
-    public InputStream generateProtocolReport(CompanyDTO company, Protocol protocol) {
+    public byte[] generateProtocolReport(CompanyDTO company, ProtocolDTO protocol) {
 
         LOG.info("Dados recebidos na requisicao para geracao de protocolo: " + protocol);
 
-        List<Protocol> list = new ArrayList<>();
+        List<ProtocolDTO> list = new ArrayList<>();
         list.add(protocol);
         JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(list);
 
@@ -66,8 +66,7 @@ public class ReportUtils {
             LOG.debug("Preparando para gerar protocolo...");
             JasperPrint jasperPrint = JasperFillManager.fillReport(protocolResource.getInputStream(), parameters,
                     beanColDataSource);
-            byte[] exportReportToPdf = JasperExportManager.exportReportToPdf(jasperPrint);
-            return new ByteArrayInputStream(exportReportToPdf);
+            return JasperExportManager.exportReportToPdf(jasperPrint);
         } catch (Exception e) {
             LOG.error("Erro ao gerar protocolo: ", e);
             throw new GenerateProtocolReportException();

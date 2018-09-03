@@ -1,11 +1,15 @@
 package br.com.patiolegal.service;
 
-import java.io.InputStream;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 
+import br.com.patiolegal.dto.FileIdentifierDTO;
 import br.com.patiolegal.dto.ProtocolRequestDTO;
 
 public interface ProtocolService {
 
-	InputStream generate(ProtocolRequestDTO request);
+	FileIdentifierDTO generateProtocol(ProtocolRequestDTO request);
+
+    ResponseEntity<InputStreamResource> downloadPdf(String protocol);
 	
 }
