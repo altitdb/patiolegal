@@ -19,7 +19,6 @@ import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.ProtocolRecord;
-import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.CompanyDTO;
 import br.com.patiolegal.dto.CompanyDTO.CompanyDTOBuilder;
