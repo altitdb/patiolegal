@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.patiolegal.domain.ChassisState;
 import br.com.patiolegal.domain.EngineState;
-import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {

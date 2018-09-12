@@ -2,7 +2,6 @@ package br.com.patiolegal.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,6 @@ import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.QProtocol;
-import br.com.patiolegal.domain.Seal;
 import br.com.patiolegal.domain.Shed;
 import br.com.patiolegal.domain.Vehicle;
 import br.com.patiolegal.dto.ProtocolDTO;

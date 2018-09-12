@@ -59,10 +59,8 @@ public class ExceptionControllerAdvice {
         LOG.error("Ocorreu o seguinte erro: " + e);
         InvalidFormatException ex = (InvalidFormatException) e.getCause();
         List<Reference> path = ex.getPath();
-        Reference reference = path.stream().findFirst().get();
-        @SuppressWarnings("unused")
-        String fieldName = reference.getFieldName();
         ErrorDTO error = new ErrorDTO("Valor inválido");
+        path.stream().findAny().orElseThrow(() -> new ValidationException("Valor inválido"));
         MultiValueMap<String, String> headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
         return new ResponseEntity<ErrorDTO>(error, HttpStatus.BAD_REQUEST);

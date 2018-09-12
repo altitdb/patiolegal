@@ -3,8 +3,6 @@ package br.com.patiolegal.service;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +34,6 @@ import br.com.patiolegal.repository.ProtocolRepository;
 
 @Service
 public class ProtocolServiceBean implements ProtocolService {
-
-    private static final Logger LOG = LogManager.getLogger(ProtocolServiceBean.class);
 
     @Autowired
     private ProtocolRepository protocolRepository;
