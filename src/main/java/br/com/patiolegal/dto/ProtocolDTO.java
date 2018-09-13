@@ -53,6 +53,7 @@ public class ProtocolDTO {
 	private String board;
 	private String authentication;
 	private Integer amountSeals;
+	private String arrestOrgan;
 
 	public String getPart() {
 		return part;
@@ -232,6 +233,10 @@ public class ProtocolDTO {
 
 	public Integer getAmountSeals() {
 		return amountSeals;
+	}
+	
+	public String getArrestOrgan(){
+	    return arrestOrgan;
 	}
 
 	public static class ProtocolDTOBuilder {
@@ -467,6 +472,11 @@ public class ProtocolDTO {
 		public ProtocolDTOBuilder withAmountSeals(Integer amountSeals) {
 			dto.amountSeals = amountSeals;
 			return this;
+		}
+		
+		public ProtocolDTOBuilder withArrestOrgan(String arrestOrgan){
+		    dto.arrestOrgan = arrestOrgan;
+		    return this;
 		}
 
 		public ProtocolDTO build() {

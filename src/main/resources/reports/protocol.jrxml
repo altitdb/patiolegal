@@ -149,6 +149,18 @@
 	<field name="board" class="java.lang.String">
 		<fieldDescription><![CDATA[board]]></fieldDescription>
 	</field>
+	<field name="arrestOrgan" class="java.lang.String"/>
+	<variable name="vCategory" class="java.lang.String">
+		<variableExpression><![CDATA[($F{category}.equals("1") ? "OFICIAL" :
+	($F{category}.equals("2") ? "DIPLOMÁTICO" :
+		($F{category}.equals("3") ? "PARTICULAR" :
+			($F{category}.equals("4") ? "ALUGUEL" :
+				($F{category}.equals("5") ? "APRENDIZAGEM" : "NÃO INFORMADO")
+			)
+		)
+	)
+)]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -186,7 +198,7 @@
 				<reportElement x="0" y="1" width="1" height="90" uuid="1d524060-41b0-45b0-a071-cc6605f1ea78"/>
 			</line>
 			<line>
-				<reportElement x="0" y="0" width="555" height="1" uuid="db63163e-fa38-41f1-86df-75b9932f72c2"/>
+				<reportElement x="0" y="-2" width="555" height="1" uuid="db63163e-fa38-41f1-86df-75b9932f72c2"/>
 			</line>
 			<line>
 				<reportElement x="0" y="91" width="555" height="1" uuid="9f798ec1-4760-4c8a-959e-c7d5467cf2f1"/>
@@ -348,13 +360,6 @@
 				<textFieldExpression><![CDATA[$F{board}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="165" width="200" height="25" uuid="e351230f-a3f9-48c5-99da-18d26f629f2b"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="110" y="191" width="200" height="25" uuid="3bafab97-8977-46ee-ad90-3925689edadf"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
@@ -456,7 +461,7 @@
 			<textField>
 				<reportElement x="137" y="297" width="416" height="25" uuid="5f89fd49-55fb-4604-92cb-e694bc6f606a"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{originCapture}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{arrestOrgan}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="297" width="555" height="1" uuid="5bf78895-a7e0-479d-bb3c-036936d5c5a7"/>
@@ -471,12 +476,17 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{amountSeals}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="110" y="162" width="150" height="30" uuid="c0ff5795-789b-4eaa-aa11-bc7f9916b32f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{vCategory}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>
 		<band height="30" splitType="Stretch">
 			<textField pattern="&apos;Emitido em&apos; dd/MM/yyyy &apos;as&apos; HH:mm:ss">
-				<reportElement x="3" y="0" width="272" height="30" uuid="24eb0634-4cec-4d82-a650-679e1f7894e9"/>
+				<reportElement x="3" y="0" width="177" height="30" uuid="24eb0634-4cec-4d82-a650-679e1f7894e9"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -493,7 +503,7 @@
 				<reportElement x="0" y="0" width="1" height="30" uuid="43ceab5b-73e7-4dfa-b80f-9fe1f01c1b6b"/>
 			</line>
 			<textField pattern="&apos;Emitido em&apos; dd/MM/yyyy &apos;as&apos; HH:mm:ss">
-				<reportElement x="281" y="-1" width="272" height="30" uuid="3ddc1170-caf4-41cd-ae27-24654d8f98b3"/>
+				<reportElement x="180" y="-1" width="373" height="30" uuid="3ddc1170-caf4-41cd-ae27-24654d8f98b3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["AUTENTICAÇÃO " + $F{authentication}]]></textFieldExpression>
 			</textField>
