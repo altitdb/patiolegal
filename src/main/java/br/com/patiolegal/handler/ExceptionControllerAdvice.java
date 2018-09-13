@@ -28,18 +28,19 @@ import br.com.patiolegal.exception.BusinessException;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ExceptionControllerAdvice {
 
+    private static final String MENSAGEM_ERRO = "Ocorreu o seguinte erro: ";
     private static final Logger LOG = LogManager.getLogger(ExceptionControllerAdvice.class);
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorDTO> notFoundException(final AccessDeniedException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO("Access Denied");
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorDTO> notFoundException(final BusinessException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
@@ -47,42 +48,42 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
     public ResponseEntity<ErrorDTO> handleHttpMediaTypeNotAcceptableException(
             final HttpMediaTypeNotAcceptableException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO(e.getMessage());
         MultiValueMap<String, String> headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        return new ResponseEntity<ErrorDTO>(error, headers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, headers, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorDTO> handleHttpMediaTypeNotAcceptableException(final HttpMessageNotReadableException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         InvalidFormatException ex = (InvalidFormatException) e.getCause();
         List<Reference> path = ex.getPath();
         ErrorDTO error = new ErrorDTO("Valor inválido");
         path.stream().findAny().orElseThrow(() -> new ValidationException("Valor inválido"));
         MultiValueMap<String, String> headers = new HttpHeaders();
         headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        return new ResponseEntity<ErrorDTO>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<ErrorDTO> notFoundException(final InvalidFormatException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorDTO> validation(final ValidationException e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO("CPF e/ou CNPJ inválidos");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> notFoundException(final Exception e) {
-        LOG.error("Ocorreu o seguinte erro: " + e);
+        LOG.error(MENSAGEM_ERRO + e);
         ErrorDTO error = new ErrorDTO("Não foi possível completar sua requisição.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }

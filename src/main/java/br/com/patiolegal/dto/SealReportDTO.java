@@ -47,10 +47,6 @@ public class SealReportDTO {
         return protocol;
     }
 
-    public String getDateProtocol() {
-        return protocol;
-    }
-
     public String stringfy() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(protocol);

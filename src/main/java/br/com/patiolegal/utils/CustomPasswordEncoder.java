@@ -23,7 +23,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         try {
             String password = String.valueOf(rawPassword);
             MessageDigest algorithm = MessageDigest.getInstance(ALGORITHM);
-            byte passDigest[] = algorithm.digest(password.getBytes(CHARSET));
+            byte[] passDigest = algorithm.digest(password.getBytes(CHARSET));
 
             for (byte b : passDigest) {
                 hexPass.append(String.format("%02X", 0xFF & b));
@@ -31,7 +31,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
             return String.valueOf(hexPass);
         } catch (Exception e) {
-            LOG.error("Erro ao encriptar a senha",  e);
+            LOG.error("Erro ao encriptar a senha", e);
             throw new PasswordEncryptException();
         }
     }

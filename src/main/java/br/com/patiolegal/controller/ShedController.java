@@ -3,9 +3,7 @@ package br.com.patiolegal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +13,12 @@ import br.com.patiolegal.service.ShedService;
 @RestController
 public class ShedController {
 
-	@Autowired
-	private ShedService service;
-	
-	@RequestMapping(value = "/api/v1/shed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody List<ShedDTO> getSheds() {
-		return service.findAll();
-	}
+    @Autowired
+    private ShedService service;
+
+    @GetMapping(value = "/api/v1/shed")
+    public @ResponseBody List<ShedDTO> getSheds() {
+        return service.findAll();
+    }
 
 }

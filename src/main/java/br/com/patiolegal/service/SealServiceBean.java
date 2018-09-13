@@ -99,16 +99,12 @@ public class SealServiceBean implements SealService {
 
         Location location = protocol.getEntrance().getLocation();
 
-        SealReportDTO sealReportDTO = new SealReportBuilder()
-                                          .withLocation(location.stringfy())
-                                          .withAuthentication(seal.getAuthentication())
-                                          .withProtocol(protocol.getProtocol())
-                                          .build();
+        SealReportDTO sealReportDTO = new SealReportBuilder().withLocation(location.stringfy())
+                .withAuthentication(seal.getAuthentication()).withProtocol(protocol.getProtocol()).build();
 
         LOG.debug("Criando file para o lacre gerado...");
-        byte[] file = reportUtils.generateSealReport(request, sealReportDTO);
+        return reportUtils.generateSealReport(request, sealReportDTO);
 
-        return file;
     }
 
     private Seal saveSeal(Seal seal) {
