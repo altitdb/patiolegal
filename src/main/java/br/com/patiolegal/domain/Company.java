@@ -53,4 +53,8 @@ public class Company {
 		return image;
 	}
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 }
