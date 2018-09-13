@@ -1,8 +1,7 @@
 package br.com.patiolegal.utils;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -18,7 +17,7 @@ public class QRCodeUtils {
     public static ByteArrayOutputStream getQRCodeImage(String text, int width, int height) {
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            Map<EncodeHintType, String> hints = new HashMap<>();
+            EnumMap<EncodeHintType, String> hints = new EnumMap<>(EncodeHintType.class);
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
 

@@ -136,7 +136,7 @@ public class SealServiceBean implements SealService {
 
         seal.setFile(new Binary(BsonBinarySubType.BINARY, file));
 
-        seal = saveSeal(seal);
+        saveSeal(seal);
 
         protocol.addSeal(seal);
 
