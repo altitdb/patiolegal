@@ -2,6 +2,7 @@ package br.com.patiolegal.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -46,14 +47,19 @@ public class SealServiceBean implements SealService {
     @Autowired
     private SealRepository sealRepository;
 
-    private void validatePrintSealLimit(Integer amount) {
+    private void validatePrintSealLimit(Protocol protocol, Integer amountRequired) {
+        
         LOG.debug("Validando quantidade de lacres...");
+        LOG.debug("Quantidade requerida: " + amountRequired);
+        
         Configuration configuration = findConfigurationByKey(KEY_PRINT_SEAL_LIMIT);
         Integer limitPrintConfig = new Integer(configuration.getValue());
-
         LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
+        
+        Integer amountSealsPrinted = protocol.getAmountSealsPrinted();
+        LOG.debug("Quantidade ja impressa de lacres : " + amountSealsPrinted);
 
-        if (amount > limitPrintConfig) {
+        if ((amountRequired + amountSealsPrinted) > limitPrintConfig) {
             throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
         }
 
@@ -122,11 +128,11 @@ public class SealServiceBean implements SealService {
     @Override
     public FileIdentifierDTO generateSeal(SealRequestDTO request) {
         LOG.debug("Dados recebidos na requisição: " + request);
-
-        validatePrintSealLimit(request.getAmount());
-
+        
         Protocol protocol = findProtocol(request.getProtocol());
 
+        validatePrintSealLimit(protocol, request.getAmount());
+        
         Seal seal = new Seal();
         seal.generateAuthentication();
         String username = getUserNameAuthentication();

@@ -195,4 +195,11 @@ public class Protocol {
         authentication = StringUtils.upperCase(uuid.toString());
     }
 
+    public Integer getAmountSealsPrinted() {
+        return getSeals()
+                .stream()
+                .mapToInt(seal -> seal.getAmount())
+                .sum();
+    }
+
 }
