@@ -27,7 +27,6 @@ public class Protocol {
     private String eventBulletin;
     private String taxIdentifier;
     private String name;
-    private String originCapture;
     private String accountableOut;
     private String accountableIn;
     private String board;
@@ -98,14 +97,6 @@ public class Protocol {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getOriginCapture() {
-        return originCapture;
-    }
-
-    public void setOriginCapture(String originCapture) {
-        this.originCapture = originCapture;
     }
 
     public String getAccountableOut() {
@@ -196,10 +187,7 @@ public class Protocol {
     }
 
     public Integer getAmountSealsPrinted() {
-        return getSeals()
-                .stream()
-                .mapToInt(seal -> seal == null ? 0 : seal.getAmount())
-                .sum();
+        return getSeals().stream().mapToInt(seal -> seal == null ? 0 : seal.getAmount()).sum();
     }
 
 }
