@@ -198,7 +198,7 @@ public class Protocol {
     public Integer getAmountSealsPrinted() {
         return getSeals()
                 .stream()
-                .mapToInt(seal -> seal.getAmount())
+                .mapToInt(seal -> seal == null ? 0 : seal.getAmount())
                 .sum();
     }
 

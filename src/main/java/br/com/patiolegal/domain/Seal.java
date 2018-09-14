@@ -26,6 +26,34 @@ public class Seal {
         authentication = StringUtils.upperCase(uuid.toString());
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Binary getFile() {
+        return file;
+    }
+
     public void setFile(Binary file) {
         this.file = file;
     }
@@ -38,28 +66,8 @@ public class Seal {
         return dateTime;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public Binary getFile() {
-        return file;
-    }
-
     public String getAuthentication() {
         return authentication;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }

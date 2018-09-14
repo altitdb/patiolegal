@@ -2,7 +2,6 @@ package br.com.patiolegal.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,19 +47,30 @@ public class SealServiceBean implements SealService {
     private SealRepository sealRepository;
 
     private void validatePrintSealLimit(Protocol protocol, Integer amountRequired) {
-        
+
         LOG.debug("Validando quantidade de lacres...");
         LOG.debug("Quantidade requerida: " + amountRequired);
-        
+
         Configuration configuration = findConfigurationByKey(KEY_PRINT_SEAL_LIMIT);
         Integer limitPrintConfig = new Integer(configuration.getValue());
         LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
-        
+
         Integer amountSealsPrinted = protocol.getAmountSealsPrinted();
         LOG.debug("Quantidade ja impressa de lacres : " + amountSealsPrinted);
 
         if ((amountRequired + amountSealsPrinted) > limitPrintConfig) {
-            throw new BusinessException(KEY_PRINT_SEAL_LIMIT, "Excedido valor máximo de impressões configurado");
+            StringBuilder message = new StringBuilder();
+            message.append("Excedido valor máximo de impressões.");
+            message.append("\n");
+            message.append("Valor configurado: ");
+            message.append(limitPrintConfig);
+            message.append("\n");
+            message.append("Total impresso: ");
+            message.append(amountSealsPrinted);
+            message.append("\n");
+            message.append("Solicitado: ");
+            message.append(amountRequired);
+            throw new BusinessException(KEY_PRINT_SEAL_LIMIT, String.valueOf(message));
         }
 
     }
@@ -113,11 +123,10 @@ public class SealServiceBean implements SealService {
 
     }
 
-    private Seal saveSeal(Seal seal) {
+    private void saveSeal(Seal seal) {
         LOG.debug("Salvando lacres...");
         sealRepository.save(seal);
-
-        return seal;
+        LOG.debug("Salvo com sucesso.");
     }
 
     private void saveProtocol(Protocol protocol) {
@@ -128,13 +137,15 @@ public class SealServiceBean implements SealService {
     @Override
     public FileIdentifierDTO generateSeal(SealRequestDTO request) {
         LOG.debug("Dados recebidos na requisição: " + request);
-        
+
         Protocol protocol = findProtocol(request.getProtocol());
 
         validatePrintSealLimit(protocol, request.getAmount());
-        
+
         Seal seal = new Seal();
         seal.generateAuthentication();
+        seal.setAmount(request.getAmount());
+        seal.setReason(request.getReason());
         String username = getUserNameAuthentication();
         seal.setUsername(username);
 
