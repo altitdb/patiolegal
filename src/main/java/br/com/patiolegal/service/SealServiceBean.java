@@ -55,7 +55,7 @@ public class SealServiceBean implements SealService {
         Integer limitPrintConfig = new Integer(configuration.getValue());
         LOG.debug("Quantidade máxima permitida : " + limitPrintConfig);
 
-        Integer amountSealsPrinted = protocol.getAmountSealsPrinted();
+        Integer amountSealsPrinted = protocol.getAmountSeals();
         LOG.debug("Quantidade ja impressa de lacres : " + amountSealsPrinted);
 
         if ((amountRequired + amountSealsPrinted) > limitPrintConfig) {

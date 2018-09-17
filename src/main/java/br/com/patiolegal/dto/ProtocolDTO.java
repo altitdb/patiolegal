@@ -47,12 +47,12 @@ public class ProtocolDTO {
     private String row;
     private String column;
     private String floor;
-    private String accountableOut;
-    private String accountableIn;
     private String board;
     private String authentication;
     private Integer amountSeals;
     private String arrestOrgan;
+    private String accountableOut;
+    private String accountableIn;
 
     public String getPart() {
         return part;
@@ -210,14 +210,6 @@ public class ProtocolDTO {
         return floor;
     }
 
-    public String getAccountableOut() {
-        return accountableOut;
-    }
-
-    public String getAccountableIn() {
-        return accountableIn;
-    }
-
     public String getBoard() {
         return board;
     }
@@ -232,6 +224,14 @@ public class ProtocolDTO {
 
     public String getArrestOrgan() {
         return arrestOrgan;
+    }
+
+    public String getAccountableOut() {
+        return accountableOut;
+    }
+
+    public String getAccountableIn() {
+        return accountableIn;
     }
 
     public static class ProtocolDTOBuilder {
@@ -439,21 +439,6 @@ public class ProtocolDTO {
             return this;
         }
 
-        public ProtocolDTOBuilder withAccountableOut(String accountableOut) {
-            dto.accountableOut = accountableOut;
-            return this;
-        }
-
-        public ProtocolDTOBuilder withAccountableIn(String accountableIn) {
-            dto.accountableIn = accountableIn;
-            return this;
-        }
-
-        public ProtocolDTOBuilder withBoard(String board) {
-            dto.board = board;
-            return this;
-        }
-
         public ProtocolDTOBuilder withAuthentication(String authentication) {
             dto.authentication = authentication;
             return this;
@@ -469,9 +454,18 @@ public class ProtocolDTO {
             return this;
         }
 
+        public ProtocolDTOBuilder withAccountableOut(String accountableOut) {
+            dto.accountableOut = accountableOut;
+            return this;
+        }
+
+        public ProtocolDTOBuilder withAccountableIn(String accountableIn) {
+            dto.accountableIn = accountableIn;
+            return this;
+        }
+
         public ProtocolDTO build() {
             return dto;
-
         }
     }
 

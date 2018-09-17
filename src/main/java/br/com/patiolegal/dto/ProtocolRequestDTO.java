@@ -13,247 +13,247 @@ import br.com.patiolegal.validation.CPFCNPJ;
 
 public class ProtocolRequestDTO {
 
-	private String part;
-	private String protocol;
-	private LocalDate date;
-	private LocalDateTime dateTimeIn;
-	private LocalDateTime dateTimeOut;
-	private String policeInvestigation;
-	private String eventBulletin;
-	@NotNull
-	@CPF(message = "CPF inválido")
-	private String taxIdentifier;
-	@NotNull
-	private String name;
-	private String theyRenamed;
-	private String ownerName;
-	@CPFCNPJ(message = "CPF/CNPJ inválido")
-	private String ownerTaxIdentifier;
-	private String brand;
-	private String model;
-	private String category;
-	private String color;
-	private String fuel;
-	private Integer factoryYear;
-	private Integer modelYear;
-	private String sportingPlate;
-	private String originalPlate;
-	private String originCapture;
-	private ChassisState chassisState;
-	private String chassis;
-	private EngineState motorState;
-	private String motor;
-	private Boolean insured;
-	private Boolean financed;
-	private Boolean stolen;
-	private Boolean drugTrafficking;
-	private Boolean moneyLaundry;
-	private Boolean perquisite;
-	private Boolean papillaryExpertise;
-	private Boolean ownerIntimate;
-	private Boolean authorizedAlienation;
-	private Boolean debits;
-	private String shed;
-	private String row;
-	private String column;
-	private String floor;
-	private String accountableOut;
-	private String accountableIn;
-	private String board;
-	private Integer amountSeals;
+    private String part;
+    private String protocol;
+    private LocalDate date;
+    private LocalDateTime dateTimeIn;
+    private LocalDateTime dateTimeOut;
+    private String policeInvestigation;
+    private String eventBulletin;
+    @NotNull
+    @CPF(message = "CPF inválido")
+    private String taxIdentifier;
+    @NotNull
+    private String name;
+    private String theyRenamed;
+    private String ownerName;
+    @CPFCNPJ(message = "CPF/CNPJ inválido")
+    private String ownerTaxIdentifier;
+    private String brand;
+    private String model;
+    private String category;
+    private String color;
+    private String fuel;
+    private Integer factoryYear;
+    private Integer modelYear;
+    private String sportingPlate;
+    private String originalPlate;
+    private String originCapture;
+    private ChassisState chassisState;
+    private String chassis;
+    private EngineState motorState;
+    private String motor;
+    private Boolean insured;
+    private Boolean financed;
+    private Boolean stolen;
+    private Boolean drugTrafficking;
+    private Boolean moneyLaundry;
+    private Boolean perquisite;
+    private Boolean papillaryExpertise;
+    private Boolean ownerIntimate;
+    private Boolean authorizedAlienation;
+    private Boolean debits;
+    private String shed;
+    private String row;
+    private String column;
+    private String floor;
+    private String board;
+    private Integer amountSeals;
+    private String accountableOut;
+    private String accountableIn;
 
-	public String getProtocol() {
-		return protocol;
-	}
+    public String getPart() {
+        return part;
+    }
 
-	public final LocalDate getDate() {
-		return date;
-	}
+    public String getProtocol() {
+        return protocol;
+    }
 
-	public LocalDateTime getDateTimeIn() {
-		return dateTimeIn;
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	public LocalDateTime getDateTimeOut() {
-		return dateTimeOut;
-	}
+    public LocalDateTime getDateTimeIn() {
+        return dateTimeIn;
+    }
 
-	public final String getPoliceInvestigation() {
-		return policeInvestigation;
-	}
+    public LocalDateTime getDateTimeOut() {
+        return dateTimeOut;
+    }
 
-	public final String getEventBulletin() {
-		return eventBulletin;
-	}
+    public String getPoliceInvestigation() {
+        return policeInvestigation;
+    }
 
-	public final String getTaxIdentifier() {
-		return taxIdentifier;
-	}
+    public String getEventBulletin() {
+        return eventBulletin;
+    }
 
-	public final String getName() {
-		return name;
-	}
+    public String getTaxIdentifier() {
+        return taxIdentifier;
+    }
 
-	public final String getTheyRenamed() {
-		return theyRenamed;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public final String getOwnerName() {
-		return ownerName;
-	}
+    public String getTheyRenamed() {
+        return theyRenamed;
+    }
 
-	public final String getOwnerTaxIdentifier() {
-		return ownerTaxIdentifier;
-	}
+    public String getOwnerName() {
+        return ownerName;
+    }
 
-	public final String getBrand() {
-		return brand;
-	}
+    public String getOwnerTaxIdentifier() {
+        return ownerTaxIdentifier;
+    }
 
-	public final String getModel() {
-		return model;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public final String getCategory() {
-		return category;
-	}
+    public String getModel() {
+        return model;
+    }
 
-	public final String getColor() {
-		return color;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public final String getFuel() {
-		return fuel;
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public final Integer getFactoryYear() {
-		return factoryYear;
-	}
+    public String getFuel() {
+        return fuel;
+    }
 
-	public final Integer getModelYear() {
-		return modelYear;
-	}
+    public Integer getFactoryYear() {
+        return factoryYear;
+    }
 
-	public final String getSportingPlate() {
-		return sportingPlate;
-	}
+    public Integer getModelYear() {
+        return modelYear;
+    }
 
-	public final String getOriginalPlate() {
-		return originalPlate;
-	}
+    public String getSportingPlate() {
+        return sportingPlate;
+    }
 
-	public String getOriginCapture() {
-		return originCapture;
-	}
+    public String getOriginalPlate() {
+        return originalPlate;
+    }
 
-	public ChassisState getChassisState() {
-		return chassisState;
-	}
+    public String getOriginCapture() {
+        return originCapture;
+    }
 
-	public final String getChassis() {
-		return chassis;
-	}
+    public ChassisState getChassisState() {
+        return chassisState;
+    }
 
-	public final EngineState getMotorState() {
-		return motorState;
-	}
+    public String getChassis() {
+        return chassis;
+    }
 
-	public final String getMotor() {
-		return motor;
-	}
+    public EngineState getMotorState() {
+        return motorState;
+    }
 
-	public final Boolean getInsured() {
-		return insured;
-	}
+    public String getMotor() {
+        return motor;
+    }
 
-	public final Boolean getFinanced() {
-		return financed;
-	}
+    public Boolean getInsured() {
+        return insured;
+    }
 
-	public final Boolean getStolen() {
-		return stolen;
-	}
+    public Boolean getFinanced() {
+        return financed;
+    }
 
-	public final Boolean getDrugTrafficking() {
-		return drugTrafficking;
-	}
+    public Boolean getStolen() {
+        return stolen;
+    }
 
-	public final Boolean getMoneyLaundry() {
-		return moneyLaundry;
-	}
+    public Boolean getDrugTrafficking() {
+        return drugTrafficking;
+    }
 
-	public final Boolean getPerquisite() {
-		return perquisite;
-	}
+    public Boolean getMoneyLaundry() {
+        return moneyLaundry;
+    }
 
-	public final Boolean getPapillaryExpertise() {
-		return papillaryExpertise;
-	}
+    public Boolean getPerquisite() {
+        return perquisite;
+    }
 
-	public final Boolean getOwnerIntimate() {
-		return ownerIntimate;
-	}
+    public Boolean getPapillaryExpertise() {
+        return papillaryExpertise;
+    }
 
-	public final Boolean getAuthorizedAlienation() {
-		return authorizedAlienation;
-	}
+    public Boolean getOwnerIntimate() {
+        return ownerIntimate;
+    }
 
-	public final Boolean getDebits() {
-		return debits;
-	}
+    public Boolean getAuthorizedAlienation() {
+        return authorizedAlienation;
+    }
 
-	public final String getShed() {
-		return shed;
-	}
+    public Boolean getDebits() {
+        return debits;
+    }
 
-	public final String getRow() {
-		return row;
-	}
+    public String getShed() {
+        return shed;
+    }
 
-	public final String getColumn() {
-		return column;
-	}
+    public String getRow() {
+        return row;
+    }
 
-	public final String getFloor() {
-		return floor;
-	}
+    public String getColumn() {
+        return column;
+    }
 
-	public String getAccountableOut() {
-		return accountableOut;
-	}
+    public String getFloor() {
+        return floor;
+    }
 
-	public String getAccountableIn() {
-		return accountableIn;
-	}
+    public String getBoard() {
+        return board;
+    }
 
-	public String getBoard() {
-		return board;
-	}
+    public Integer getAmountSeals() {
+        return amountSeals;
+    }
 
-	public Integer getAmountSeals() {
-		return amountSeals;
-	}
+    public String getAccountableOut() {
+        return accountableOut;
+    }
 
-	public String getPart() {
-		return part;
-	}
+    public String getAccountableIn() {
+        return accountableIn;
+    }
 
-	@Override
-	public String toString() {
-		return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
-				+ dateTimeIn + ", dateTimeOut=" + dateTimeOut + ", policeInvestigation=" + policeInvestigation
-				+ ", eventBulletin=" + eventBulletin + ", taxIdentifier=" + taxIdentifier + ", name=" + name + ", theyRenamed="
-				+ theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier=" + ownerTaxIdentifier + ", brand="
-				+ brand + ", model=" + model + ", category=" + category + ", color=" + color + ", fuel=" + fuel
-				+ ", factoryYear=" + factoryYear + ", modelYear=" + modelYear + ", sportingPlate=" + sportingPlate
-				+ ", originalPlate=" + originalPlate + ", originCapture=" + originCapture + ", chassisState="
-				+ chassisState + ", chassis=" + chassis + ", motorState=" + motorState + ", motor=" + motor
-				+ ", insured=" + insured + ", financed=" + financed + ", stolen=" + stolen + ", drugTrafficking="
-				+ drugTrafficking + ", moneyLaundry=" + moneyLaundry + ", perquisite=" + perquisite
-				+ ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
-				+ ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
-				+ row + ", column=" + column + ", floor=" + floor + ", accountableOut=" + accountableOut
-				+ ", accountableIn=" + accountableIn + ", board=" + board + ", amountSeals=" + amountSeals + "]";
-	}
+    @Override
+    public String toString() {
+        return "ProtocolRequestDTO [part=" + part + ", protocol=" + protocol + ", date=" + date + ", dateTimeIn="
+                + dateTimeIn + ", dateTimeOut=" + dateTimeOut + ", policeInvestigation=" + policeInvestigation
+                + ", eventBulletin=" + eventBulletin + ", taxIdentifier=" + taxIdentifier + ", name=" + name
+                + ", theyRenamed=" + theyRenamed + ", ownerName=" + ownerName + ", ownerTaxIdentifier="
+                + ownerTaxIdentifier + ", brand=" + brand + ", model=" + model + ", category=" + category + ", color="
+                + color + ", fuel=" + fuel + ", factoryYear=" + factoryYear + ", modelYear=" + modelYear
+                + ", sportingPlate=" + sportingPlate + ", originalPlate=" + originalPlate + ", originCapture="
+                + originCapture + ", chassisState=" + chassisState + ", chassis=" + chassis + ", motorState="
+                + motorState + ", motor=" + motor + ", insured=" + insured + ", financed=" + financed + ", stolen="
+                + stolen + ", drugTrafficking=" + drugTrafficking + ", moneyLaundry=" + moneyLaundry + ", perquisite="
+                + perquisite + ", papillaryExpertise=" + papillaryExpertise + ", ownerIntimate=" + ownerIntimate
+                + ", authorizedAlienation=" + authorizedAlienation + ", debits=" + debits + ", shed=" + shed + ", row="
+                + row + ", column=" + column + ", floor=" + floor + ", board=" + board + ", amountSeals=" + amountSeals
+                + ", accountableOut=" + accountableOut + ", accountableIn=" + accountableIn + "]";
+    }
 
 }

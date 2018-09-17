@@ -83,9 +83,9 @@ public class ProtocolServiceBean implements ProtocolService {
                 .withAuthorizedAlienation(police.getAuthorizedAlienation()).withDebits(police.getDebits())
                 .withShed(location.getShed().getDescription()).withRow(location.getRow())
                 .withColumn(location.getColumn()).withFloor(location.getFloor())
-                .withAccountableOut(protocol.getAccountableOut()).withAccountableIn(protocol.getAccountableIn())
-                .withBoard(protocol.getBoard()).withAuthentication(protocol.getAuthentication())
-                .withArrestOrgan(part.getDescription()).build();
+                .withAccountableIn(protocol.getAccountableIn()).withAccountableOut(protocol.getAccountableOut())
+                .withAuthentication(protocol.getAuthentication()).withArrestOrgan(part.getDescription())
+                .withAmountSeals(protocol.getAmountSeals()).build();
         byte[] file = generateProtocolReport(companyDTO, dto);
         ProtocolRecord protocolRecord = new ProtocolRecord();
         String username = getUsername();

@@ -366,30 +366,21 @@ public class ProtocolDTOTest {
     }
 
     @Test
-    public void shouldBuilderWithAccountableOut() {
-        String accountableOut = "ASDERS";
-
-        ProtocolDTO dto = new ProtocolDTOBuilder().withAccountableOut(accountableOut).build();
-
-        Assert.assertEquals(dto.getAccountableOut(), accountableOut);
-    }
-
-    @Test
     public void shouldBuilderWithAccountableIn() {
-        String accountableIn = "DDDDDDD";
+        String accountableIn = "JOÃO";
 
         ProtocolDTO dto = new ProtocolDTOBuilder().withAccountableIn(accountableIn).build();
 
-        Assert.assertEquals(dto.getAccountableIn(), accountableIn);
+        Assert.assertEquals(dto.getBoard(), accountableIn);
     }
 
     @Test
-    public void shouldBuilderWithBoard() {
-        String board = "545";
+    public void shouldBuilderWithAccountableOut() {
+        String accountableOut = "JOÃO";
 
-        ProtocolDTO dto = new ProtocolDTOBuilder().withBoard(board).build();
+        ProtocolDTO dto = new ProtocolDTOBuilder().withAccountableOut(accountableOut).build();
 
-        Assert.assertEquals(dto.getBoard(), board);
+        Assert.assertEquals(dto.getBoard(), accountableOut);
     }
 
     @Test

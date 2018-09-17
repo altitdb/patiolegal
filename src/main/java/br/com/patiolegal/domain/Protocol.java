@@ -27,9 +27,6 @@ public class Protocol {
     private String eventBulletin;
     private String taxIdentifier;
     private String name;
-    private String accountableOut;
-    private String accountableIn;
-    private String board;
     private String authentication;
     @DBRef
     private List<Seal> seals = new ArrayList<>();
@@ -38,6 +35,8 @@ public class Protocol {
     private Part arrestOrgan;
     private LocalDateTime modificationDate = LocalDateTime.now();
     private Binary file;
+    private String accountableOut;
+    private String accountableIn;
 
     public void addSeal(Seal seal) {
         seals.add(seal);
@@ -99,30 +98,6 @@ public class Protocol {
         this.name = name;
     }
 
-    public String getAccountableOut() {
-        return accountableOut;
-    }
-
-    public void setAccountableOut(String accountableOut) {
-        this.accountableOut = accountableOut;
-    }
-
-    public String getAccountableIn() {
-        return accountableIn;
-    }
-
-    public void setAccountableIn(String accountableIn) {
-        this.accountableIn = accountableIn;
-    }
-
-    public String getBoard() {
-        return board;
-    }
-
-    public void setBoard(String board) {
-        this.board = board;
-    }
-
     public String getAuthentication() {
         return authentication;
     }
@@ -175,6 +150,22 @@ public class Protocol {
         this.file = file;
     }
 
+    public String getAccountableOut() {
+        return accountableOut;
+    }
+
+    public void setAccountableOut(String accountableOut) {
+        this.accountableOut = accountableOut;
+    }
+
+    public String getAccountableIn() {
+        return accountableIn;
+    }
+
+    public void setAccountableIn(String accountableIn) {
+        this.accountableIn = accountableIn;
+    }
+
     public void generateProtocol() {
         ProtocolGenerator generator = new ProtocolGenerator();
         protocol = generator.generateProtocolNumber(entrance);
@@ -186,7 +177,7 @@ public class Protocol {
         authentication = StringUtils.upperCase(uuid.toString());
     }
 
-    public Integer getAmountSealsPrinted() {
+    public Integer getAmountSeals() {
         return getSeals().stream().mapToInt(seal -> seal == null ? 0 : seal.getAmount()).sum();
     }
 
