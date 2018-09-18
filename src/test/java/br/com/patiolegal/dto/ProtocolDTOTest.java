@@ -371,7 +371,7 @@ public class ProtocolDTOTest {
 
         ProtocolDTO dto = new ProtocolDTOBuilder().withAccountableIn(accountableIn).build();
 
-        Assert.assertEquals(dto.getBoard(), accountableIn);
+        Assert.assertEquals(dto.getAccountableIn(), accountableIn);
     }
 
     @Test
@@ -380,7 +380,7 @@ public class ProtocolDTOTest {
 
         ProtocolDTO dto = new ProtocolDTOBuilder().withAccountableOut(accountableOut).build();
 
-        Assert.assertEquals(dto.getBoard(), accountableOut);
+        Assert.assertEquals(dto.getAccountableOut(), accountableOut);
     }
 
     @Test

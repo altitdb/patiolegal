@@ -47,7 +47,6 @@ public class ProtocolDTO {
     private String row;
     private String column;
     private String floor;
-    private String board;
     private String authentication;
     private Integer amountSeals;
     private String arrestOrgan;
@@ -208,10 +207,6 @@ public class ProtocolDTO {
 
     public String getFloor() {
         return floor;
-    }
-
-    public String getBoard() {
-        return board;
     }
 
     public String getAuthentication() {
