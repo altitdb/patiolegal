@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.patiolegal.domain.Company;
 import br.com.patiolegal.domain.Location;
+import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.Police;
 import br.com.patiolegal.domain.Protocol;
 import br.com.patiolegal.domain.ProtocolRecord;
@@ -62,6 +63,7 @@ public class ProtocolServiceBean implements ProtocolService {
         Vehicle vehicle = protocol.getEntrance().getVehicle();
         Police police = protocol.getEntrance().getPolice();
         Location location = protocol.getEntrance().getLocation();
+        Part part = protocol.getArrestOrgan();
         ProtocolDTO dto = new ProtocolDTOBuilder().withPart(protocol.getPart()).withProtocol(protocol.getProtocol())
                 .withDate(protocol.getDate()).withDateTimeIn(protocol.getDateTimeIn())
                 .withDateTimeOut(protocol.getExit() == null ? null : protocol.getExit().getDateTimeOut())
@@ -72,17 +74,18 @@ public class ProtocolServiceBean implements ProtocolService {
                 .withBrand(vehicle.getBrand()).withModel(vehicle.getModel()).withCategory(vehicle.getCategory())
                 .withColor(vehicle.getColor()).withFuel(vehicle.getFuel()).withYearFactory(vehicle.getYearFactory())
                 .withYearModel(vehicle.getYearModel()).withSportingPlate(vehicle.getSportingPlate())
-                .withOriginalPlate(vehicle.getOriginalPlate()).withOriginCapture(protocol.getOriginCapture())
-                .withChassisState(vehicle.getChassisState()).withChassis(vehicle.getChassis())
-                .withMotorState(vehicle.getEngineState()).withMotor(vehicle.getEngine())
-                .withInsured(police.getInsured()).withFinanced(police.getFinanced()).withStolen(police.getStolen())
-                .withDrugTrafficking(police.getDrugTrafficking()).withMoneyLaundry(police.getMoneyLaundry())
-                .withPerquisite(police.getPerquisite()).withPapillaryExpertise(police.getPapillaryExpertise())
-                .withOwnerIntimate(police.getOwnerIntimate()).withAuthorizedAlienation(police.getAuthorizedAlienation())
-                .withDebits(police.getDebits()).withShed(location.getShed().getDescription()).withRow(location.getRow())
+                .withOriginalPlate(vehicle.getOriginalPlate()).withChassisState(vehicle.getChassisState())
+                .withChassis(vehicle.getChassis()).withMotorState(vehicle.getEngineState())
+                .withMotor(vehicle.getEngine()).withInsured(police.getInsured()).withFinanced(police.getFinanced())
+                .withStolen(police.getStolen()).withDrugTrafficking(police.getDrugTrafficking())
+                .withMoneyLaundry(police.getMoneyLaundry()).withPerquisite(police.getPerquisite())
+                .withPapillaryExpertise(police.getPapillaryExpertise()).withOwnerIntimate(police.getOwnerIntimate())
+                .withAuthorizedAlienation(police.getAuthorizedAlienation()).withDebits(police.getDebits())
+                .withShed(location.getShed().getDescription()).withRow(location.getRow())
                 .withColumn(location.getColumn()).withFloor(location.getFloor())
-                .withAccountableOut(protocol.getAccountableOut()).withAccountableIn(protocol.getAccountableIn())
-                .withBoard(protocol.getBoard()).withAuthentication(protocol.getAuthentication()).build();
+                .withAccountableIn(protocol.getAccountableIn()).withAccountableOut(protocol.getAccountableOut())
+                .withAuthentication(protocol.getAuthentication()).withArrestOrgan(part.getDescription())
+                .withAmountSeals(protocol.getAmountSeals()).build();
         byte[] file = generateProtocolReport(companyDTO, dto);
         ProtocolRecord protocolRecord = new ProtocolRecord();
         String username = getUsername();
@@ -104,7 +107,7 @@ public class ProtocolServiceBean implements ProtocolService {
 
         return reportUtils.generateProtocolReport(dto, protocol);
     }
-    
+
     private InputStream getInputStreamProtocolRecord(ProtocolRecord protocolRecord) {
         Binary file = protocolRecord.getFile();
         return new ByteArrayInputStream(file.getData());

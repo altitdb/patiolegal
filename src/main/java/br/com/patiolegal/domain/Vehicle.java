@@ -2,149 +2,158 @@ package br.com.patiolegal.domain;
 
 public class Vehicle {
 
-	private String theyRenamed;
-	private String sportingPlate;
-	private String originalPlate;
-	private String ownerName;
-	private String ownerTaxIdentifier;
-	private String brand;
-	private String model;
-	private String category;
-	private String color;
-	private String fuel;
-	private Integer yearFactory;
-	private Integer yearModel;
-	private ChassisState chassisState;
-	private String chassis;
-	private EngineState engineState;
-	private String engine;
+    private String theyRenamed;
+    private String sportingPlate;
+    private String originalPlate;
+    private String ownerName;
+    private String ownerTaxIdentifier;
+    private String brand;
+    private String board;
+    private String model;
+    private String category;
+    private String color;
+    private String fuel;
+    private Integer yearFactory;
+    private Integer yearModel;
+    private ChassisState chassisState;
+    private String chassis;
+    private EngineState engineState;
+    private String engine;
 
-	public String getTheyRenamed() {
-		return theyRenamed;
-	}
+    public String getTheyRenamed() {
+        return theyRenamed;
+    }
 
-	public void setTheyRenamed(String theyRenamed) {
-		this.theyRenamed = theyRenamed;
-	}
+    public void setTheyRenamed(String theyRenamed) {
+        this.theyRenamed = theyRenamed;
+    }
 
-	public String getSportingPlate() {
-		return sportingPlate;
-	}
+    public String getSportingPlate() {
+        return sportingPlate;
+    }
 
-	public void setSportingPlate(String sportingPlate) {
-		this.sportingPlate = sportingPlate;
-	}
+    public void setSportingPlate(String sportingPlate) {
+        this.sportingPlate = sportingPlate;
+    }
 
-	public String getOriginalPlate() {
-		return originalPlate;
-	}
+    public String getOriginalPlate() {
+        return originalPlate;
+    }
 
-	public void setOriginalPlate(String originalPlate) {
-		this.originalPlate = originalPlate;
-	}
+    public void setOriginalPlate(String originalPlate) {
+        this.originalPlate = originalPlate;
+    }
 
-	public String getOwnerName() {
-		return ownerName;
-	}
+    public String getOwnerName() {
+        return ownerName;
+    }
 
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
-	public String getOwnerTaxIdentifier() {
-		return ownerTaxIdentifier;
-	}
+    public String getOwnerTaxIdentifier() {
+        return ownerTaxIdentifier;
+    }
 
-	public void setOwnerTaxIdentifier(String ownerTaxIdentifier) {
-		this.ownerTaxIdentifier = ownerTaxIdentifier;
-	}
+    public void setOwnerTaxIdentifier(String ownerTaxIdentifier) {
+        this.ownerTaxIdentifier = ownerTaxIdentifier;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	public String getModel() {
-		return model;
-	}
+    public String getBoard() {
+        return board;
+    }
 
-	public void setModel(String model) {
-		this.model = model;
-	}
+    public void setBoard(String board) {
+        this.board = board;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getModel() {
+        return model;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setModel(String model) {
+        this.model = model;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public String getFuel() {
-		return fuel;
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public void setFuel(String fuel) {
-		this.fuel = fuel;
-	}
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-	public Integer getYearFactory() {
-		return yearFactory;
-	}
+    public String getFuel() {
+        return fuel;
+    }
 
-	public void setYearFactory(Integer yearFactory) {
-		this.yearFactory = yearFactory;
-	}
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
 
-	public Integer getYearModel() {
-		return yearModel;
-	}
+    public Integer getYearFactory() {
+        return yearFactory;
+    }
 
-	public void setYearModel(Integer yearModel) {
-		this.yearModel = yearModel;
-	}
+    public void setYearFactory(Integer yearFactory) {
+        this.yearFactory = yearFactory;
+    }
 
-	public ChassisState getChassisState() {
-		return chassisState;
-	}
+    public Integer getYearModel() {
+        return yearModel;
+    }
 
-	public void setChassisState(ChassisState chassisState) {
-		this.chassisState = chassisState;
-	}
+    public void setYearModel(Integer yearModel) {
+        this.yearModel = yearModel;
+    }
 
-	public String getChassis() {
-		return chassis;
-	}
+    public ChassisState getChassisState() {
+        return chassisState;
+    }
 
-	public void setChassis(String chassis) {
-		this.chassis = chassis;
-	}
+    public void setChassisState(ChassisState chassisState) {
+        this.chassisState = chassisState;
+    }
 
-	public EngineState getEngineState() {
-		return engineState;
-	}
+    public String getChassis() {
+        return chassis;
+    }
 
-	public void setEngineState(EngineState engineState) {
-		this.engineState = engineState;
-	}
+    public void setChassis(String chassis) {
+        this.chassis = chassis;
+    }
 
-	public String getEngine() {
-		return engine;
-	}
+    public EngineState getEngineState() {
+        return engineState;
+    }
 
-	public void setEngine(String engine) {
-		this.engine = engine;
-	}
+    public void setEngineState(EngineState engineState) {
+        this.engineState = engineState;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
 
 }
