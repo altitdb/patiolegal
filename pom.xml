@@ -187,8 +187,7 @@
 					</includes>
 					<jdkVersion>1.8</jdkVersion>
 					<processTypes>
-						<web>java -Dserver.port=$PORT $JAVA_OPTS -jar
-							target/patiolegal.jar</web>
+						<web>java -Dserver.port=$PORT $JAVA_OPTS -jar target/patiolegal.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
