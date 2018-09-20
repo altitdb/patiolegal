@@ -52,6 +52,8 @@ public class ProtocolDTO {
     private String arrestOrgan;
     private String accountableOut;
     private String accountableIn;
+    private String taxIdExit;
+    private String nameExit;
 
     public String getPart() {
         return part;
@@ -227,6 +229,14 @@ public class ProtocolDTO {
 
     public String getAccountableIn() {
         return accountableIn;
+    }
+
+    public String getTaxIdExit() {
+        return taxIdExit;
+    }
+
+    public String getNameExit() {
+        return nameExit;
     }
 
     public static class ProtocolDTOBuilder {
@@ -456,6 +466,16 @@ public class ProtocolDTO {
 
         public ProtocolDTOBuilder withAccountableIn(String accountableIn) {
             dto.accountableIn = accountableIn;
+            return this;
+        }
+
+        public ProtocolDTOBuilder withNameExit(String nameExit) {
+            dto.nameExit = nameExit;
+            return this;
+        }
+
+        public ProtocolDTOBuilder withTaxIdExit(String taxIdExit) {
+            dto.taxIdExit = taxIdExit;
             return this;
         }
 

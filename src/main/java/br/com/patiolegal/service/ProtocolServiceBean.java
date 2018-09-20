@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.patiolegal.domain.Company;
+import br.com.patiolegal.domain.Exit;
 import br.com.patiolegal.domain.Location;
 import br.com.patiolegal.domain.Part;
 import br.com.patiolegal.domain.Police;
@@ -56,17 +57,20 @@ public class ProtocolServiceBean implements ProtocolService {
 
         Company company = companyRepository.findAll().stream().findFirst().orElseThrow(CompanyNotFoundException::new);
 
-        CompanyDTO companyDTO = new CompanyDTOBuilder().withCity(company.getCity()).withImage(company.getImage())
-                .withName(company.getName()).withPhone(company.getPhone()).withPostalCode(company.getPostalCode())
-                .withPublicPlace(company.getPublicPlace()).withSocialName(company.getSocialName()).build();
+        CompanyDTO companyDTO = new CompanyDTOBuilder().withCity(company.getCity()).withState(company.getState())
+                .withImage(company.getImage()).withName(company.getName()).withPhone(company.getPhone())
+                .withPostalCode(company.getPostalCode()).withPublicPlace(company.getPublicPlace())
+                .withSocialName(company.getSocialName()).build();
 
         Vehicle vehicle = protocol.getEntrance().getVehicle();
         Police police = protocol.getEntrance().getPolice();
         Location location = protocol.getEntrance().getLocation();
         Part part = protocol.getArrestOrgan();
+        Exit exit = protocol.getExit();
         ProtocolDTO dto = new ProtocolDTOBuilder().withPart(protocol.getPart()).withProtocol(protocol.getProtocol())
                 .withDate(protocol.getDate()).withDateTimeIn(protocol.getDateTimeIn())
-                .withDateTimeOut(protocol.getExit() == null ? null : protocol.getExit().getDateTimeOut())
+                .withDateTimeOut(exit == null ? null : exit.getDateTimeOut())
+                .withNameExit(exit == null ? null : exit.getName()).withTaxIdExit(exit == null ? null : exit.getTaxId())
                 .withPoliceInvestigation(protocol.getPoliceInvestigation())
                 .withEventBulletin(protocol.getEventBulletin()).withTaxId(protocol.getTaxId())
                 .withName(protocol.getName()).withTheyRenamed(vehicle.getTheyRenamed())
