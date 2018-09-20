@@ -137,9 +137,6 @@
 	<field name="amountSeals" class="java.lang.Integer">
 		<fieldDescription><![CDATA[amountSeals]]></fieldDescription>
 	</field>
-	<field name="board" class="java.lang.String">
-		<fieldDescription><![CDATA[board]]></fieldDescription>
-	</field>
 	<field name="accountableOut" class="java.lang.String"/>
 	<field name="accountableIn" class="java.lang.String"/>
 	<field name="arrestOrgan" class="java.lang.String"/>

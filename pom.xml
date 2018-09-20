@@ -19,6 +19,7 @@
 		<spring.boot.starter.web.version>2.0.3.RELEASE</spring.boot.starter.web.version>
 		<maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
 		<spring.security.version>2.0.3.RELEASE</spring.security.version>
+		<spring.security.test.version>5.0.8.RELEASE</spring.security.test.version>
 	</properties>
 
 	<build>
@@ -295,6 +296,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-test -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-test</artifactId>
+				<version>${spring.security.test.version}</version>
+				<scope>test</scope>
+			</dependency>
 			<!-- Testing -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -392,6 +400,11 @@
 	</reporting>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-mongodb</artifactId>
