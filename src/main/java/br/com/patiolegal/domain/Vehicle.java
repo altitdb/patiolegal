@@ -8,7 +8,6 @@ public class Vehicle {
     private String ownerName;
     private String ownerTaxIdentifier;
     private String brand;
-    private String board;
     private String model;
     private String category;
     private String color;
@@ -66,14 +65,6 @@ public class Vehicle {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public String getBoard() {
-        return board;
-    }
-
-    public void setBoard(String board) {
-        this.board = board;
     }
 
     public String getModel() {
