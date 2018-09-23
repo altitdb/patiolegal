@@ -20,9 +20,11 @@ export class SuccessComponent implements OnInit {
   }
 
   printProtocol(protocol) {
-    this._printService.printProcol(protocol).subscribe(
+    this._printService.generateProtocol(protocol).subscribe(
       suc => {
-        saveAs(suc.body, 'protocolo.pdf')
+        this._printService.printProcol(suc.identifier).subscribe(suc => {
+          saveAs(suc.body, 'protocolo.pdf')
+        })
       }
     );
   }

@@ -13,16 +13,18 @@ import { Router } from '@angular/router';
 export class SuccessComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private _router: Router,
-              private _printService: PrintService) { }
+    private _router: Router,
+    private _printService: PrintService) { }
 
   ngOnInit() {
   }
 
   printProtocol(protocol) {
-    this._printService.printProcol(protocol).subscribe(
+    this._printService.generateProtocol(protocol).subscribe(
       suc => {
-        saveAs(suc.body, 'protocolo.pdf')
+        this._printService.printProcol(suc.identifier).subscribe(suc => {
+          saveAs(suc.body, 'protocolo.pdf')
+        })
       }
     );
   }
